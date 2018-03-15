@@ -56,7 +56,9 @@ curl -O https://raw.githubusercontent.com/hyperledger/composer-tools/master/pack
 3.1 Open new terminal and clone this git repo where you want
 
 3.2 Chance branch:
-```git checkout fabric-protype```
+```
+git checkout fabric-protype
+```
 
 (yeah I made a typo here..)
 
@@ -89,20 +91,24 @@ composer card import --file networkadmin.card
 composer-rest-server
 ```
 
-	-> Type name: admin@open-badge
-	-> Choose "never use namespaces"
-	-> Choose <strong>No</strong>
-	-> Choose <strong>Yes</strong>
-	-> Choose <strong>No</strong>
+-> Type name: admin@open-badge
+-> Choose "never use namespaces"
+-> Choose N
+-> Choose Y
+-> Choose N
 
 <h3>5. Deploy webpage</h3>
 5.1 open new terminal and cd yourself to <gitrepo>/app
 
 5.2 Install node packages:
-```npm install```
+```
+npm install
+```
 
 5.3 Run App:
-```npm start```
+```
+npm start
+```
 
 <h3>💥 DONE 💥</h3>
 
