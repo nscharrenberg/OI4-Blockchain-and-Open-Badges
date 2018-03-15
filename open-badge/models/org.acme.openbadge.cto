@@ -1,0 +1,55 @@
+/**
+ * Business netword model
+ */
+
+namespace org.acme.openbadge
+
+participant Student identified by id {	
+  o String id
+  o String name
+}
+
+participant Teacher identified by id {	
+  o String id
+  o String name
+}
+
+participant Validator identified by id {	
+  o String id
+  o String name
+}
+
+asset Badge identified by badgeId {
+  o String badgeId
+  o String name
+  o Boolean validated
+  o Boolean issued
+  --> Teacher issuer optional
+  --> Validator validator optional
+  --> Student owner optional
+}
+
+transaction issueBadge {
+  --> Badge badge
+  --> Teacher issuer
+  --> Validator validator
+  --> Student owner
+}
+
+transaction validateBadge {
+  --> Badge badge
+  --> Teacher issuer
+  --> Validator validator
+  --> Student owner
+}
+
+
+
+
+
+
+
+
+
+
+

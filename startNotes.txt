@@ -1,0 +1,20 @@
+
+// IF UPDATES
+
+composer archive create --sourceType dir --sourceName . -a open-badge@0.0.1.bna
+
+composer network update -a open-badge@0.0.1.bna -c admin@open-badge
+
+// IF FIRST TIME
+
+composer card import --file networkadmin.card
+
+// RUN
+
+composer runtime install --card PeerAdmin@hlfv1 --businessNetworkName open-badge
+
+composer network start --card PeerAdmin@hlfv1 --networkAdmin admin --networkAdminEnrollSecret adminpw --archiveFile open-badge@0.0.1.bna --file networkadmin.card
+
+composer network ping --card admin@open-badge
+
+composer-rest-server
