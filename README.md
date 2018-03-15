@@ -55,9 +55,7 @@ curl -O https://raw.githubusercontent.com/hyperledger/composer-tools/master/pack
 <h3>3. Setup project</h3>
 3.1 Open new terminal and clone this git repo where you want
 3.2 Chance branch:
-```
-git checkout fabric-protype
-```
+```git checkout fabric-protype```
 (yeah I made a typo here..)
 
 3.3 cd yourself to /open-badge
@@ -97,13 +95,9 @@ composer-rest-server
 <h3>5. Deploy webpage</h3>
 5.1 open new terminal and cd yourself to <gitrepo>/app
 5.2 Install node packages:
-```
-npm install
-```
+```npm install```
 5.3 Run App:
-```
-npm start
-```
+```npm start```
 
 <h3>💥 DONE 💥</h3>
 
