@@ -10,10 +10,15 @@ Tested with OS X 10.11.6 (15.03.2018 by Kasper🇫🇮)
 <strong>NOTE - All following commands are done via bash (git cli and npm needed). </strong>
 
 1.2 Install Hyperledger Composer:
-`<addr>`npm install -g composer-cli
+
+```
+npm install -g composer-cli
+```
 
 1.3 Install REST server:
-`<addr>`npm install -g composer-rest-server
+```
+npm install -g composer-rest-server
+```
 
 1.4 Install some code generators:
 `<addr>`npm install -g generator-hyperledger-composer
