@@ -28,6 +28,7 @@ npm install -g yo
 
 <h3>2. Setup local Hyperledger Fabric:</h3>
 2.1 Make dir for Fabric-tools (you will ALWAYS start network from this folder) and chance bash location to it:
+
 ```
 mkdir ~/fabric-tools && cd ~/fabric-tools
 ```
@@ -91,11 +92,11 @@ composer card import --file networkadmin.card
 composer-rest-server
 ```
 
--> Type name: admin@open-badge
--> Choose "never use namespaces"
--> Choose N
--> Choose Y
--> Choose N
+<p>-> Type name: admin@open-badge</p>
+<p>-> Choose "never use namespaces"</p>
+<p>-> Choose N</p>
+<p>-> Choose Y</p>
+<p>-> Choose N</p>
 
 <h3>5. Deploy webpage</h3>
 
