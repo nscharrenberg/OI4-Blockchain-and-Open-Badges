@@ -1,13 +1,13 @@
 # Hyperledger Fabric & Composer Protype
 <h1>Installation Guide 🤓 </h1>
 
-Tested with OS X 10.11.6 (15.03.2018 by Kasper🇫🇮)
+Tested with Ubuntu 16.04 (30.03.2018 by Kasper🇫🇮)
 
 <h3>1. Setting up necessaries</h3>
 
-1.1  [Install Docker CE](https://docs.docker.com/install/)
+1.1  [Follow this instruction](https://hyperledger.github.io/composer/latest/installing/installing-prereqs)
 
-<strong>NOTE - All following commands are done via bash (git cli and npm needed). </strong>
+<strong>NOTE - All following commands are done via bash. </strong>
 
 1.2 Install Hyperledger Composer:
 
@@ -35,7 +35,8 @@ mkdir ~/fabric-tools && cd ~/fabric-tools
 
 2.2 Install fabric to this folder:
 ```
-curl -O https://raw.githubusercontent.com/hyperledger/composer-tools/master/packages/fabric-dev-servers/fabric-dev-servers.zip unzip fabric-dev-servers.zip
+curl -O https://raw.githubusercontent.com/hyperledger/composer-tools/master/packages/fabric-dev-servers/fabric-dev-servers.tar.gz
+tar -xvf fabric-dev-servers.tar.gz
 ```
 
 2.3 Download Fabric:
@@ -74,12 +75,12 @@ composer archive create -t dir -n .
 
 4.2 Install Composer runtime:
 ```
-composer runtime install --card PeerAdmin@hlfv1 --businessNetworkName open-badge
+composer network install --card PeerAdmin@hlfv1 --archiveFile open-badge@0.0.1.bna
 ```
 
 4.2 Deploy network
 ```
-composer network start --card PeerAdmin@hlfv1 --networkAdmin admin --networkAdminEnrollSecret adminpw --archiveFile open-badge@0.0.1.bna --file networkadmin.card
+composer network start --networkName tutorial-network --networkVersion 0.0.1 --networkAdmin admin --networkAdminEnrollSecret adminpw --card PeerAdmin@hlfv1 --file networkadmin.card
 ```
 
 4.3 Import network card:
