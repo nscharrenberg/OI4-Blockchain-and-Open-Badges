@@ -1,7 +1,9 @@
 # Hyperledger Fabric & Composer Protype
 <h1>Installation Guide 🤓 </h1>
 
-Tested with Ubuntu 16.04 (30.03.2018 by Kasper🇫🇮)
+Tested 18.04.2018 by Kasper🇫🇮
+OS X 10.11.6. Composer Version 0.16.6
+Ubuntu 16.04.4. Composer Version 0.19.0
 
 <h3>1. Setting up necessaries</h3>
 
@@ -73,14 +75,24 @@ git checkout fabric-protype
 composer archive create -t dir -n .
 ```
 
-4.2 Install Composer runtime:
+4.2 IF Composer 0.16.6 ! Install Composer runtime:
+```
+composer runtime install --card PeerAdmin@hlfv1 --businessNetworkName open-badge
+```
+
+4.2 IF Composer 0.19.0 ! Install Composer runtime:
 ```
 composer network install --card PeerAdmin@hlfv1 --archiveFile open-badge@0.0.1.bna
 ```
 
-4.2 Deploy network
+4.3 IF Composer 0.16.6 ! Deploy network
 ```
-composer network start --networkName tutorial-network --networkVersion 0.0.1 --networkAdmin admin --networkAdminEnrollSecret adminpw --card PeerAdmin@hlfv1 --file networkadmin.card
+composer network start --card PeerAdmin@hlfv1 --networkAdmin admin --networkAdminEnrollSecret adminpw --archiveFile open-badge@0.0.1.bna --file networkadmin.card
+```
+
+4.3 IF Composer 0.19.0 ! Deploy network
+```
+composer network start --networkName open-badge --networkVersion 0.0.1 --networkAdmin admin --networkAdminEnrollSecret adminpw --card PeerAdmin@hlfv1 --file networkadmin.card
 ```
 
 4.3 Import network card:
