@@ -1,9 +1,9 @@
 # Hyperledger Fabric & Composer Protype
 <h1>Installation Guide 🤓 </h1>
 
-Tested 18.04.2018 by Kasper🇫🇮
-OS X 10.11.6. Composer Version 0.16.6
-Ubuntu 16.04.4. Composer Version 0.19.0
+<p>Tested 18.04.2018 by Kasper🇫🇮</p>
+<p>OS X 10.11.6. Composer Version 0.16.6</p>
+<p>Ubuntu 16.04.4. Composer Version 0.19.0</p>
 
 <h3>1. Setting up necessaries</h3>
 
@@ -95,12 +95,12 @@ composer network start --card PeerAdmin@hlfv1 --networkAdmin admin --networkAdmi
 composer network start --networkName open-badge --networkVersion 0.0.1 --networkAdmin admin --networkAdminEnrollSecret adminpw --card PeerAdmin@hlfv1 --file networkadmin.card
 ```
 
-4.3 Import network card:
+4.4 Import network card:
 ```
 composer card import --file networkadmin.card
 ```
 
-4.4 Run REST API:
+4.5 Run REST API:
 ```
 composer-rest-server
 ```
