@@ -6,29 +6,18 @@ import {
   Switch,
   Redirect
 } from 'react-router-dom';
-
-import Main from './Main';
-import Issuer from './Issuer';
-import Badge from './Badge';
+import styling from '../assets/css/index.css';
+import Skeleton from './Skeleton';
 
 class App extends Component {
+
   render() {
     return (
       <Router>
-        <div className="App">
-          <div className="container">
-            <ul>
-              <li><Link to="/Main">Main</Link></li>
-              <li><Link to="/Issuer">Issuer</Link></li>
-              <li><Link to="/Badge">Badge</Link></li>
-            </ul>
-            <hr/>
-          <Route path="/main" component={Main} />
-          <Route path="/issuer" component={Issuer} />
-          <Route path="/badge" component={Badge} /></div>
-        </div>
+        <div className='mainWrapper'>
+        <Skeleton />
+      </div>
       </Router>
-
     );
   }
 }

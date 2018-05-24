@@ -5,7 +5,7 @@ class Issuer extends React.Component {
     render () {
 
         return (
-            <div>
+            <div className='contentWrapper'>
             Hello From Issuer
             </div>
         );

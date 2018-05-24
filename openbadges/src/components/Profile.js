@@ -1,15 +1,15 @@
 import React from "react";
 
-class Badge extends React.Component {
+class Profile extends React.Component {
 
     render () {
 
         return (
             <div className='contentWrapper'>
-            Hello From Badge
+            Hello From Profile
             </div>
         );
     }
 }
 
-export default Badge;
+export default Profile;
