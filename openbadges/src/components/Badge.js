@@ -5,7 +5,7 @@ class Badge extends React.Component {
     render () {
 
         return (
-            <div className='contentWrapper'>
+            <div>
             Hello From Badge
             </div>
         );

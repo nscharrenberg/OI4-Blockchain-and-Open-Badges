@@ -5,7 +5,7 @@ class Main extends React.Component {
     render () {
 
         return (
-            <div className='contentWrapper'>
+            <div>
             <h1>Issuer Name Badges</h1>
             <h2>4 Badges</h2>
             <h3>4 Badges</h3>

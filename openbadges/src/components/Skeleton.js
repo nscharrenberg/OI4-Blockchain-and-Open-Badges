@@ -5,23 +5,11 @@ import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import DraftsIcon from '@material-ui/icons/Drafts';
-import StarIcon from '@material-ui/icons/Star';
-import SendIcon from '@material-ui/icons/Send';
-import MailIcon from '@material-ui/icons/Mail';
-import DeleteIcon from '@material-ui/icons/Delete';
-import ReportIcon from '@material-ui/icons/Report';
 import Routes from './Routes';
 import Button from '@material-ui/core/Button';
 import {
@@ -31,6 +19,7 @@ import {
     Switch,
     Redirect
 } from 'react-router-dom';
+import Nav from './Nav';
 
 const drawerWidth = 240;
 
@@ -98,7 +87,7 @@ const styles = theme => ({
 	},
 	flex: {
     	flex: 1,
-	}
+	},
 });
 
 class MiniDrawer extends React.Component {
@@ -150,59 +139,12 @@ class MiniDrawer extends React.Component {
 							{theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
 						</IconButton>
 					</div>
-					<Divider />
-					<List>
-                        <ListItem button>
-                            <ListItemIcon>
-                                <InboxIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="Inbox" />
-                        </ListItem>
-                        <ListItem button>
-                            <ListItemIcon>
-                                <StarIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="Starred" />
-                        </ListItem>
-                        <ListItem button>
-                            <ListItemIcon>
-                                <SendIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="Send mail" />
-                        </ListItem>
-                        <ListItem button>
-                            <ListItemIcon>
-                                <DraftsIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="Drafts" />
-                        </ListItem>
-					</List>
-					<Divider />
-					<List>
-                        <ListItem button>
-                            <ListItemIcon>
-                                <MailIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="All mail" />
-                        </ListItem>
-                        <ListItem button>
-                            <ListItemIcon>
-                                <DeleteIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="Trash" />
-                        </ListItem>
-                        <ListItem button>
-                            <ListItemIcon>
-                                <ReportIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="Spam" />
-                        </ListItem>
-					</List>
+					<Nav/>
 				</Drawer>
                     <main
                         className={classNames(classes.content)}
                     >
-                        <div className={classes.drawerHeader} />
+                        <div className={classes.toolbar} />
                         <div onClick={this.handleDrawerClose}>
                             <Routes />
                         </div>

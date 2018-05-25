@@ -1,15 +1,26 @@
 import React from "react";
+import Typography from '@material-ui/core/Typography';
+import PropTypes from 'prop-types';
+
+const styles = theme => ({
+    toolbar: theme.mixins.toolbar,
+});
 
 class Issuer extends React.Component {
 
     render () {
-
+        const { classes } = this.props;
         return (
-            <div className='contentWrapper'>
-            Hello From Issuer
+            <div>
+                <Typography noWrap>Hello From Issuer</Typography>
             </div>
         );
     }
 }
+
+Issuer.propTypes = {
+    classes: PropTypes.object.isRequired,
+    theme: PropTypes.object.isRequired,
+};
 
 export default Issuer;
