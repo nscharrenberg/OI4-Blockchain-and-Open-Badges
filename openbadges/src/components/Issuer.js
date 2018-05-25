@@ -1,6 +1,9 @@
 import React from "react";
 import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
+import IssuerCard from './IssuerCard';
+import BadgeCard from './BadgeCard';
+import ValidateBadgeCard from './ValidateBadgeCard';
 
 const styles = theme => ({
     toolbar: theme.mixins.toolbar,
@@ -13,6 +16,12 @@ class Issuer extends React.Component {
         return (
             <div>
                 <Typography noWrap>Hello From Issuer</Typography>
+                <hr />
+                <IssuerCard />
+                
+                <BadgeCard />
+                <ValidateBadgeCard />
+
             </div>
         );
     }
