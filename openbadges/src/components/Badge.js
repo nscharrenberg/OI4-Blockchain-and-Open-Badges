@@ -82,6 +82,7 @@ class Badge extends React.Component {
 
         return (
             <div>
+                <h1>Fontys Badges</h1>
                 <GridList cols={5} className={classes.gridList} style={{ height: 'auto' }}>
                     {dummyBadgesArray.map(tile => (
                         <GridListTile style={{ height: 'auto', paddingBottom: '10px', paddingRight: '10px' }} key={tile.title}>
