@@ -84,6 +84,7 @@ const styles = theme => ({
 		flexGrow: 1,
 		backgroundColor: theme.palette.background.default,
 		padding: theme.spacing.unit * 3,
+        margin: '0em 2em 0em 2em',
 	},
 	flex: {
     	flex: 1,
