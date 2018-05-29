@@ -15,6 +15,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Avatar from '@material-ui/core/Avatar';
+import ValidateBadgeDetailedCard from './ValidateBadgeDetailedCard';
 
 const styles = theme => ({
   root: {
@@ -65,10 +66,11 @@ function DetailedExpansionPanel(props) {
   const { classes } = props;
   return (
     <div className={classes.root}>
-      <ExpansionPanel defaultExpanded>
+      <ExpansionPanel>
         <ExpansionPanelSummary className={classes.detailRow} expandIcon={<ExpandMoreIcon />}>
           <div className={classes.column}>
-          <Avatar alt="BadgeLogo" src="./img/fontys_logo.png" className={classes.cover} />
+
+          <Avatar alt="BadgeLogo" src="https://badgr-io-media.s3.amazonaws.com/uploads/badges/issuer_badgeclass_da2d8fbd-f17b-4bb4-afe9-4b62c2d8f549.png" className={classes.cover} />
           </div>
           <div className={classes.column}>
             <Typography className={classes.heading}>Kasper Hämäläinen</Typography>
@@ -84,26 +86,8 @@ function DetailedExpansionPanel(props) {
           </div>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails className={classes.details}>
-          <div className={classes.column} />
-          <div className={classes.column}>
-            <Chip label="Barbados" className={classes.chip} onDelete={() => {}} />
-          </div>
-          <div className={classNames(classes.column, classes.helper)}>
-            <Typography variant="caption">
-              Select your destination of choice<br />
-              <a href="#sub-labels-and-columns" className={classes.link}>
-                Learn more
-              </a>
-            </Typography>
-          </div>
+          <ValidateBadgeDetailedCard />
         </ExpansionPanelDetails>
-        <Divider />
-        <ExpansionPanelActions>
-          <Button size="small">Cancel</Button>
-          <Button size="small" color="primary">
-            Save
-          </Button>
-        </ExpansionPanelActions>
       </ExpansionPanel>
     </div>
   );

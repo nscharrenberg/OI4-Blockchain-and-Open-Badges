@@ -4,6 +4,9 @@ import PropTypes from 'prop-types';
 import IssuerCard from './IssuerCard';
 import BadgeCard from './BadgeCard';
 import ValidateBadgeCard from './ValidateBadgeCard';
+import CreateBadgeCard from './CreateBadgeCard';
+import AwardBadgeCard from './AwardBadgeCard';
+
 
 const styles = theme => ({
     toolbar: theme.mixins.toolbar,
@@ -15,13 +18,15 @@ class Issuer extends React.Component {
         const { classes } = this.props;
         return (
             <div>
-                <Typography noWrap>Hello From Issuer</Typography>
-                <hr />
+                {/**/}
                 <IssuerCard />
-                
+                <CreateBadgeCard />
+                <hr/>
+                <AwardBadgeCard />
+                <hr/>
                 <BadgeCard />
                 <ValidateBadgeCard />
-
+                
             </div>
         );
     }
