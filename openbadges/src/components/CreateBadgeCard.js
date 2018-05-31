@@ -52,68 +52,82 @@ const styles = theme => ({
     marginTop: '25%',
     textAlign: 'center',
   },
+    input: {
+    display: 'none'
+    }
 });
 
 function MediaControlCard(props) {
   const { classes, theme } = props;
 
-  return (
-    <div>
-      <Card className={classes.card}>
-        <CardMedia className={classes.cover}>
-        <div className={classes.imageTxt}>
-          <i class="material-icons" style={{fontSize: '48px'}}>cloud_upload</i>
-            <Typography  variant="body">UPLOAD IMAGE</Typography>
-          </div>
-          </CardMedia>
-        <div className={classes.details}>
-          <CardContent className={classes.content}>
-          <form noValidate autoComplete="off">
-                    <Typography variant="subheading" color="textSecondary">
-                    Badge Name:
-                    </Typography>
-                    <TextField
-                      id="badgeName"
-                      defaultValue=""
-                      placeholder="Name of the Badge:"
-                      className={classes.textField}
-                      margin="normal"
-                    /><Typography variant="subheading" color="textSecondary">
-                    Description:
-                    </Typography>
-                    <TextField
-                      id="badgeDescription"
-                      defaultValue=""
-                      multiline
-                      placeholder="Description:"
-                      className={classes.textField}
-                      margin="normal"
-                    /><Typography variant="subheading" color="textSecondary">
-                    Criteria:
-                    </Typography>
-                    <TextField
-                      id="badgeCriteria"
-                      defaultValue=""
-                      multiline
-                      placeholder="Criteria:"
-                      className={classes.textField}
-                      margin="normal"
+    return (
+        <div>
+            <Card className={classes.card}>
+
+                <CardMedia className={classes.cover}>
+                    <input
+                        accept="image/*"
+                        className={classes.input}
+                        id="raised-button-file"
+                        multiple
+                        type="file"
                     />
-            </form>
-            <div className={classes.controls}>
-              <Button className={classes.verificationButton} variant="raised" color="success" style={{backgroundColor: '#00C853', color:'white'}}>Create Badge</Button>
-              <Button className={classes.verificationButton} variant="raised" color="success" style={{backgroundColor: '#F44336', color:'white'}}>Cancel</Button>
-            </div>
-          </CardContent>
+                    <label htmlFor="raised-button-file">
+                        <Button variant="raised" component="div" className={classes.imageTxt}>
+                            <i className="material-icons" style={{fontSize: '48px'}}>cloud_upload</i>
+                            <Typography variant="body">UPLOAD IMAGE</Typography>
+                        </Button>
+                    </label>
+
+                </CardMedia>
+                <div className={classes.details}>
+                    <CardContent className={classes.content}>
+                        <form noValidate autoComplete="off">
+                            <Typography variant="subheading" color="textSecondary">
+                                Badge Name:
+                            </Typography>
+                            <TextField
+                                id="badgeName"
+                                defaultValue=""
+                                placeholder="Name of the Badge:"
+                                className={classes.textField}
+                                margin="normal"
+                            /><Typography variant="subheading" color="textSecondary">
+                            Description:
+                        </Typography>
+                            <TextField
+                                id="badgeDescription"
+                                defaultValue=""
+                                multiline
+                                placeholder="Description:"
+                                className={classes.textField}
+                                margin="normal"
+                            /><Typography variant="subheading" color="textSecondary">
+                            Criteria:
+                        </Typography>
+                            <TextField
+                                id="badgeCriteria"
+                                defaultValue=""
+                                multiline
+                                placeholder="Criteria:"
+                                className={classes.textField}
+                                margin="normal"
+                            />
+                        </form>
+                        <div className={classes.controls}>
+                            <Button className={classes.verificationButton} variant="raised" color="success" style={{backgroundColor: '#00C853', color:'white'}}>Create Badge</Button>
+                            <Button className={classes.verificationButton} variant="raised" color="success" style={{backgroundColor: '#F44336', color:'white'}}>Cancel</Button>
+                        </div>
+                    </CardContent>
+                </div>
+            </Card>
         </div>
-      </Card>
-    </div>
-  );
+    );
 }
 
 MediaControlCard.propTypes = {
-  classes: PropTypes.object.isRequired,
-  theme: PropTypes.object.isRequired,
+    classes: PropTypes.object.isRequired,
+    theme: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles, { withTheme: true })(MediaControlCard);
