@@ -32,14 +32,7 @@ const styles = theme => ({
     display: 'flex',
     alignItems: 'left',
     marginTop: '20px',
-  },
-  awardButton: {
-    marginRight: '15px',
-    backgroundColor: 'lightgrey',
   },  
-  badgeInfo: {
-    marginTop: '15px',
-  },
   verificationButton: {
     marginRight: '15px',
     float: 'left',
@@ -47,10 +40,6 @@ const styles = theme => ({
   textField: {
     marginBottom: '15px',
     width: 500,
-  },
-  imageTxt: {
-    marginTop: '25%',
-    textAlign: 'center',
   },
 });
 

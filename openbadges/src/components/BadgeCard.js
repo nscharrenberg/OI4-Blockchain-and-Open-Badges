@@ -64,7 +64,6 @@ function MediaControlCard(props) {
                 <Button className={classes.awardButton}>AWARD</Button>
                 <Button className={classes.awardButton}>DELETE</Button>
                 <Button className={classes.awardButton}><i class="material-icons">edit</i></Button>
-
             </div>
             <div className={classes.badgeInfo}>
             <Typography  variant="subheading" color="textSecondary">
