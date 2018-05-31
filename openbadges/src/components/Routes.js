@@ -12,6 +12,7 @@ import Badge from './Badge';
 import Profile from './Profile';
 import Login from './Login';
 import Register from './Register';
+import Test from './Client';
 class Routes extends Component {
 
 	render () {
