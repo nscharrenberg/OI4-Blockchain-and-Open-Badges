@@ -10,7 +10,8 @@ import Main from './Main';
 import Issuer from './Issuer';
 import Badge from './Badge';
 import Profile from './Profile';
-
+import Login from './Login';
+import Register from './Register';
 class Routes extends Component {
 
 	render () {
@@ -20,6 +21,8 @@ class Routes extends Component {
 			<Route path="/issuer" component={Issuer} />
 			<Route path="/badge" component={Badge} />
 			<Route path="/profile" component={Profile} />
+            <Route path="/login" component={Login} />
+            <Route path="/register" component={Register} />
 		</div>
 		);
 	}
