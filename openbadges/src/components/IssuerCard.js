@@ -6,10 +6,8 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import SkipNextIcon from '@material-ui/icons/SkipNext';
 import Button from '@material-ui/core/Button';
+import Client from './Client';
 
 const styles = theme => ({
   card: {
@@ -32,28 +30,32 @@ const styles = theme => ({
   },
   controls: {
     display: 'flex',
-    alignItems: 'center',
     alignItems: 'left',
     marginTop: '20px',
   },
 });
 
-function MediaControlCard(props) {
-  const { classes, theme } = props;
+
+function IssuerCard(props) {
+  const { classes, theme} = props;
+
+  let data = Client.getIssuerData()
+
+  console.log(data)
 
   return (
     <div>
-      <Card className={classes.card}>
+      <Card className={classes.card}> 
                   <CardMedia
               className={classes.cover}
-              image="./img/fontys_logo.png"
+              image={data.issuer.img}
               title="Issuer Organization Name"
             />
         <div className={classes.details}>
           <CardContent className={classes.content}>
-            <Typography variant="headline">Issuer Organization Name</Typography>
+            <Typography variant="headline">Issuer Name: {data.issuer.name}</Typography>
             <Typography variant="subheading" color="textSecondary">
-              Some Description here. Lorem ipsum ja sitä rataa. Some Description here. Lorem ipsum ja sitä rataa.
+            {data.issuer.description}
             </Typography>
             <div className={classes.controls}>
                 <Button>WWW</Button>
@@ -68,9 +70,10 @@ function MediaControlCard(props) {
   );
 }
 
-MediaControlCard.propTypes = {
+/*IssuerCard.propTypes = {
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
-};
+  data: PropTypes.object.isRequired,
+};*/
 
-export default withStyles(styles, { withTheme: true })(MediaControlCard);
+export default withStyles(styles, { withTheme: true })(IssuerCard);

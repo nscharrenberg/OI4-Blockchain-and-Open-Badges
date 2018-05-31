@@ -18,15 +18,14 @@ class Issuer extends React.Component {
         const { classes } = this.props;
         return (
             <div>
-                {/**/}
+                
                 <IssuerCard />
-                <CreateBadgeCard />
+                {/*<CreateBadgeCard />
                 <hr/>
                 <AwardBadgeCard />
                 <hr/>
                 <BadgeCard />
-                <ValidateBadgeCard />
-                
+                <ValidateBadgeCard />*/}
             </div>
         );
     }
