@@ -18,8 +18,6 @@ const styles = theme => ({
     display: 'flex',
     flexDirection: 'column',
   },
-  content: {
-  },
   cover: {
     alignText: 'center',
     padding: '5px',
@@ -46,7 +44,7 @@ const styles = theme => ({
   },
   textField: {
     marginBottom: '15px',
-    width: 500,
+    width: 200,
   },
   imageTxt: {
     marginTop: '25%',
@@ -57,77 +55,105 @@ const styles = theme => ({
     }
 });
 
-function MediaControlCard(props) {
-  const { classes, theme } = props;
 
-    return (
-        <div>
-            <Card className={classes.card}>
+class CreateBadgeCard extends React.Component {
+    constructor(props) {
+        super(props);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.state = {
+            name: ''
+        };
+    }
 
-                <CardMedia className={classes.cover}>
-                    <input
-                        accept="image/*"
-                        className={classes.input}
-                        id="raised-button-file"
-                        multiple
-                        type="file"
-                    />
-                    <label htmlFor="raised-button-file">
-                        <Button variant="raised" component="div" className={classes.imageTxt}>
-                            <i className="material-icons" style={{fontSize: '48px'}}>cloud_upload</i>
-                            <Typography variant="body">UPLOAD IMAGE</Typography>
-                        </Button>
-                    </label>
 
-                </CardMedia>
-                <div className={classes.details}>
-                    <CardContent className={classes.content}>
-                        <form noValidate autoComplete="off">
-                            <Typography variant="subheading" color="textSecondary">
-                                Badge Name:
+    handleSubmit(event) {
+        event.preventDefault();
+        const form = event.target;
+        const data = new FormData(form);
+
+        //Client.createBadge(data);
+        console.log(data);
+    }
+
+    handleChange(event) {
+        this.setState({ name: event.target.value });
+    };
+
+    render () {
+        const { classes, theme } = this.props;
+
+        return (
+            <div>
+                <Card className={classes.card}>
+                    <form onSubmit={this.handleSubmit}>
+                    <CardMedia className={classes.cover}>
+                        <input
+                            accept="image/*"
+                            className={classes.input}
+                            id="raised-button-file"
+                            multiple
+                            type="file"
+                        />
+                        <label htmlFor="raised-button-file">
+                            <Button variant="raised" component="div" className={classes.imageTxt}>
+                                <i className="material-icons" style={{fontSize: '48px'}}>cloud_upload</i>
+                                <Typography variant="body">UPLOAD IMAGE</Typography>
+                            </Button>
+                        </label>
+                        
+                    </CardMedia>
+                    <div className={classes.details}>
+                        <CardContent className={classes.content}>
+                                <Typography variant="subheading" color="textSecondary">
+                                    Badge Name:
+                                </Typography>
+                                <TextField
+                                    id="badgeName"
+                                    name="badgeName"
+                                    value={this.state.name} 
+                                    onChange={this.handleChange}
+                                    placeholder="Name of the Badge:"
+                                    className={classes.textField}
+                                    margin="normal"
+                                /><Typography variant="subheading" color="textSecondary">
+                                Description:
                             </Typography>
-                            <TextField
-                                id="badgeName"
-                                defaultValue=""
-                                placeholder="Name of the Badge:"
-                                className={classes.textField}
-                                margin="normal"
-                            /><Typography variant="subheading" color="textSecondary">
-                            Description:
-                        </Typography>
-                            <TextField
-                                id="badgeDescription"
-                                defaultValue=""
-                                multiline
-                                placeholder="Description:"
-                                className={classes.textField}
-                                margin="normal"
-                            /><Typography variant="subheading" color="textSecondary">
-                            Criteria:
-                        </Typography>
-                            <TextField
-                                id="badgeCriteria"
-                                defaultValue=""
-                                multiline
-                                placeholder="Criteria:"
-                                className={classes.textField}
-                                margin="normal"
-                            />
-                        </form>
-                        <div className={classes.controls}>
-                            <Button className={classes.verificationButton} variant="raised" color="success" style={{backgroundColor: '#00C853', color:'white'}}>Create Badge</Button>
-                            <Button className={classes.verificationButton} variant="raised" color="success" style={{backgroundColor: '#F44336', color:'white'}}>Cancel</Button>
-                        </div>
-                    </CardContent>
-                </div>
-            </Card>
-        </div>
-    );
+                                <TextField
+                                    id="badgeDescription"
+                                    name="badgeDescription"
+                                    defaultValue=""
+                                    multiline
+                                    placeholder="Description:"
+                                    className={classes.textField}
+                                    margin="normal"
+                                /><Typography variant="subheading" color="textSecondary">
+                                Criteria:
+                            </Typography>
+                                <TextField
+                                    id="badgeCriteria"
+                                    name="badgeCriteria"
+                                    defaultValue=""
+                                    multiline
+                                    placeholder="Criteria:"
+                                    className={classes.textField}
+                                    margin="normal"
+                                />
+                            <div className={classes.controls}>
+                                <Button type="submit" className={classes.verificationButton} variant="raised" color="success" style={{backgroundColor: '#00C853', color:'white'}}>Create Badge</Button>
+                                <Button className={classes.verificationButton} variant="raised" color="success" style={{backgroundColor: '#F44336', color:'white'}}>Cancel</Button>
+                            </div>
+                        </CardContent>
+                    </div>
+                    </form>
+                </Card>
+            </div>
+        );
+    }
 }
 
-MediaControlCard.propTypes = {
+CreateBadgeCard.propTypes = {
     classes: PropTypes.object.isRequired,
     theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(MediaControlCard);
+export default withStyles(styles, { withTheme: true })(CreateBadgeCard);

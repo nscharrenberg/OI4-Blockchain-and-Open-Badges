@@ -62,39 +62,47 @@ const styles = theme => ({
     },
 });
 
-function DetailedExpansionPanel(props) {
-    const { classes } = props;
-    return (
-        <div className={classes.root}>
-            <ExpansionPanel>
-                <ExpansionPanelSummary className={classes.detailRow} expandIcon={<ExpandMoreIcon />}>
-                    <div className={classes.column}>
+class ValidateBadgeCard extends React.Component {
+  constructor(props) {
+    super(props);
+  }
 
-                        <Avatar alt="BadgeLogo" src="https://badgr-io-media.s3.amazonaws.com/uploads/badges/issuer_badgeclass_da2d8fbd-f17b-4bb4-afe9-4b62c2d8f549.png" className={classes.cover} />
-                    </div>
-                    <div className={classes.column}>
-                        <Typography className={classes.heading}>Kasper Hämäläinen</Typography>
-                    </div>
-                    <div className={classes.column}>
-                        <Typography className={classes.secondaryHeading}>Some Other Info</Typography>
-                    </div>
-                    <div className={classes.columnButton}>
-                        <Button className={classes.verificationButton} variant="raised" color="success" style={{backgroundColor: '#00C853'}}><i class="material-icons" style={{color:'white'}}>done</i></Button>
-                    </div>
-                    <div className={classes.columnButton}>
-                        <Button className={classes.verificationButton} variant="raised" color="success" style={{backgroundColor: '#F44336'}}><i class="material-icons" style={{color:'white'}}>clear</i></Button>
-                    </div>
-                </ExpansionPanelSummary>
-                <ExpansionPanelDetails className={classes.details}>
-                    <ValidateBadgeDetailedCard />
-                </ExpansionPanelDetails>
-            </ExpansionPanel>
-        </div>
-    );
+  render () {
+
+  const { classes } = this.props;
+  return (
+    <div className={classes.root}>
+      <ExpansionPanel>
+        <ExpansionPanelSummary className={classes.detailRow} expandIcon={<ExpandMoreIcon />}>
+          <div className={classes.column}>
+
+          <Avatar alt="BadgeLogo" src="https://badgr-io-media.s3.amazonaws.com/uploads/badges/issuer_badgeclass_da2d8fbd-f17b-4bb4-afe9-4b62c2d8f549.png" className={classes.cover} />
+          </div>
+          <div className={classes.column}>
+            <Typography className={classes.heading}>Kasper Hämäläinen</Typography>
+          </div>
+          <div className={classes.column}>
+            <Typography className={classes.secondaryHeading}>Some Other Info</Typography>
+          </div>
+          <div className={classes.columnButton}>
+            <Button className={classes.verificationButton} variant="raised" color="success" style={{backgroundColor: '#00C853'}}><i class="material-icons" style={{color:'white'}}>done</i></Button>
+          </div>
+          <div className={classes.columnButton}>
+            <Button className={classes.verificationButton} variant="raised" color="success" style={{backgroundColor: '#F44336'}}><i class="material-icons" style={{color:'white'}}>clear</i></Button>
+          </div>
+        </ExpansionPanelSummary>
+        <ExpansionPanelDetails className={classes.details}>
+          <ValidateBadgeDetailedCard />
+        </ExpansionPanelDetails>
+      </ExpansionPanel>
+    </div>
+  );
+
+  }
 }
 
-DetailedExpansionPanel.propTypes = {
-    classes: PropTypes.object.isRequired,
+ValidateBadgeCard.propTypes = {
+  classes: PropTypes.object.isRequired,
 };
 
-iiexport default withStyles(styles)(DetailedExpansionPanel);
+export default withStyles(styles)(ValidateBadgeCard);

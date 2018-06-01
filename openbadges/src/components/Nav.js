@@ -52,27 +52,6 @@ class Nav extends Component {
 						</ListItem>
 					</Link>
                 </List>
-                <Divider />
-                <List>
-                    <ListItem button>
-                        <ListItemIcon>
-                            <MailIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="All mail" />
-                    </ListItem>
-                    <ListItem button>
-                        <ListItemIcon>
-                            <DeleteIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Trash" />
-                    </ListItem>
-                    <ListItem button>
-                        <ListItemIcon>
-                            <ReportIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Spam" />
-                    </ListItem>
-                </List>
 			</div>
 		);
 	}
