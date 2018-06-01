@@ -1,9 +1,10 @@
 export default function reducer(state={
-    firstName: 'React',
+    firstName: 'My Default Name',
     lastName: 'Lover88',
     email: 'react@love.com',
     username: 'peppupano'
-}, action) {
+}, action) { 
+    console.log('userReducer got it');
     switch(action.type) {
         case "CHANGE_FIRSTNAME": {
             state = {...state, firstName: action.payload}

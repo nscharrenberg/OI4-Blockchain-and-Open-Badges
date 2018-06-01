@@ -60,9 +60,6 @@ class Register extends React.Component {
 
         //this.context.store.userClass.firstName = data.firstName;
         //this.context.store.userClass.lastName = data.lastName;
-
-        this.props.store.dispatch(changeFirstName(name))
-
         //console.log(this.context.store.userClass);
     }
 
@@ -81,7 +78,8 @@ class Register extends React.Component {
                                     <h1>Register</h1>
                                 </Grid>
                             </Grid>
-                            <form onSubmit={this.testStore}>
+                            <form onSubmit={this.props.onSubmit}>
+                            <p>{this.props.name}</p>
                                 <input name="entityType" id="entityType" value="SomeType" />
                                 <div className={classes.margin}>
                                     <Grid container spacing={24} alignItems={"flex-end"} justify={"center"}>
@@ -158,17 +156,16 @@ Register.propTypes = {
 function mapStateToProps(state) {
     //console.log(state.userClass)
     return {
-      name: state.userClass.name,
-      description: state.userClass.description,
-      www: state.userClass.www,
-      img: state.userClass.img
+      name: state.userClass.firstName
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        onSubmit: () => {
-            console.log("FUCK")
+        onSubmit: (event) => {
+            event.preventDefault();
+            const action = {type: 'CHANGE_FIRSTNAME', payload: 'This is my new Name' };
+            dispatch(action);
         }
     }
 }

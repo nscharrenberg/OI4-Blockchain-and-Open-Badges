@@ -1,4 +1,9 @@
-export function changeFirstName(name) {
+export function changeFirstName() {
+    console.log('I got it');
+}
+
+
+/*export function changeFirstName(name) {
     console.log('I got it');
     return {
         type: "CHANGE_FIRSTNAME",
@@ -6,7 +11,7 @@ export function changeFirstName(name) {
             firstName: name
         }
     }
-}
+}*/
 
 export function changeLastName(name) {
     return {
