@@ -13,7 +13,6 @@ import Lock from '@material-ui/icons/Lock';
 import Email from '@material-ui/icons/Email';
 import axios from 'axios';
 
-
 const styles = theme => ({
     root: {
         flexGrow: 1,
@@ -47,6 +46,16 @@ class Register extends React.Component {
             .catch(err => {
                 console.log(err);
             })*/
+    }
+
+    testStore(event) {
+        event.preventDefault();
+        const data = new FormData(event.target);
+
+
+
+        console.log()
+
     }
 
     render() {
