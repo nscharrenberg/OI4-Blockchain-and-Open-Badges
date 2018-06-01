@@ -1,8 +1,8 @@
 export default function reducer(state={
-    name: '',
-    description: '',
-    www: '',
-    img: '',
+    name: 'My issuing Org',
+    description: 'My issuing organization has this description',
+    www: 'http://www.example.com',
+    img: './img/fontys_logo.png',
 }, action) {
     switch(action.type) {
         case "CHANGE_NAME": {

@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-function createBadge(data) {
+function getBadges(data) {
 
-  /*const data = {
+  return data = {
       "$class": "org.acme.empty.BadgeClass",
       "entityId": "string",
       "name": "string",
@@ -24,7 +24,7 @@ function createBadge(data) {
         "lastName": "string"
       },
       "accepted": "false"
-  }*/
+  }
 
 
 

@@ -6,6 +6,7 @@ import BadgeCard from './BadgeCard';
 import ValidateBadgeCard from './ValidateBadgeCard';
 import CreateBadgeCard from './CreateBadgeCard';
 import AwardBadgeCard from './AwardBadgeCard';
+import store from '../Store';
 
 
 class Issuer extends React.Component {
@@ -13,14 +14,13 @@ class Issuer extends React.Component {
     render () {
         return (
             <div>
-                {/**/}
                 <IssuerCard />
-                <CreateBadgeCard />
+                {/*<CreateBadgeCard />
                 <hr/>
                 <AwardBadgeCard />
                 <hr/>
                 <BadgeCard />
-                <ValidateBadgeCard />
+                <ValidateBadgeCard />*/}
             </div>
         );
     }

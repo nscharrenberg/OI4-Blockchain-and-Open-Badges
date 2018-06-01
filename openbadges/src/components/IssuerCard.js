@@ -8,6 +8,9 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Client from './Client';
+import { connect } from 'react-redux';
+import { compose } from 'recompose';
+
 
 const styles = theme => ({
   card: {
@@ -51,14 +54,14 @@ class IssuerCard extends React.Component  {
       <Card className={classes.card}> 
                   <CardMedia
               className={classes.cover}
-              image={data.issuer.img}
+              image={this.props.img}
               title="Issuer Organization Name"
             />
         <div className={classes.details}>
           <CardContent className={classes.content}>
-            <Typography variant="headline">Issuer Name: {data.issuer.name}</Typography>
+            <Typography variant="headline">Issuer Name: {this.props.name}</Typography>
             <Typography variant="subheading" color="textSecondary">
-            {data.issuer.description}
+            {this.props.description}
             </Typography>
             <div className={classes.controls}>
                 <Button>WWW</Button>
@@ -80,4 +83,20 @@ IssuerCard.propTypes = {
   theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(IssuerCard);
+function mapStateToProps(state) {
+    console.log(state.issuerClass)
+    //console.log("mapStateToProps: ", state)
+    return {
+      name: state.issuerClass.name,
+      description: state.issuerClass.description,
+      www: state.issuerClass.www,
+      img: state.issuerClass.img
+    }
+
+}
+
+export default compose(
+    withStyles(styles, { withTheme: true }),
+    connect(mapStateToProps)
+)(IssuerCard);
+

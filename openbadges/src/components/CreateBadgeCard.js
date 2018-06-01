@@ -60,15 +60,8 @@ class CreateBadgeCard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            imgHash: '',
-            badgeName: '',
-            badgeDescription: '',
-            badgeCriteria: '',
+            name: 'testinname'
         }
-
-        this.handeImgHash = this.handeImgHash.bind(this)
-        this.handleSubmit = this.handleSubmit.bind(this);
-
     }
 
 

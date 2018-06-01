@@ -13,6 +13,9 @@ import Profile from './Profile';
 import Login from './Login';
 import Register from './Register';
 import Test from './Client';
+import { Provider } from 'react-redux'
+
+
 class Routes extends Component {
 
 	render () {

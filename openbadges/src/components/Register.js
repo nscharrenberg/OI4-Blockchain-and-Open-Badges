@@ -12,8 +12,9 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import Lock from '@material-ui/icons/Lock';
 import Email from '@material-ui/icons/Email';
 import axios from 'axios';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import { compose } from 'recompose';
+import { changeFirstName } from '../Store/actions/userActions';
 
 const styles = theme => ({
     root: {
@@ -29,10 +30,18 @@ const styles = theme => ({
     },
 });
 
-
 class Register extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
     state = {
         staff: []
+    }
+
+    componentDidMount () {
+        //console.log(store.userClass.name)
+        console.log('get it')
     }
 
     handleSubmit(event) {
@@ -54,11 +63,17 @@ class Register extends React.Component {
         event.preventDefault();
         const data = new FormData(event.target);
 
-        this.context.store.userClass.firstName = data.firstName;
-        this.context.store.userClass.lastName = data.lastName;
+        const name = 'kasper';
 
-        console.log(this.context.store.userClass);
+        //this.context.store.userClass.firstName = data.firstName;
+        //this.context.store.userClass.lastName = data.lastName;
+
+        //props.dispatch(changeFirstName(name))
+
+        //console.log(this.context.store.userClass);
     }
+
+
 
     render() {
         const { classes, theme } = this.props;
@@ -141,18 +156,29 @@ class Register extends React.Component {
     }
 }
 
-const mapStateToProps = state => ({
-    userState: state,
-})
-
-const mapDispatchToProps = dispatch => ({
-    getUserState: id => dispatch(id),
-})
 
 Register.propTypes = {
     classes: PropTypes.object.isRequired,
     theme: PropTypes.object.isRequired,
 };
+
+function mapStateToProps(state) {
+    //console.log(state.userClass)
+    return {
+      name: state.userClass.name,
+      description: state.userClass.description,
+      www: state.userClass.www,
+      img: state.userClass.img
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        onSubmit: () => {
+            console.log("FUCK")
+        }
+    }
+}
 
 export default compose(
     withStyles(styles, { withTheme: true }),
