@@ -59,10 +59,16 @@ const styles = theme => ({
 class CreateBadgeCard extends React.Component {
     constructor(props) {
         super(props);
-        this.handleSubmit = this.handleSubmit.bind(this);
         this.state = {
-            name: ''
-        };
+            imgHash: '',
+            badgeName: '',
+            badgeDescription: '',
+            badgeCriteria: '',
+        }
+
+        this.handeImgHash = this.handeImgHash.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this);
+
     }
 
 
