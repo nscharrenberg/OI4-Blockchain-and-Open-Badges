@@ -8,6 +8,9 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import {bindActionCreators} from 'redux'
+import {connect} from 'react-redux'
+import axios from 'axios';
 
 const styles = theme => ({
   card: {
@@ -59,31 +62,28 @@ const styles = theme => ({
 class CreateBadgeCard extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            imgHash: '',
-            badgeName: '',
-            badgeDescription: '',
-            badgeCriteria: '',
-        }
+    }
 
-        this.handeImgHash = this.handeImgHash.bind(this)
-        this.handleSubmit = this.handleSubmit.bind(this);
-
+    state = {
+        imgHash: '',
+        badgeName: 'dog',
+        badgeDescription: '',
+        badgeCriteria: '',
     }
 
 
-    handleSubmit(event) {
-        event.preventDefault();
-        const form = event.target;
-        const data = new FormData(form);
-
-        //Client.createBadge(data);
-        console.log(data);
+    handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(e.target.files[0]);
+        // axios.post('ipfs.io/ipfs/', this.state.imgHash)
+        console.log(this.state);
     }
 
-    handleChange(event) {
-        this.setState({ name: event.target.value });
-    };
+    change = e => {
+        this.setState({
+           [e.target.name]: e.target.value
+        });
+    }
 
     render () {
         const { classes, theme } = this.props;
@@ -91,7 +91,7 @@ class CreateBadgeCard extends React.Component {
         return (
             <div>
                 <Card className={classes.card}>
-                    <form onSubmit={this.handleSubmit}>
+                    <form>
                     <CardMedia className={classes.cover}>
                         <input
                             accept="image/*"
@@ -106,7 +106,7 @@ class CreateBadgeCard extends React.Component {
                                 <Typography variant="body">UPLOAD IMAGE</Typography>
                             </Button>
                         </label>
-                        
+
                     </CardMedia>
                     <div className={classes.details}>
                         <CardContent className={classes.content}>
@@ -116,18 +116,20 @@ class CreateBadgeCard extends React.Component {
                                 <TextField
                                     id="badgeName"
                                     name="badgeName"
-                                    value={this.state.name} 
-                                    onChange={this.handleChange}
+                                    value={this.state.badgeName}
+                                    onChange={e => this.change(e) }
                                     placeholder="Name of the Badge:"
                                     className={classes.textField}
                                     margin="normal"
-                                /><Typography variant="subheading" color="textSecondary">
+                                />
+                            <Typography variant="subheading" color="textSecondary">
                                 Description:
                             </Typography>
                                 <TextField
                                     id="badgeDescription"
                                     name="badgeDescription"
-                                    defaultValue=""
+                                    value={this.state.badgeDescription}
+                                    onChange={e => this.change(e) }
                                     multiline
                                     placeholder="Description:"
                                     className={classes.textField}
@@ -138,14 +140,15 @@ class CreateBadgeCard extends React.Component {
                                 <TextField
                                     id="badgeCriteria"
                                     name="badgeCriteria"
-                                    defaultValue=""
+                                    value={this.state.badgeCriteria}
+                                    onChange={e => this.change(e) }
                                     multiline
                                     placeholder="Criteria:"
                                     className={classes.textField}
                                     margin="normal"
                                 />
                             <div className={classes.controls}>
-                                <Button type="submit" className={classes.verificationButton} variant="raised" color="success" style={{backgroundColor: '#00C853', color:'white'}}>Create Badge</Button>
+                                <Button onClick={e => this.handleSubmit(e)} name="createBadge" id="createBadge" className={classes.verificationButton} variant="raised" color="success" style={{backgroundColor: '#00C853', color:'white'}}>Create Badge</Button>
                                 <Button className={classes.verificationButton} variant="raised" color="success" style={{backgroundColor: '#F44336', color:'white'}}>Cancel</Button>
                             </div>
                         </CardContent>
@@ -162,4 +165,5 @@ CreateBadgeCard.propTypes = {
     theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(CreateBadgeCard);
+export default withStyles(styles, { withTheme: true }
+)(CreateBadgeCard);
