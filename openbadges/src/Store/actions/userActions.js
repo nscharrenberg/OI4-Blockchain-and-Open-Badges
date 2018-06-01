@@ -1,4 +1,5 @@
 export function changeFirstName(name) {
+    console.log('I got it');
     return {
         type: "CHANGE_FIRSTNAME",
         payload: {

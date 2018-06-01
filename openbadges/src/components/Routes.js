@@ -1,18 +1,12 @@
 import React, { Component } from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Switch,
-  Redirect
-} from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import Main from './Main';
 import Issuer from './Issuer';
 import Badge from './Badge';
 import Profile from './Profile';
 import Login from './Login';
 import Register from './Register';
-import Test from './Client';
+
 class Routes extends Component {
 
 	render () {

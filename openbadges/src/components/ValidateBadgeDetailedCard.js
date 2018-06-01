@@ -29,7 +29,6 @@ const styles = theme => ({
   },
   controls: {
     display: 'flex',
-    alignItems: 'center',
     alignItems: 'left',
     marginTop: '20px',
   },

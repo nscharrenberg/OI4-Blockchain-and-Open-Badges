@@ -1,8 +1,8 @@
 export default function reducer(state={
-    firstName: '',
-    lastName: '',
-    email: '',
-    username: ''
+    firstName: 'React',
+    lastName: 'Lover88',
+    email: 'react@love.com',
+    username: 'peppupano'
 }, action) {
     switch(action.type) {
         case "CHANGE_FIRSTNAME": {
