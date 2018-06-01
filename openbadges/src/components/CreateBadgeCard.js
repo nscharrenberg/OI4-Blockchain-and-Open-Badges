@@ -11,6 +11,7 @@ import TextField from '@material-ui/core/TextField';
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import axios from 'axios';
+import {compose} from "recompose";
 
 const styles = theme => ({
   card: {
@@ -165,5 +166,24 @@ CreateBadgeCard.propTypes = {
     theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true }
+function mapStateToProps(state) {
+    //console.log(state.userClass)
+    return {
+        name: state.userClass.firstName
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        onSubmit: (event) => {
+            event.preventDefault();
+            const action = {type: 'CHANGE_FIRSTNAME', payload: 'This is my new Name' };
+            dispatch(action);
+        }
+    }
+}
+
+export default compose(
+    withStyles(styles, { withTheme: true }),
+    connect(mapStateToProps, mapDispatchToProps)
 )(CreateBadgeCard);
