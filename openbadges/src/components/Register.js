@@ -12,6 +12,8 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import Lock from '@material-ui/icons/Lock';
 import Email from '@material-ui/icons/Email';
 import axios from 'axios';
+import { connect } from 'react-redux'
+import { compose } from 'recompose';
 
 const styles = theme => ({
     root: {
@@ -50,10 +52,10 @@ class Register extends React.Component {
         event.preventDefault();
         const data = new FormData(event.target);
 
+        this.context.store.userClass.firstName = data.firstName;
+        this.context.store.userClass.lastName = data.lastName;
 
-
-        console.log()
-
+        console.log(this.context.store.userClass);
     }
 
     render() {
@@ -69,7 +71,7 @@ class Register extends React.Component {
                                     <h1>Register</h1>
                                 </Grid>
                             </Grid>
-                            <form onSubmit={this.handleSubmit}>
+                            <form onSubmit={this.testStore}>
                                 <input name="entityType" id="entityType" value="SomeType" />
                                 <div className={classes.margin}>
                                     <Grid container spacing={24} alignItems={"flex-end"} justify={"center"}>
@@ -137,9 +139,20 @@ class Register extends React.Component {
     }
 }
 
+const mapStateToProps = state => ({
+    userState: state,
+})
+
+const mapDispatchToProps = dispatch => ({
+    getUserState: id => dispatch(id),
+})
+
 Register.propTypes = {
     classes: PropTypes.object.isRequired,
     theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(Register);
+export default compose(
+    withStyles(styles, { withTheme: true }),
+    connect(mapStateToProps, mapDispatchToProps)
+)(Register);

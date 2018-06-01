@@ -12,7 +12,6 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Routes from './Routes';
 import Button from '@material-ui/core/Button';
-import {connect} from 'react-redux';
 import {
     BrowserRouter as Router,
     Route,
@@ -161,5 +160,4 @@ MiniDrawer.propTypes = {
 	theme: PropTypes.object.isRequired,
 };
 
-@connect()
 export default withStyles(styles, { withTheme: true })(MiniDrawer);
