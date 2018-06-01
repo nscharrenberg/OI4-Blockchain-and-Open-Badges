@@ -1,9 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import BadgeCard from './Badge/Card';
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
@@ -39,11 +36,6 @@ class Register extends React.Component {
         staff: []
     }
 
-    componentDidMount () {
-        //console.log(store.userClass.name)
-        console.log('get it')
-    }
-
     handleSubmit(event) {
         event.preventDefault();
         const data = new FormData(event.target);
@@ -62,13 +54,14 @@ class Register extends React.Component {
     testStore(event) {
         event.preventDefault();
         const data = new FormData(event.target);
+        console.log(data);
 
         const name = 'kasper';
 
         //this.context.store.userClass.firstName = data.firstName;
         //this.context.store.userClass.lastName = data.lastName;
 
-        //props.dispatch(changeFirstName(name))
+        this.props.store.dispatch(changeFirstName(name))
 
         //console.log(this.context.store.userClass);
     }
@@ -81,7 +74,7 @@ class Register extends React.Component {
         return (
             <div>
                 <Grid container spacing={24} alignItems={"center"} justify={"center"}>
-                    <Grid item xs={4}>
+                    <Grid item xs={8}>
                         <Paper className={[classes.paper]}>
                             <Grid container spacing={24} alignItems={"flex-end"} justify={"center"}>
                                 <Grid item xs={12}>

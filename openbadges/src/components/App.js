@@ -1,12 +1,5 @@
 import React, { Component } from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Switch,
-  Redirect
-} from 'react-router-dom';
-import styling from '../assets/css/index.css';
+import { BrowserRouter as Router } from 'react-router-dom';
 import Skeleton from './Skeleton';
 import { Provider } from 'react-redux';
 import store from '../Store';

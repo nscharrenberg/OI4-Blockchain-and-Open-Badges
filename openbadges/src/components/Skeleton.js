@@ -12,13 +12,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Routes from './Routes';
 import Button from '@material-ui/core/Button';
-import {
-    BrowserRouter as Router,
-    Route,
-    Link,
-    Switch,
-    Redirect
-} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Nav from './Nav';
 
 const drawerWidth = 240;

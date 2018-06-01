@@ -1,4 +1,4 @@
-import { applyMiddleware, combineReducers, createStore} from 'redux';
+import { createStore} from 'redux';
 import reducers from './reducer';
 
 /*const initialState = {

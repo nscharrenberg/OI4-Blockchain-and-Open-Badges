@@ -47,7 +47,6 @@ class BadgeCard extends React.Component {
     super(props);
   }
 
-
   render () {
 
   const { classes, theme } = this.props;

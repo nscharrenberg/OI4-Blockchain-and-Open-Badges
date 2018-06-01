@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-function getBadges(data) {
+function getIssuerData(data) {
 
   return data = {
       "$class": "org.acme.empty.BadgeClass",
