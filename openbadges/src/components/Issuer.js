@@ -8,32 +8,22 @@ import CreateBadgeCard from './CreateBadgeCard';
 import AwardBadgeCard from './AwardBadgeCard';
 
 
-const styles = theme => ({
-    toolbar: theme.mixins.toolbar,
-});
-
 class Issuer extends React.Component {
 
     render () {
-        const { classes } = this.props;
         return (
             <div>
-                
+                {/**/}
                 <IssuerCard />
-                {/*<CreateBadgeCard />
+                <CreateBadgeCard />
                 <hr/>
                 <AwardBadgeCard />
                 <hr/>
                 <BadgeCard />
-                <ValidateBadgeCard />*/}
+                <ValidateBadgeCard />
             </div>
         );
     }
 }
-
-Issuer.propTypes = {
-    classes: PropTypes.object.isRequired,
-    theme: PropTypes.object.isRequired,
-};
 
 export default Issuer;

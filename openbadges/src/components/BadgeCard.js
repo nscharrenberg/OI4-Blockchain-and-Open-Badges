@@ -42,8 +42,15 @@ const styles = theme => ({
   }
 });
 
-function MediaControlCard(props) {
-  const { classes, theme } = props;
+class BadgeCard extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+
+  render () {
+
+  const { classes, theme } = this.props;
 
   return (
     <div>
@@ -85,11 +92,13 @@ function MediaControlCard(props) {
       </Card>
     </div>
   );
+
+  }
 }
 
-MediaControlCard.propTypes = {
+BadgeCard.propTypes = {
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(MediaControlCard);
+export default withStyles(styles, { withTheme: true })(BadgeCard);

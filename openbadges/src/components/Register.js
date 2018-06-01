@@ -38,13 +38,15 @@ class Register extends React.Component {
         event.preventDefault();
         const data = new FormData(event.target);
 
-        axios.post('http://192.168.27.142:3000/api/org.acme.empty.BadgeUser', {data})
+        console.log(data)
+
+        /*axios.post('http://192.168.27.142:3000/api/org.acme.empty.BadgeUser', {data})
             .then(res => {
                 console.log(res);
             })
             .catch(err => {
                 console.log(err);
-            })
+            })*/
     }
 
     render() {

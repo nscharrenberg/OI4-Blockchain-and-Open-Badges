@@ -62,8 +62,14 @@ const styles = theme => ({
   },
 });
 
-function DetailedExpansionPanel(props) {
-  const { classes } = props;
+class ValidateBadgeCard extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render () {
+
+  const { classes } = this.props;
   return (
     <div className={classes.root}>
       <ExpansionPanel>
@@ -91,10 +97,12 @@ function DetailedExpansionPanel(props) {
       </ExpansionPanel>
     </div>
   );
+
+  }
 }
 
-DetailedExpansionPanel.propTypes = {
+ValidateBadgeCard.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(DetailedExpansionPanel);
+export default withStyles(styles)(ValidateBadgeCard);

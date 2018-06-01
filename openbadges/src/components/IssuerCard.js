@@ -36,12 +36,15 @@ const styles = theme => ({
 });
 
 
-function IssuerCard(props) {
-  const { classes, theme} = props;
+class IssuerCard extends React.Component  {
+  constructor(props) {
+    super(props);
+  }
 
+  render () {
+
+  const { classes, theme} = this.props;
   let data = Client.getIssuerData()
-
-  console.log(data)
 
   return (
     <div>
@@ -68,12 +71,13 @@ function IssuerCard(props) {
       </Card>
     </div>
   );
+
+  }
 }
 
-/*IssuerCard.propTypes = {
+IssuerCard.propTypes = {
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
-  data: PropTypes.object.isRequired,
-};*/
+};
 
 export default withStyles(styles, { withTheme: true })(IssuerCard);
