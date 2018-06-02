@@ -62,7 +62,6 @@ class Register extends React.Component {
 
     render() {
         const { classes, theme } = this.props;
-
         return (
             <div>
                 <Grid container spacing={24} alignItems={"center"} justify={"center"}>
