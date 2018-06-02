@@ -5,13 +5,18 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import Lock from '@material-ui/icons/Lock';
 import Email from '@material-ui/icons/Email';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
-import { changeFirstName } from '../Store/actions/userActions';
+import Client from './Client';
 
 const styles = theme => ({
     root: {
@@ -30,40 +35,30 @@ const styles = theme => ({
 class Register extends React.Component {
     constructor(props) {
         super(props);
-    }
+        this.state = {
+            firstName: '',
+            lastName: '',
+            username: '',
+            emails: '',
+            password: '',
+            role: '',
 
-    state = {
-        staff: []
+        }
     }
 
     handleSubmit(event) {
         event.preventDefault();
-        const data = new FormData(event.target);
-
-        console.log(data)
-
-        /*axios.post('http://192.168.27.142:3000/api/org.acme.empty.BadgeUser', {data})
-            .then(res => {
-                console.log(res);
-            })
-            .catch(err => {
-                console.log(err);
-            })*/
+        this.props.onSubmit(this.state);
+        this.props.history.push("/profile");
     }
 
-    testStore(event) {
-        event.preventDefault();
-        const data = new FormData(event.target);
-        console.log(data);
+    change = e => {
+        this.setState({
+           [e.target.name]: e.target.value
+        });
+        console.log(this.state.username)
 
-        const name = 'kasper';
-
-        //this.context.store.userClass.firstName = data.firstName;
-        //this.context.store.userClass.lastName = data.lastName;
-        //console.log(this.context.store.userClass);
     }
-
-
 
     render() {
         const { classes, theme } = this.props;
@@ -78,16 +73,23 @@ class Register extends React.Component {
                                     <h1>Register</h1>
                                 </Grid>
                             </Grid>
-                            <form onSubmit={this.props.onSubmit}>
+                            <form onSubmit={this.handleSubmit.bind(this)}>
                             <p>{this.props.name}</p>
-                                <input name="entityType" id="entityType" value="SomeType" />
                                 <div className={classes.margin}>
                                     <Grid container spacing={24} alignItems={"flex-end"} justify={"center"}>
                                         <Grid item>
                                             <AccountCircle />
                                         </Grid>
                                         <Grid item>
-                                            <TextField id="firstName" name="firstName" label="First name" />
+                                            <TextField 
+                                            required 
+                                            id="firstName" 
+                                            name="firstName" 
+                                            label="First name" 
+                                            onChange={e => this.change(e) }
+                                            value={this.state.firstName}
+                                            />
+
                                         </Grid>
                                     </Grid>
                                 </div>
@@ -97,7 +99,14 @@ class Register extends React.Component {
                                             <AccountCircle />
                                         </Grid>
                                         <Grid item>
-                                            <TextField id="lastName" name="lastName" label="Last name" />
+                                            <TextField 
+                                            required 
+                                            id="lastName" 
+                                            name="lastName" 
+                                            label="Last name" 
+                                            onChange={e => this.change(e) }
+                                            value={this.state.lastName}
+                                            />
                                         </Grid>
                                     </Grid>
                                 </div>
@@ -107,7 +116,13 @@ class Register extends React.Component {
                                             <AccountCircle />
                                         </Grid>
                                         <Grid item>
-                                            <TextField id="username" label="Username" />
+                                            <TextField 
+                                            id="username" 
+                                            name="username" 
+                                            label="Username" 
+                                            onChange={e => this.change(e) }
+                                            value={this.state.username}
+                                            />
                                         </Grid>
                                     </Grid>
                                 </div>
@@ -117,7 +132,14 @@ class Register extends React.Component {
                                             <Email />
                                         </Grid>
                                         <Grid item>
-                                            <TextField id="emails" label="Email" />
+                                            <TextField 
+                                            required 
+                                            id="emails" 
+                                            name="emails" 
+                                            label="Email" 
+                                            onChange={e => this.change(e) }
+                                            value={this.state.emails}
+                                            />
                                         </Grid>
                                     </Grid>
                                 </div>
@@ -127,10 +149,57 @@ class Register extends React.Component {
                                             <Lock />
                                         </Grid>
                                         <Grid item>
-                                            <TextField id="password" type="password" label="Password" />
+                                            <TextField 
+                                            id="password" 
+                                            name="password" 
+                                            type="password" 
+                                            label="Password" 
+                                            onChange={e => this.change(e) }
+                                            value={this.state.password}
+                                            />
                                         </Grid>
                                     </Grid>
                                 </div>
+
+                                <div className={classes.margin}>
+                                    <Grid container spacing={24} alignItems={"flex-end"} justify={"center"}>
+                                        <Grid item>
+                                            <AccountCircle />
+                                        </Grid>
+                                        <Grid item>
+                                        <p>Role must be (BadgeUser, Teacher or Validator)</p>
+                                            <TextField 
+                                            required 
+                                            id="role" 
+                                            name="role" 
+                                            type="role" 
+                                            label="Type Role" 
+                                            onChange={e => this.change(e) }
+                                            value={this.state.role}
+                                            />
+                                        </Grid>
+                                    </Grid>
+                                </div>            
+
+                                {/* RADIO BUTTONS TO SELECT ROLE - DIDN'T KNOW HOW TO PARSE RADIO BUTTON
+
+                                <div className={classes.margin}>
+                                    <Grid container spacing={24} alignItems={"flex-end"} justify={"center"}>
+                                        <Grid item>
+                                            <FormControl>
+                                              <RadioGroup
+                                                name="role"
+                                                value={this.state.value}
+                                                onChange={this.handleChange}
+
+                                              >
+                                                <FormControlLabel value="teacher" name="teacher" parse={val => val === "true"} control={<Radio />} label="Teacher" />
+                                                <FormControlLabel value="validator" name="validator" parse={val => val === "true"} control={<Radio />} label="Validator" />
+                                              </RadioGroup>
+                                            </FormControl>
+                                        </Grid>
+                                    </Grid>
+                                </div>*/}
                                 <Grid container spacing={24} alignItems={"flex-end"} justify={"center"}>
                                     <Grid item xs={6}>
                                         <Button type="submit"  style={{width: '100%'}} size={"large"} color={"primary"} variant="raised" component="button" className={classes.button}>
@@ -154,7 +223,6 @@ Register.propTypes = {
 };
 
 function mapStateToProps(state) {
-    //console.log(state.userClass)
     return {
       name: state.userClass.firstName
     }
@@ -162,9 +230,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        onSubmit: (event) => {
-            event.preventDefault();
-            const action = {type: 'CHANGE_FIRSTNAME', payload: 'This is my new Name' };
+        onSubmit(data) {
+            console.log(data);
+            const action = {type: 'NEW_USER', payload: data };
             dispatch(action);
         }
     }

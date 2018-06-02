@@ -4,6 +4,7 @@ import BadgeCard from './BadgeCard';
 import ValidateBadgeCard from './ValidateBadgeCard';
 import CreateBadgeCard from './CreateBadgeCard';
 import AwardBadgeCard from './AwardBadgeCard';
+import Profile from './Profile';
 
 class Issuer extends React.Component {
 
@@ -16,7 +17,8 @@ class Issuer extends React.Component {
                 <AwardBadgeCard />
                 <hr/>
                 <BadgeCard />
-                <ValidateBadgeCard />*/}
+                <ValidateBadgeCard />
+                <Profile />*/}
             </div>
         );
     }

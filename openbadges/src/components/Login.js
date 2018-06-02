@@ -7,6 +7,12 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import Lock from '@material-ui/icons/Lock';
+import Client from './Client';
+import {bindActionCreators} from 'redux'
+import { connect } from 'react-redux';
+import { compose } from 'recompose';
+import  { Redirect } from 'react-router-dom'
+
 
 
 const styles = theme => ({
@@ -25,6 +31,46 @@ const styles = theme => ({
 
 
 class Login extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            username: '',
+            userData: [],
+        }
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleSubmit(event) {
+        event.preventDefault();
+        
+        //only teacher can login in right now
+        Client.search(`Teacher/${this.state.username}`)
+        .then(data => {
+            //console.log(data)
+            if (data.error) {
+                alert('screw you, no user') 
+            }
+            else {
+                //console.log('wuhuu, do lotto')
+                this.setState({
+                userData: data
+                })
+                //store userData to redux
+                this.props.onLogin(this.state.userData);
+                //redirect
+                this.props.history.push("/profile");
+            }
+        })
+
+    }
+
+    change = e => {
+        this.setState({
+           [e.target.name]: e.target.value
+        });
+        console.log(this.state.username)
+    }
+
     render() {
         const { classes, theme } = this.props;
 
@@ -32,6 +78,7 @@ class Login extends React.Component {
             <div>
                 <Grid container spacing={24} alignItems={"center"} justify={"center"}>
                     <Grid item xs={4}>
+                        <form onSubmit={this.handleSubmit.bind(this)}>
                             <Paper className={[classes.paper]}>
                                 <Grid container spacing={24} alignItems={"flex-end"} justify={"center"}>
                                     <Grid item xs={12}>
@@ -44,7 +91,15 @@ class Login extends React.Component {
                                             <AccountCircle />
                                         </Grid>
                                         <Grid item>
-                                            <TextField id="username" label="Username" />
+                                        <p>Type your EntityId</p>
+                                            <TextField 
+                                                required
+                                                id="username"
+                                                name="username"
+                                                label="Username" 
+                                                value={this.state.username}
+                                                onChange={e => this.change(e) }
+                                            />
                                         </Grid>
                                     </Grid>
                                 </div>
@@ -60,12 +115,13 @@ class Login extends React.Component {
                                 </div>
                                 <Grid container spacing={24} alignItems={"flex-end"} justify={"center"}>
                                     <Grid item xs={6}>
-                                        <Button style={{width: '100%'}} size={"large"} color={"primary"} variant="raised" href="#raised-buttons" className={classes.button}>
+                                        <Button  type="submit" style={{width: '100%'}} size={"large"} color={"primary"} variant="raised" className={classes.button}>
                                             Login
                                         </Button>
                                     </Grid>
                                 </Grid>
                             </Paper>
+                        </form>
                     </Grid>
                 </Grid>
             </div>
@@ -78,4 +134,22 @@ Login.propTypes = {
     theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(Login);
+function mapStateToProps(state) {
+    return {
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        onLogin(data) {
+            console.log(data)
+            const action = {type: 'LOGIN', payload: data };
+            dispatch(action);
+        }
+    }
+}
+
+export default compose(
+    withStyles(styles, { withTheme: true }),
+    connect(mapStateToProps, mapDispatchToProps)
+)(Login);

@@ -47,7 +47,6 @@ class IssuerCard extends React.Component  {
   render () {
 
   const { classes, theme} = this.props;
-  let data = Client.getIssuerData()
 
   return (
     <div>

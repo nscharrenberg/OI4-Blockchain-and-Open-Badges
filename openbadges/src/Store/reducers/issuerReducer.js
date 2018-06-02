@@ -4,7 +4,6 @@ export default function reducer(state={
     www: 'http://www.example.com',
     img: './img/fontys_logo.png',
 }, action) {
-    console.log('issuerReducer got it');
     switch(action.type) {
         case "CHANGE_NAME": {
             state = {...state, name: action.payload}
@@ -19,6 +18,5 @@ export default function reducer(state={
             state = {...state, img: action.payload}
         }
     }
-
     return state;
 };
