@@ -26,7 +26,7 @@ class Profile extends React.Component {
 }
 
 function mapStateToProps(state) {
-    console.log(state.userClass)
+    console.log('this is from profile:',state.userClass)
 	return {
 		entityId: state.userClass.entityId,
 	    firstName: state.userClass.firstName,

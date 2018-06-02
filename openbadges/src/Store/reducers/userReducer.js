@@ -10,46 +10,47 @@ export default function reducer(state={
     role: 'Teacher', // hardcoded
 }, action) { 
     switch(action.type) {
-        case "NEW_USER": {
-            let entityId = Client.search(state.role)
-                .then(data => {
-                    //console.log(data.length)
-                    return data.length 
-                })
-
-            state = {...state, 
-                firstName: action.payload.firstName, 
-                lastName: action.payload.lastName, 
-                email: action.payload.emails, 
-                username: action.payload.username,
-                role: action.payload.role,
-                entityId: ''
+        case "NEW_USER" : {
+            
+            state = {
+                ...state, 
+                    firstName: action.payload.firstName,
+                    lastName: action.payload.lastName, 
+                    email: action.payload.emails, 
+                    username: action.payload.username,
+                    role: action.payload.role,
+                    entityId: action.id.toString()
             }
 
-            //console.log(action.payload);
-
-
             //create new user to blockchain
-            /*const data = [
+            const data = [
                 {
                     "$class": state.network + '.' + state.role,
-                    "entityId": "0003", //NEED TO FIX
+                    "entityId": action.id.toString(),
                     "firstName": state.firstName,
                     "lastName": state.lastName,
                     //"emails": state.email, // needed in API for all users
                 }
             ]
 
-            Client.create(state.role, data);*/
+            Client.create(state.role, data);
+            return state;
         }
-        case "LOGIN": {
+        case "LOGIN" : {
+            console.log('also login case got it!')
             state = {...state,
+                entityId: action.payload.entityId,
                 firstName: action.payload.firstName,
                 lastName: action.payload.lastName,
-                //role: action.payload.entityId.split('empty.')[1] // API need role
+                //and all other info when API is ok
+                //role:
+                //email:
+
             }
+            return state;
         }
+        default:
+            return state
     }
-    //console.log(state)
     return state;
 };

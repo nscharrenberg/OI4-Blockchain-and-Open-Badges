@@ -48,16 +48,21 @@ class Register extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        this.props.onSubmit(this.state);
-        this.props.history.push("/profile");
+        console.log(this.state.role)
+
+        if ((this.state.role == 'Teacher') || (this.state.role == "Validator") || (this.state.role == "BadgeUser")) {
+            this.props.onSubmit(this.state);
+            this.props.history.push("/profile");    
+        }
+        else {
+            alert('Incorrect user role')
+        }
     }
 
     change = e => {
         this.setState({
            [e.target.name]: e.target.value
         });
-        console.log(this.state.username)
-
     }
 
     render() {
@@ -230,9 +235,21 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         onSubmit(data) {
-            console.log(data);
-            const action = {type: 'NEW_USER', payload: data };
-            dispatch(action);
+            new Promise(
+                (resolve, reject) =>{
+                   Client.search(data.role)
+                    .then(data => {
+                        const nextId = parseInt(data.slice(-1)[0].entityId) + 1
+                        console.log('this is nextid:',nextId)
+                        sendData(nextId)
+                    })
+                });
+
+            function sendData(id) {
+                //console.log('this is what I send to redux:',data,id);
+                const action = {type: 'NEW_USER', payload: data, id: id };
+                dispatch(action);
+            }
         }
     }
 }

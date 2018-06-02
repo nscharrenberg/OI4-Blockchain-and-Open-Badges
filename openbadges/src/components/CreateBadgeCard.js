@@ -11,7 +11,8 @@ import TextField from '@material-ui/core/TextField';
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import axios from 'axios';
-import {compose} from "recompose";
+import { compose } from "recompose";
+import Client from './Client';
 
 const styles = theme => ({
   card: {
@@ -22,13 +23,13 @@ const styles = theme => ({
     display: 'flex',
     flexDirection: 'column',
   },
+  content: {
+    flex: '1 0 auto',
+  },
   cover: {
     alignText: 'center',
     padding: '5px',
     margin: '10px',
-    minWidth: 151,
-    height: 151,
-    backgroundColor: '#cecece',
   },
   controls: {
     display: 'flex',
@@ -54,30 +55,26 @@ const styles = theme => ({
     marginTop: '25%',
     textAlign: 'center',
   },
-    input: {
+  input: {
     display: 'none'
-    }
+  }
 });
-
 
 class CreateBadgeCard extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            imgHash: 'this_is_img_hash',
+            badgeName: '',
+            badgeDescription: '',
+            badgeCriteria: '',
+        }
     }
 
-    state = {
-        imgHash: '',
-        badgeName: 'dog',
-        badgeDescription: '',
-        badgeCriteria: '',
-    }
-
-
-    handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(e.target.files[0]);
-        // axios.post('ipfs.io/ipfs/', this.state.imgHash)
-        console.log(this.state);
+    handleSubmit(event) {
+        event.preventDefault();
+        this.props.onSubmit(this.state);
+        //this.props.history.push("/main");
     }
 
     change = e => {
@@ -92,7 +89,7 @@ class CreateBadgeCard extends React.Component {
         return (
             <div>
                 <Card className={classes.card}>
-                    <form>
+                    <form onSubmit={this.handleSubmit.bind(this)}>
                     <CardMedia className={classes.cover}>
                         <input
                             accept="image/*"
@@ -175,12 +172,27 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        onSubmit: (event) => {
-            event.preventDefault();
-            const action = {type: 'CHANGE_FIRSTNAME', payload: 'This is my new Name' };
-            dispatch(action);
+        onSubmit(data) {
+            new Promise(
+                (resolve, reject) =>{
+                   Client.search('NewBadge')
+                    .then(data => {
+                        console.log(data)
+                        //const nextId = parseInt(data[0].entityId) + 1
+                        const nextId = parseInt(data.slice(-1)[0].entityId) + 1
+                        console.log('this is nextid:',nextId)
+                        sendData(nextId)
+                    })
+                });
+
+            function sendData(id) {
+                //console.log('this is what I send to redux:',data,id);
+                const action = {type: 'NEW_BADGE', payload: data, id: id };
+                dispatch(action);
+            }
         }
     }
+
 }
 
 export default compose(

@@ -11,8 +11,9 @@ class Issuer extends React.Component {
     render () {
         return (
             <div>
-                <IssuerCard />
-                {/*<CreateBadgeCard />
+                
+                <CreateBadgeCard />
+                {/*<IssuerCard />
                 <hr/>
                 <AwardBadgeCard />
                 <hr/>
