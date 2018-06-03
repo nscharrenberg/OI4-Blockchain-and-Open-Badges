@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
-import ValidateBadgeDetailedCard from './ValidateBadgeDetailedCard';
+import BadgeDetailedCard from './BadgeDetailedCard';
 
 const styles = theme => ({
     root: {
@@ -55,7 +55,7 @@ const styles = theme => ({
     },
 });
 
-class ValidateBadgeCard extends React.Component {
+class SeeAwardedBadgesCard extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -77,15 +77,15 @@ class ValidateBadgeCard extends React.Component {
           <div className={classes.column}>
             <Typography className={classes.secondaryHeading}>Some Other Info</Typography>
           </div>
-          <div className={classes.columnButton}>
+          {/*<div className={classes.columnButton}>
             <Button className={classes.verificationButton} variant="raised" color="success" style={{backgroundColor: '#00C853'}}><i class="material-icons" style={{color:'white'}}>done</i></Button>
           </div>
           <div className={classes.columnButton}>
             <Button className={classes.verificationButton} variant="raised" color="success" style={{backgroundColor: '#F44336'}}><i class="material-icons" style={{color:'white'}}>clear</i></Button>
-          </div>
+          </div>*/}
         </ExpansionPanelSummary>
         <ExpansionPanelDetails className={classes.details}>
-          <ValidateBadgeDetailedCard />
+          <BadgeDetailedCard />
         </ExpansionPanelDetails>
       </ExpansionPanel>
     </div>
@@ -94,8 +94,8 @@ class ValidateBadgeCard extends React.Component {
   }
 }
 
-ValidateBadgeCard.propTypes = {
+SeeAwardedBadgesCard.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ValidateBadgeCard);
+export default withStyles(styles)(SeeAwardedBadgesCard);

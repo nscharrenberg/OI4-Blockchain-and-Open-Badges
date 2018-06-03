@@ -65,7 +65,13 @@ function MediaControlCard(props) {
             </Typography>
             <div className={classes.badgeInfo}>
             <Typography variant="subheading" color="textSecondary">
-              Badge Receiver Name
+              <h4>Validated: True/False</h4>
+            </Typography>
+            <Typography variant="subheading" color="textSecondary">
+              <h4>Validator: Name of Validator</h4>
+            </Typography>
+            <Typography variant="subheading" color="textSecondary">
+              <h4>Badge Creator: Name of Teacher</h4>
             </Typography>
             <Typography  variant="subheading" color="textSecondary">
             <h4>Description:</h4>
@@ -87,11 +93,7 @@ function MediaControlCard(props) {
             </Typography>
             <hr />
             </div>
-              <Typography variant="subheading" color="textSecondary" className={classes.verificationButton}>
-              Verificate issuing: 
-            </Typography>
-              <Button className={classes.verificationButton} variant="raised" color="success" style={{backgroundColor: '#00C853'}}><i class="material-icons" style={{color:'white'}}>done</i></Button>
-              <Button className={classes.verificationButton} variant="raised" color="success" style={{backgroundColor: '#F44336'}}><i class="material-icons" style={{color:'white'}}>clear</i></Button>
+              
           </CardContent>
         </div>
       </Card>

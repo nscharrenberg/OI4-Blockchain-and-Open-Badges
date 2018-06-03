@@ -28,7 +28,6 @@ const styles = theme => ({
   },
   controls: {
     display: 'flex',
-    alignItems: 'center',
     alignItems: 'left',
     marginTop: '20px',
   },
@@ -54,7 +53,7 @@ class BadgeCard extends React.Component {
   return (
     <div>
       <Card className={classes.card}>
-                  <CardMedia
+        <CardMedia
               className={classes.cover}
               image="https://badgr-io-media.s3.amazonaws.com/uploads/badges/issuer_badgeclass_da2d8fbd-f17b-4bb4-afe9-4b62c2d8f549.png"
               title="Issuer Organization Name"
@@ -82,8 +81,16 @@ class BadgeCard extends React.Component {
             <h4>Criteria:</h4>
             </Typography>
             <Typography variant="body" color="textSecondary">
-            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            
+            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>          
+            </Typography>
+            <Typography variant="subheading" color="textSecondary">
+              <h4>Validated: True/False</h4>
+            </Typography>
+            <Typography variant="subheading" color="textSecondary">
+              <h4>Validator: Name of Validator</h4>
+            </Typography>
+            <Typography variant="subheading" color="textSecondary">
+              <h4>Badge Creator: Name of Teacher</h4>
             </Typography>
             </div>
           </CardContent>

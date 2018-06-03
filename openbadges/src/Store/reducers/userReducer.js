@@ -1,13 +1,14 @@
 import Client from '../../components/Client.js'
 
 export default function reducer(state={
+    login: false,
     entityId:'',
     firstName: '',
     lastName: '',
     email: '',
     username: '', 
-    network: 'org.acme.empty',
-    role: 'Teacher', // hardcoded
+    network: 'org.acme.empty', //hardcoded for now
+    role: '', 
 }, action) { 
     switch(action.type) {
         case "NEW_USER" : {
@@ -19,7 +20,7 @@ export default function reducer(state={
                     email: action.payload.emails, 
                     username: action.payload.username,
                     role: action.payload.role,
-                    entityId: action.id.toString()
+                    entityId: action.id
             }
 
             //create new user to blockchain

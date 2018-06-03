@@ -3,7 +3,8 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import Skeleton from './Skeleton';
 import { Provider } from 'react-redux';
 import store from '../Store';
-
+import {connect} from 'react-redux';
+import { compose } from "recompose";
 
 class App extends Component {
 
