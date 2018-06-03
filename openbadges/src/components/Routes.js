@@ -6,13 +6,14 @@ import Badge from './Badge';
 import Profile from './Profile';
 import Login from './Login';
 import Register from './Register';
+import { Redirect } from 'react-router-dom'
 
 class Routes extends Component {
 
 	render () {
 		return (
 		<div>
-			<Route path="/main" component={Main} />
+			<Route exact path="/" component={Main} />
 			<Route path="/issuer" component={Issuer} />
 			<Route path="/badge" component={Badge} />
 			<Route path="/profile" component={Profile} />

@@ -20,7 +20,8 @@ export default function reducer(state={
                     email: action.payload.emails, 
                     username: action.payload.username,
                     role: action.payload.role,
-                    entityId: action.id
+                    entityId: action.id,
+                    login: action.login
             }
 
             //create new user to blockchain
@@ -30,11 +31,15 @@ export default function reducer(state={
                     "entityId": action.id.toString(),
                     "firstName": state.firstName,
                     "lastName": state.lastName,
-                    //"emails": state.email, // needed in API for all users
+                    "password": action.payload.password,
+                    "email": state.email,
+                    "role": state.role,
+                    "issuers": [],
                 }
             ]
 
             Client.create(state.role, data);
+            console.log('for b: ',data)
             return state;
         }
         case "LOGIN" : {
@@ -43,9 +48,9 @@ export default function reducer(state={
                 entityId: action.payload.entityId,
                 firstName: action.payload.firstName,
                 lastName: action.payload.lastName,
-                //and all other info when API is ok
-                //role:
-                //email:
+                login: action.login,
+                email: action.payload.email,
+                role: action.payload.role, 
 
             }
             return state;

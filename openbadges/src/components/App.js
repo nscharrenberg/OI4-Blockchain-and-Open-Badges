@@ -5,19 +5,51 @@ import { Provider } from 'react-redux';
 import store from '../Store';
 import {connect} from 'react-redux';
 import { compose } from "recompose";
+import LoginRegister from './LoginRegister';
+import { Redirect } from 'react-router-dom'
+
+function UserGreeting(props) {
+  return <div>
+          <Skeleton />
+         </div>;
+}
+
+function GuestGreeting(props) {
+  return <LoginRegister />
+}
+
+function Greeting(props) {
+      const isLoggedIn = props.isLoggedIn;
+      if (isLoggedIn) {
+            return <UserGreeting />;
+          }
+            return <GuestGreeting />;
+        }
 
 class App extends Component {
+  state = {
+    redirect: false
+  }
 
   render() {
     return (
-       <Provider store={store}>
-      <Router>
-        <div className='mainWrapper'>
-        <Skeleton />
-      </div>
-      </Router>
+      <Provider store={store}>
+        <Router>
+          <div className='mainWrapper'>
+            <Greeting isLoggedIn={this.props.login} />
+          </div>
+        </Router>
       </Provider>
     );
   }
 }
-export default App;
+
+function mapStateToProps(state) {
+    console.log(state.userClass)
+    return {
+        login: state.userClass.login,
+        username: state.userClass.name
+    }
+}
+
+export default connect(mapStateToProps)(App);
