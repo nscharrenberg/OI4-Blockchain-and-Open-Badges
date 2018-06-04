@@ -52,7 +52,7 @@ class Register extends React.Component {
 
         if ((this.state.role == 'Teacher') || (this.state.role == "Validator")) { //||  (this.state.role == "BadgeUser")) {
             this.props.onSubmit(this.state);
-            this.props.history.push("/");    
+            //this.props.history.push("/");    
         }
         else {
             alert('Incorrect user role')
@@ -239,15 +239,14 @@ function mapDispatchToProps(dispatch) {
                 (resolve, reject) =>{
                    Client.search(data.role)
                     .then(data => {
+                        //get next available entityId
                         let nextId = parseInt(data.slice(-1)[0].entityId) + 1
-                        //console.log('this is nextid:',nextId)
                         sendData(nextId) 
                     })
                 });
 
             function sendData(id) {
                 const login = true
-                //console.log('this is what I send to redux:',data, 'id: ',id);
                 const action = {type: 'NEW_USER', payload: data, id: id, login:login };
                 dispatch(action);
             }

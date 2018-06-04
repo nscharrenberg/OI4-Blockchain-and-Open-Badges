@@ -65,7 +65,6 @@ function mapStateToProps(state) {
                 message: 'Kevin confirmed something.',
                 link: '/badge',
             }
-
         ]
     }
 }

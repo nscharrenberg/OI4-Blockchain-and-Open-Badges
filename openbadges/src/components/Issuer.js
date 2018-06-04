@@ -19,7 +19,8 @@ class Issuer extends React.Component {
     render () {
         return (
             <div>
-                <IssuerCard />
+                {/* DOESN'T WORK ANYMORE - HAS TO SEND ISSUER INFO 
+                <IssuerCard />*/}
                 <CreateBadgeCard />
                 <hr/>
                 <ValidateNewBadgeCard />

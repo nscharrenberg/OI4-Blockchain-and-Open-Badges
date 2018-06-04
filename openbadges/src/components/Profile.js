@@ -18,6 +18,13 @@ class Profile extends React.Component {
             <p>Username: {this.props.username}</p>
             <p>Network: {this.props.network}</p>
             <p>Role: {this.props.role}</p>
+            <h4>Issuers:</h4>
+                {this.props.issuers.map((issuer, i) => (
+                    <div>
+                        <p>Issuer name: {issuer.name}</p>
+                        <p>Issuer Id: {issuer.entityId}</p>
+                    </div> 
+                ))}
             </div>
         );
     }
@@ -33,6 +40,7 @@ function mapStateToProps(state) {
 	    username: state.userClass.username,
 	    network: state.userClass.network,
 	    role: state.userClass.role,
+        issuers: state.userClass.issuers,
 	}
 }
 

@@ -59,13 +59,14 @@ class CreateBadgeCard extends React.Component {
 			badgeName: '',
 			badgeDescription: '',
 			badgeCriteria: '',
+      entityId: props.entityId,
+      issuerId: props.issuerId,
 		}
 	}
 
 	handleSubmit(event) {
 		event.preventDefault();
 		this.props.onSubmit(this.state);
-		//this.props.history.push("/main");
 	}
 
 	change = e => {
@@ -103,11 +104,13 @@ class CreateBadgeCard extends React.Component {
                                     Badge Name:
                                 </Typography>
                                 <TextField
-                                    id="name"
-                                    name="name"
+                                    id="badgeName"
+                                    name="badgeName"
                                     placeholder="Name of the Badge:"
                                     className={classes.textField}
                                     margin="normal"
+                                    onChange={e => this.change(e) }
+                                    value={this.state.firstName}
                                 />
                             <Typography variant="subheading" color="textSecondary">
                                 Description:
@@ -119,6 +122,8 @@ class CreateBadgeCard extends React.Component {
                                     placeholder="Description:"
                                     className={classes.textField}
                                     margin="normal"
+                                    onChange={e => this.change(e) }
+                                    value={this.state.firstName}
                                 /><Typography variant="subheading" color="textSecondary">
                                 Criteria:
                             </Typography>
@@ -129,6 +134,8 @@ class CreateBadgeCard extends React.Component {
                                     placeholder="Criteria:"
                                     className={classes.textField}
                                     margin="normal"
+                                    onChange={e => this.change(e) }
+                                    value={this.state.firstName}
                                 />
                             <div className={classes.controls}>
                                 <Button type={"submit"} name="createBadge" id="createBadge" className={classes.verificationButton} variant="raised" color="success" style={{backgroundColor: '#00C853', color:'white'}}>Create Badge</Button>
@@ -149,21 +156,22 @@ CreateBadgeCard.propTypes = {
 };
 
 function mapStateToProps(state) {
-	//console.log(state.userClass)
+	console.log(state.userClass)
 	return {
-		name: state.userClass.firstName
+		entityId: state.userClass.entityId,
+    issuerId: state.issuerClass.issuerId,
 	}
 }
 
 function mapDispatchToProps(dispatch) {
 	return {
 		onSubmit(data) {
+      console.log('this is badge data: ' ,data)
+
 			new Promise(
 				(resolve, reject) =>{
 				   Client.search('NewBadge')
 					.then(data => {
-						console.log(data)
-						//const nextId = parseInt(data[0].entityId) + 1
 						const nextId = parseInt(data.slice(-1)[0].entityId) + 1
 						console.log('this is nextid:',nextId)
 						sendData(nextId)
@@ -171,8 +179,8 @@ function mapDispatchToProps(dispatch) {
 				});
 
 			function sendData(id) {
-				//console.log('this is what I send to redux:',data,id);
-				const action = {type: 'NEW_BADGE', payload: data, id: id };
+				//console.log('this is what I send to redux:',data, 'id: ', id);
+				const action = {type: 'NEW_BADGE', payload: data, id: id};
 				dispatch(action);
 			}
 		}

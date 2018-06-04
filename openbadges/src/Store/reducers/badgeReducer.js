@@ -1,9 +1,7 @@
 import Client from '../../components/Client.js'
 
 export default function reducer(state={
-    //default Badge info is hardcoded
-
-    network: 'org.acme.empty',
+    network: 'org.acme.empty', //hardcoded, need to be fixed, somewhere, somehow
     /*name: 'My Default Name',
     imageUrl: 'Lover88',
     description: 'react@love.com',
@@ -38,15 +36,12 @@ export default function reducer(state={
                   "imageUrl": action.payload.imgHash,
                   "description": action.payload.badgeDescription,
                   "criteriaUrl": action.payload.badgeCriteria,
-                  "issuerId": "dummyForNow",
-                  "teacherId": "dummyForNow",
+                  "issuerId": action.payload.issuerId,
+                  "teacherId": action.payload.entityId,
                   "timestamp": new Date(new Date().toString().split('GMT')[0]+' UTC').toISOString()
                 }
             ]
-
-            console.log(data)
-
-            //Client.create(transactionName, data);
+            Client.create(transactionName, data);
         }
     }
 

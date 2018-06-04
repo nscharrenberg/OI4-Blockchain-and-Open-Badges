@@ -11,7 +11,6 @@ import Client from './Client';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 
-
 const styles = theme => ({
   card: {
     display: 'flex',
@@ -47,24 +46,26 @@ class IssuerCard extends React.Component  {
   render () {
 
   const { classes, theme} = this.props;
+  console.log('Issuer Props :',this.props.issuer)
 
   return (
     <div>
       <Card className={classes.card}> 
                   <CardMedia
               className={classes.cover}
-              image={this.props.img}
+              image="./img/fontys_logo.png" //NEED TO GET THIS FROM BLOCKCHAIN
               title="Issuer Organization Name"
             />
         <div className={classes.details}>
           <CardContent className={classes.content}>
-            <Typography variant="headline">Issuer Name: {this.props.name}</Typography>
+            <Typography variant="headline">Issuer Name: {this.props.issuer.name}</Typography>
             <Typography variant="subheading" color="textSecondary">
-            {this.props.description}
+            {this.props.issuer.description}
             </Typography>
             <div className={classes.controls}>
                 <Button>WWW</Button>
                 <Button>STAFF</Button>
+                <Button>EMAIl</Button>
                 <Button><i class="material-icons">edit</i></Button>
             </div>
           </CardContent>
@@ -89,9 +90,10 @@ function mapStateToProps(state) {
       name: state.issuerClass.name,
       description: state.issuerClass.description,
       www: state.issuerClass.www,
-      img: state.issuerClass.img
+      img: state.issuerClass.img,
+      email: state.issuerClass.email,
+      issuers: state.userClass.issuers,
     }
-
 }
 
 export default compose(

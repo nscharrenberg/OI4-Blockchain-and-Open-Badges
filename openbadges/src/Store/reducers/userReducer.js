@@ -8,7 +8,8 @@ export default function reducer(state={
     email: '',
     username: '', 
     network: 'org.acme.empty', //hardcoded for now
-    role: '', 
+    role: '',
+    issuers: [],
 }, action) { 
     switch(action.type) {
         case "NEW_USER" : {
@@ -21,7 +22,7 @@ export default function reducer(state={
                     username: action.payload.username,
                     role: action.payload.role,
                     entityId: action.id,
-                    login: action.login
+                    login: action.login,
             }
 
             //create new user to blockchain
@@ -34,24 +35,24 @@ export default function reducer(state={
                     "password": action.payload.password,
                     "email": state.email,
                     "role": state.role,
-                    "issuers": [],
+                    "issuers": [1001],
                 }
             ]
 
             Client.create(state.role, data);
-            console.log('for b: ',data)
+            console.log('to blockchain, new user: ',data)
             return state;
         }
         case "LOGIN" : {
-            console.log('also login case got it!')
+
             state = {...state,
                 entityId: action.payload.entityId,
                 firstName: action.payload.firstName,
                 lastName: action.payload.lastName,
                 login: action.login,
                 email: action.payload.email,
-                role: action.payload.role, 
-
+                role: action.payload.role,
+                issuers: action.payload.issuers, // store issuers under current user
             }
             return state;
         }
