@@ -20,7 +20,6 @@ class Issuer extends React.Component {
         return (
             <div>
                 <IssuerCard />
-                <hr/>
                 <CreateBadgeCard />
                 <hr/>
                 <ValidateNewBadgeCard />
@@ -28,10 +27,7 @@ class Issuer extends React.Component {
                 <AwardBadgeCard />
                 <hr/>
                 <BadgeCard />
-                <hr/>
                 <ValidateBadgeAwardCard />
-                <hr/>
-                <SeeAwardedBadgesCard />
             </div>
         );
     }

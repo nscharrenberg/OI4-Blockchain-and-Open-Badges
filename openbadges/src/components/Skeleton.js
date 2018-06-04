@@ -10,6 +10,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import NotificationIcon from '@material-ui/icons/Notifications';
 import Routes from './Routes';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
@@ -119,6 +120,7 @@ class MiniDrawer extends React.Component {
 						<Typography variant="title" color="inherit" className={classes.flex}>
 							Open Badges
 						</Typography>
+                        <Link to="/notifications"><Button color="inherit"><NotificationIcon /></Button></Link>
                         <Link to="/profile"><Button color="inherit">Login</Button></Link>
 					</Toolbar>
 				</AppBar>
