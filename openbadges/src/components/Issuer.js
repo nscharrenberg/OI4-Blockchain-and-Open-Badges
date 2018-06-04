@@ -18,7 +18,7 @@ class Issuer extends React.Component {
 
     render () {
         return (
-            <div>  
+            <div>
                 <IssuerCard />
                 <hr/>
                 <CreateBadgeCard />
