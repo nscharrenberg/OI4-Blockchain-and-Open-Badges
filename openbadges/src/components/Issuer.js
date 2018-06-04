@@ -27,7 +27,7 @@ class Issuer extends React.Component {
                 <AwardBadgeCard />
                 <hr/>
                 <BadgeCard />
-                <ValidateBadgeCard />
+                <ValidateBadgeAwardCard />
             </div>
         );
     }
