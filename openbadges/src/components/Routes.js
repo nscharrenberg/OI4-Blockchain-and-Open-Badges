@@ -6,6 +6,7 @@ import Badge from './Badge';
 import Profile from './Profile';
 import Login from './Login';
 import Register from './Register';
+import Notifications from './Notifications';
 import { Redirect } from 'react-router-dom'
 
 class Routes extends Component {
@@ -19,6 +20,7 @@ class Routes extends Component {
 			<Route path="/profile" component={Profile} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
+            <Route path="/notifications" component={Notifications} />
 		</div>
 		);
 	}
