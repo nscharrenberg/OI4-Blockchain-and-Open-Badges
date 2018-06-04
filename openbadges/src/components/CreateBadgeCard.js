@@ -112,10 +112,8 @@ class CreateBadgeCard extends React.Component {
                                     Badge Name:
                                 </Typography>
                                 <TextField
-                                    id="badgeName"
-                                    name="badgeName"
-                                    value={this.state.badgeName}
-                                    onChange={e => this.change(e) }
+                                    id="name"
+                                    name="name"
                                     placeholder="Name of the Badge:"
                                     className={classes.textField}
                                     margin="normal"
@@ -126,8 +124,6 @@ class CreateBadgeCard extends React.Component {
                                 <TextField
                                     id="badgeDescription"
                                     name="badgeDescription"
-                                    value={this.state.badgeDescription}
-                                    onChange={e => this.change(e) }
                                     multiline
                                     placeholder="Description:"
                                     className={classes.textField}
@@ -138,15 +134,13 @@ class CreateBadgeCard extends React.Component {
                                 <TextField
                                     id="badgeCriteria"
                                     name="badgeCriteria"
-                                    value={this.state.badgeCriteria}
-                                    onChange={e => this.change(e) }
                                     multiline
                                     placeholder="Criteria:"
                                     className={classes.textField}
                                     margin="normal"
                                 />
                             <div className={classes.controls}>
-                                <Button onClick={e => this.handleSubmit(e)} name="createBadge" id="createBadge" className={classes.verificationButton} variant="raised" color="success" style={{backgroundColor: '#00C853', color:'white'}}>Create Badge</Button>
+                                <Button type={"submit"} name="createBadge" id="createBadge" className={classes.verificationButton} variant="raised" color="success" style={{backgroundColor: '#00C853', color:'white'}}>Create Badge</Button>
                                 <Button className={classes.verificationButton} variant="raised" color="success" style={{backgroundColor: '#F44336', color:'white'}}>Cancel</Button>
                             </div>
                         </CardContent>

@@ -11,15 +11,13 @@ class Issuer extends React.Component {
     render () {
         return (
             <div>
-                
+                <IssuerCard />
                 <CreateBadgeCard />
-                {/*<IssuerCard />
                 <hr/>
                 <AwardBadgeCard />
                 <hr/>
                 <BadgeCard />
                 <ValidateBadgeCard />
-                <Profile />*/}
             </div>
         );
     }
