@@ -58,7 +58,7 @@ class Login extends React.Component {
                 //store userData to redux
                 this.props.onLogin(this.state.userData);
                 //redirect
-                this.props.history.push("/profile");
+                //this.props.history.push("/profile");
             }
         })
 
@@ -143,7 +143,7 @@ function mapDispatchToProps(dispatch) {
     return {
         onLogin(data) {
             console.log(data)
-            const action = {type: 'LOGIN', payload: data };
+            const action = {type: 'LOGIN', payload: data, login: true };
             dispatch(action);
         }
     }

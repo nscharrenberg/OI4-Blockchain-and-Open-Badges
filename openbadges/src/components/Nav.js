@@ -27,7 +27,7 @@ class Nav extends Component {
             <div>
                 <Divider />
                 <List>
-					<Link to="/Main">
+					<Link to="/">
 						<ListItem button>
 							<ListItemIcon>
 								<InboxIcon />

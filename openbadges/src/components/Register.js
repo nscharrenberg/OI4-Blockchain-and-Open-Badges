@@ -50,9 +50,9 @@ class Register extends React.Component {
         event.preventDefault();
         console.log(this.state.role)
 
-        if ((this.state.role == 'Teacher') || (this.state.role == "Validator") || (this.state.role == "BadgeUser")) {
+        if ((this.state.role == 'Teacher') || (this.state.role == "Validator")) { //||  (this.state.role == "BadgeUser")) {
             this.props.onSubmit(this.state);
-            this.props.history.push("/profile");    
+            this.props.history.push("/");    
         }
         else {
             alert('Incorrect user role')
@@ -171,7 +171,7 @@ class Register extends React.Component {
                                             <AccountCircle />
                                         </Grid>
                                         <Grid item>
-                                        <p>Role must be (BadgeUser, Teacher or Validator)</p>
+                                        <p>Role must be (Teacher or Validator)</p> {/*BadgeUser need IF POST because no issuer*/}
                                             <TextField 
                                             required 
                                             id="role" 
@@ -239,15 +239,16 @@ function mapDispatchToProps(dispatch) {
                 (resolve, reject) =>{
                    Client.search(data.role)
                     .then(data => {
-                        const nextId = parseInt(data.slice(-1)[0].entityId) + 1
-                        console.log('this is nextid:',nextId)
-                        sendData(nextId)
+                        let nextId = parseInt(data.slice(-1)[0].entityId) + 1
+                        //console.log('this is nextid:',nextId)
+                        sendData(nextId) 
                     })
                 });
 
             function sendData(id) {
-                //console.log('this is what I send to redux:',data,id);
-                const action = {type: 'NEW_USER', payload: data, id: id };
+                const login = true
+                //console.log('this is what I send to redux:',data, 'id: ',id);
+                const action = {type: 'NEW_USER', payload: data, id: id, login:login };
                 dispatch(action);
             }
         }
