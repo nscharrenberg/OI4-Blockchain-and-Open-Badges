@@ -6,7 +6,6 @@ import store from '../Store';
 import {connect} from 'react-redux';
 import { compose } from "recompose";
 import LoginRegister from './LoginRegister';
-import { Redirect } from 'react-router-dom'
 
 function UserGreeting(props) {
   return <div>

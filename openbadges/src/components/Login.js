@@ -13,8 +13,6 @@ import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import  { Redirect } from 'react-router-dom'
 
-
-
 const styles = theme => ({
     root: {
         flexGrow: 1,
@@ -46,16 +44,14 @@ class Login extends React.Component {
         //only teacher can login in right now
         Client.search(`Teacher/${this.state.username}`)
         .then(data => {
-            //console.log(data)
             if (data.error) {
-                alert('screw you, no user') 
+                alert('Screw you, no user') 
             }
             else {
-                //console.log('wuhuu, do lotto')
                 this.setState({
                 userData: data
                 })
-                //store userData to redux
+                //store userData to redux and to blockchain
                 this.props.onLogin(this.state.userData);
                 //redirect
                 //this.props.history.push("/profile");
