@@ -25,20 +25,37 @@ export default function reducer(state={
                     login: action.login,
             }
 
-            //create new user to blockchain
-            const data = [
-                {
-                    "$class": state.network + '.' + state.role,
-                    "entityId": action.id.toString(),
-                    "firstName": state.firstName,
-                    "lastName": state.lastName,
-                    "password": action.payload.password,
-                    "email": state.email,
-                    "role": state.role,
-                    "issuers": [1001],
-                }
-            ]
+            let data = [];
 
+            if((action.payload.role == "Teacher") || (action.payload.role == "Validator")) {
+                data = [
+                    {
+                        "$class": state.network + '.' + state.role,
+                        "entityId": action.id.toString(),
+                        "firstName": state.firstName,
+                        "lastName": state.lastName,
+                        "password": action.payload.password,
+                        "email": state.email,
+                        "role": state.role,
+                        "issuers": [1001],
+                    }
+                ]
+            }
+            if(action.payload.role == "BadgeUser") {
+                data = [
+                    {
+                        "$class": state.network + '.' + state.role,
+                        "entityId": action.id.toString(),
+                        "firstName": state.firstName,
+                        "lastName": state.lastName,
+                        "password": action.payload.password,
+                        "email": state.email,
+                        "role": state.role,
+                    }
+                ]
+            }
+
+            //create new user to blockchain
             Client.create(state.role, data);
             console.log('to blockchain, new user: ',data)
             return state;

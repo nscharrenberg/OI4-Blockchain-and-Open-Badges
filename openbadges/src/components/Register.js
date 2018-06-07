@@ -49,7 +49,7 @@ class Register extends React.Component {
         event.preventDefault();
         console.log(this.state.role)
 
-        if ((this.state.role == 'Teacher') || (this.state.role == "Validator")) { //||  (this.state.role == "BadgeUser")) {
+        if ((this.state.role == 'Teacher') || (this.state.role == "Validator") ||  (this.state.role == "BadgeUser")) {
             this.props.onSubmit(this.state);
             //this.props.history.push("/");    
         }
@@ -170,7 +170,7 @@ class Register extends React.Component {
                                             <AccountCircle />
                                         </Grid>
                                         <Grid item>
-                                        <p>Role must be (Teacher or Validator)</p> {/*BadgeUser need IF POST because no issuer*/}
+                                        <p>Role must be (Teacher, Validator, BadgeUser)</p>
                                             <TextField 
                                             required 
                                             id="role" 
