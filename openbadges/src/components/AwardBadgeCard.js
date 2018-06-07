@@ -53,30 +53,13 @@ class AwardBadgeCard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: ''
-        };
-    }
-
-    handleSubmit(event) {
-        event.preventDefault();
-
-        //only teacher can login in right now
-        Client.search(`Teacher/${this.state.username}`)
-            .then(data => {
-                if (data.error) {
-                    alert('Screw you, no user')
-                }
-                else {
-                    this.setState({
-                        userData: data
-                    })
-                    //store userData to redux and to blockchain
-                    this.props.onLogin(this.state.userData);
-                    //redirect
-                    //this.props.history.push("/profile");
-                }
-            })
-
+            firstName: '',
+            lastName: '',
+            username: '',
+            emails: '',
+            password: '',
+            role: '',
+        }
     }
 
     render () {
@@ -90,7 +73,8 @@ class AwardBadgeCard extends React.Component {
                         className={classes.cover}
                         image="https://badgr-io-media.s3.amazonaws.com/uploads/badges/issuer_badgeclass_da2d8fbd-f17b-4bb4-afe9-4b62c2d8f549.png"
                         title="Issuer Organization Name"
-                    />        <div className={classes.details}>
+                    />
+                    <div className={classes.details}>
                     <CardContent className={classes.content}>
                         <Typography variant="headline">Badge Class Name</Typography>
                         <Typography variant="subheading" color="textSecondary">
@@ -101,7 +85,7 @@ class AwardBadgeCard extends React.Component {
                             <Typography variant="subheading" color="textSecondary">
                                 Badge Receiver:</Typography>
                             <TextField
-                                id="badgeName"
+                                id="receiverName"
                                 defaultValue=""
                                 placeholder="Name of the person:"
                                 className={classes.textField}
@@ -111,7 +95,7 @@ class AwardBadgeCard extends React.Component {
                                 Badge Receiver Email:
                             </Typography>
                             <TextField
-                                id="badgeName"
+                                id="receiveEmail"
                                 defaultValue=""
                                 placeholder="Email of the person:"
                                 className={classes.textField}
@@ -120,20 +104,10 @@ class AwardBadgeCard extends React.Component {
                             Evidence:
                         </Typography>
                             <TextField
-                                id="badgeDescription"
+                                id="receiverEvidence"
                                 defaultValue=""
                                 multiline
                                 placeholder="Evidence (optional:"
-                                className={classes.textField}
-                                margin="normal"
-                            /><Typography variant="subheading" color="textSecondary">
-                            Something else?:
-                        </Typography>
-                            <TextField
-                                id="badgeCriteria"
-                                defaultValue=""
-                                multiline
-                                placeholder="LOLLEROO:"
                                 className={classes.textField}
                                 margin="normal"
                             />
@@ -147,7 +121,6 @@ class AwardBadgeCard extends React.Component {
                 </Card>
             </div>
         );
-
     }
 }
 
@@ -156,4 +129,23 @@ AwardBadgeCard.propTypes = {
     theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(AwardBadgeCard);
+function mapStateToProps(state) {
+    return {
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        onLogin(data) {
+            console.log(data)
+            const action = {type: 'LOGIN', payload: data, login: true };
+            dispatch(action);
+        }
+    }
+}
+
+
+export default compose(
+    withStyles(styles, { withTheme: true }),
+    connect(mapStateToProps, mapDispatchToProps)
+)(AwardBadgeCard);

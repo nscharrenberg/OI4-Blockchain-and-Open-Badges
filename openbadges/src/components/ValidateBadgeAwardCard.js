@@ -9,6 +9,10 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
 import BadgeDetailedCard from './BadgeDetailedCard';
+import AwardBadge from '../Store/actions/badgeActions';
+import Client from "../Store/actions/ClientActions";
+import {compose} from "recompose";
+import {connect} from "react-redux";
 
 const styles = theme => ({
     root: {
@@ -59,9 +63,37 @@ const styles = theme => ({
 });
 
 class ValidateBadgeAwardCard extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+    constructor(props) {
+        super(props);
+        this.state = {
+            entityId: this.props.badge.entityId,
+            badgeId: this.props.badge.badgeId,
+            userId: this.props.badge.userId,
+            teacherId: this.props.badge.teacherId,
+            transactionId: this.props.badge.transactionId,
+            timestamp: this.props.badge.timestamp,
+            validate: false,
+        }
+    }
+
+    handleSubmit(event) {
+        event.preventDefault();
+
+    }
+
+    accept() {
+        this.state.validate = true;
+    }
+
+    decline() {
+        this.state.validate = false;
+    }
+
+    change = e => {
+        this.setState({
+            [e.target.name]: e.target.value
+        });
+    }
 
   render () {
 
@@ -75,16 +107,16 @@ class ValidateBadgeAwardCard extends React.Component {
           <Avatar alt="BadgeLogo" src="https://badgr-io-media.s3.amazonaws.com/uploads/badges/issuer_badgeclass_da2d8fbd-f17b-4bb4-afe9-4b62c2d8f549.png" className={classes.cover} />
           </div>
           <div className={classes.column}>
-            <Typography className={classes.heading}>Kasper Hämäläinen</Typography>
+            <Typography className={classes.heading}>{this.props.state.badgeId}</Typography>
           </div>
           <div className={classes.column}>
             <Typography className={classes.secondaryHeading}>Some Other Info</Typography>
           </div>
           <div className={classes.columnButton}>
-            <Button variant="raised" color="success" style={{backgroundColor: '#00C853'}}><i class="material-icons" style={{color:'white'}}>done</i></Button>
+            <Button variant="raised" onClick={this.accept} color="success" style={{backgroundColor: '#00C853'}}><i class="material-icons" style={{color:'white'}}>done</i></Button>
           </div>
           <div className={classes.columnButton}>
-            <Button variant="raised" color="success" style={{backgroundColor: '#F44336'}}><i class="material-icons" style={{color:'white'}}>clear</i></Button>
+            <Button variant="raised" onClick={this.decline} color="success" style={{backgroundColor: '#F44336'}}><i class="material-icons" style={{color:'white'}}>clear</i></Button>
           </div>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails className={classes.details}>
@@ -93,8 +125,8 @@ class ValidateBadgeAwardCard extends React.Component {
           <Typography variant="subheading" color="textSecondary">
               Verificate issuing: 
             </Typography>
-              <Button className={classes.columnButton} variant="raised" color="success" style={{backgroundColor: '#00C853'}}><i class="material-icons" style={{color:'white'}}>done</i></Button>
-              <Button className={classes.columnButton} variant="raised" color="success" style={{backgroundColor: '#F44336'}}><i class="material-icons" style={{color:'white'}}>clear</i></Button>
+              <Button onClick={this.accept} className={classes.columnButton} variant="raised" color="success" style={{backgroundColor: '#00C853'}}><i class="material-icons" style={{color:'white'}}>done</i></Button>
+              <Button onClick={this.decline} className={classes.columnButton} variant="raised" color="success" style={{backgroundColor: '#F44336'}}><i class="material-icons" style={{color:'white'}}>clear</i></Button>
           </div>
         </ExpansionPanelDetails>
       </ExpansionPanel>
@@ -106,6 +138,37 @@ class ValidateBadgeAwardCard extends React.Component {
 
 ValidateBadgeAwardCard.propTypes = {
   classes: PropTypes.object.isRequired,
-};
+}
 
-export default withStyles(styles)(ValidateBadgeAwardCard);
+function mapStateToProps(state) {
+    return {
+        name: state.userClass.firstName
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        onSubmit(data) {
+            new Promise(
+                (resolve, reject) =>{
+                    Client.search(data.role)
+                        .then(data => {
+                            //get next available entityId
+                            let nextId = parseInt(data.slice(-1)[0].entityId) + 1
+                            sendData(nextId)
+                        })
+                });
+
+            function sendData(id) {
+                const login = true
+                const action = {type: 'NEW_USER', payload: data, id: id, login:login };
+                dispatch(action);
+            }
+        }
+    }
+}
+
+export default compose(
+    withStyles(styles, { withTheme: true }),
+    connect(mapStateToProps, mapDispatchToProps)
+)(ValidateBadgeAwardCard);
