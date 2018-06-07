@@ -9,6 +9,7 @@ import Register from './Register';
 import Notifications from './Notifications';
 import { Redirect } from 'react-router-dom'
 import IssuerCreate from './IssuerCreate';
+import ValidateBadges from './ValidateBadges';
 class Routes extends Component {
 
 	render () {
@@ -22,6 +23,7 @@ class Routes extends Component {
             <Route path="/register" component={Register} />
             <Route path="/notifications" component={Notifications} />
             <Route path="/issuer/create" component={IssuerCreate} />
+			<Route Path="/badges/issued" component={ValidateBadges} />
 		</div>
 		);
 	}

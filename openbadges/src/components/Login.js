@@ -77,7 +77,7 @@ class Login extends React.Component {
         /*Client.search(`Teacher/${this.state.username}`)
         .then(data => {
             if (data.error) {
-                alert('Screw you, no user') 
+                alert('We could not find a user.')
             }
             else {
                 this.setState({
