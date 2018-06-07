@@ -1,4 +1,4 @@
-import Client from '../../components/Client.js'
+import Client from '../actions/ClientActions';
 
 export default function reducer(state={
     network: 'org.acme.empty', //hardcoded, need to be fixed, somewhere, somehow

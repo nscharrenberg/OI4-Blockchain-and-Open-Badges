@@ -16,7 +16,7 @@ import Email from '@material-ui/icons/Email';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
-import Client from './Client';
+import Client from '../Store/actions/ClientActions';
 
 const styles = theme => ({
     root: {

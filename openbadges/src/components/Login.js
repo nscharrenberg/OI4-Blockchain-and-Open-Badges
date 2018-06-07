@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import Lock from '@material-ui/icons/Lock';
-import Client from './Client';
+import Client from '../Store/actions/ClientActions';
 import {bindActionCreators} from 'redux'
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
