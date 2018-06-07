@@ -10,7 +10,7 @@ function search(query, cb) {
 }
 
 function create(type, data){
-    console.log(type, data) 
+    console.log(type, data)
     return new Promise((resolve, reject) => {
         return fetch(`http://192.168.27.142:3000/api/org.acme.empty.${type}`, {
             headers: {
@@ -20,13 +20,13 @@ function create(type, data){
             method: 'post',
             body: JSON.stringify(data)
         })
-        .then(parseJSON)
-        .then(() => resolve())
+            .then(parseJSON)
+            .then(() => resolve())
     })
 }
 
 function parseJSON(response) {
-  return response.json();
+    return response.json();
 }
 
 const Client = { search, create };

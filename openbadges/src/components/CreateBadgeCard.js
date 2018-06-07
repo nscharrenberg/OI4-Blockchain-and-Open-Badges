@@ -11,7 +11,7 @@ import TextField from '@material-ui/core/TextField';
 import {connect} from 'react-redux';
 import { compose } from "recompose";
 import axios from 'axios';
-import Client from './Client';
+import Client from '../Store/actions/ClientActions';
 
 const styles = theme => ({
   card: {
