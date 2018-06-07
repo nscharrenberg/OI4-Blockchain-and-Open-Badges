@@ -38,7 +38,7 @@ class Register extends React.Component {
         this.state = {
             firstName: '',
             lastName: '',
-            username: '',
+            entityId: '',
             emails: '',
             password: '',
             role: '',
@@ -120,9 +120,9 @@ class Register extends React.Component {
                                         </Grid>
                                         <Grid item>
                                             <TextField 
-                                            id="username" 
-                                            name="username" 
-                                            label="Username" 
+                                            id="entityId" 
+                                            name="entityId" 
+                                            label="Your i + PCN" 
                                             onChange={e => this.change(e) }
                                             value={this.state.username}
                                             />
@@ -234,19 +234,21 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         onSubmit(data) {
+            //MODIFY THIS TO CHECK IF PCN IS TAKEN
             new Promise(
                 (resolve, reject) =>{
-                   Client.search(data.role)
+                   Client.search(data.role + '/' + data.entityId)
                     .then(data => {
-                        //get next available entityId
-                        let nextId = parseInt(data.slice(-1)[0].entityId) + 1
-                        sendData(nextId) 
+                        if(data.error)
+                            sendData()
+                        else
+                            alert('PCN number already used')
                     })
                 });
 
-            function sendData(id) {
+            function sendData() {
                 const login = true
-                const action = {type: 'NEW_USER', payload: data, id: id, login:login };
+                const action = {type: 'NEW_USER', payload: data, login:login };
                 dispatch(action);
             }
         }

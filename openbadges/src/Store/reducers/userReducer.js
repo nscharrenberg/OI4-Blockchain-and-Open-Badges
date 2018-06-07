@@ -6,7 +6,6 @@ export default function reducer(state={
     firstName: '',
     lastName: '',
     email: '',
-    username: '', 
     network: 'org.acme.empty', //hardcoded for now
     role: '',
     issuers: [],
@@ -19,9 +18,8 @@ export default function reducer(state={
                     firstName: action.payload.firstName,
                     lastName: action.payload.lastName, 
                     email: action.payload.emails, 
-                    username: action.payload.username,
                     role: action.payload.role,
-                    entityId: action.id,
+                    entityId: action.payload.entityId,
                     login: action.login,
             }
 
@@ -31,7 +29,7 @@ export default function reducer(state={
                 data = [
                     {
                         "$class": state.network + '.' + state.role,
-                        "entityId": action.id.toString(),
+                        "entityId": state.entityId,
                         "firstName": state.firstName,
                         "lastName": state.lastName,
                         "password": action.payload.password,
@@ -45,7 +43,7 @@ export default function reducer(state={
                 data = [
                     {
                         "$class": state.network + '.' + state.role,
-                        "entityId": action.id.toString(),
+                        "entityId": state.entityId,
                         "firstName": state.firstName,
                         "lastName": state.lastName,
                         "password": action.payload.password,

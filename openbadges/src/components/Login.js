@@ -32,17 +32,49 @@ class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: '',
+            entityId: '',
             userData: [],
+            allUsers: ['name': 'lol'],
         }
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleSubmit(event) {
         event.preventDefault();
+
+            new Promise( (resolve, reject) => { 
+                return Client.findUser(this.state.entityId).then( data => {
+                    console.log(data)
+                    /*this.setState({
+                        allUsers: data
+                    });*/
+                }).then( data => {
+                    console.log('this.state.allUsers')
+                    /*this.state.allUsers.map((user, i) => {
+                        if(user.userEmail == this.state.userEmail)
+                           console.log("wuhuu")
+                           ///this.props.onLogin(this.state.userData); 
+                        else
+                            console.log("vittu")
+                        })*/
+                })
+            })
+
+            function loginUser() {
+                console.log(this.state.allUsers)
+                console.log("gotit")
+                /*this.state.allUsers.map((user, i) => {
+                    if(user.userEmail == this.state.userEmail)
+                       console.log("wuhuu")
+                       ///this.props.onLogin(this.state.userData); 
+                    else
+                        console.log("vittu")
+                    })*/
+            }
+        
         
         //only teacher can login in right now
-        Client.search(`Teacher/${this.state.username}`)
+        /*Client.search(`Teacher/${this.state.username}`)
         .then(data => {
             if (data.error) {
                 alert('Screw you, no user') 
@@ -56,7 +88,7 @@ class Login extends React.Component {
                 //redirect
                 //this.props.history.push("/profile");
             }
-        })
+        })*/
 
     }
 
@@ -64,7 +96,7 @@ class Login extends React.Component {
         this.setState({
            [e.target.name]: e.target.value
         });
-        //console.log(this.state.username)
+        console.log(this.state.userEmail)
     }
 
     render() {
@@ -87,13 +119,13 @@ class Login extends React.Component {
                                             <AccountCircle />
                                         </Grid>
                                         <Grid item>
-                                        <p>Type your EntityId</p>
+                                        <p>Type your email address</p>
                                             <TextField 
                                                 required
-                                                id="username"
-                                                name="username"
-                                                label="Username" 
-                                                value={this.state.username}
+                                                id="entityId"
+                                                name="entityId"
+                                                label="Your i + PCN" 
+                                                value={this.state.userEmail}
                                                 onChange={e => this.change(e) }
                                             />
                                         </Grid>
@@ -105,7 +137,7 @@ class Login extends React.Component {
                                             <Lock />
                                         </Grid>
                                         <Grid item>
-                                            <TextField id="password" type="password" label="Password" />
+                                            <TextField id="password" type="password" label="Password - NOT NEEDED NOW" />
                                         </Grid>
                                     </Grid>
                                 </div>
