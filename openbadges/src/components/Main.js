@@ -25,11 +25,9 @@ class Main extends React.Component {
     render () {
         return (
             <div>
-            <p>This is from Main.</p>
-            <p>What should we put here?</p>
-            {/* GET ALL ISSUER CARDS FROM USER */}
+            <h2>Welcome {this.props.firstName} {this.props.lastName}</h2>
+            {/* GET ALL ISSUER CARDS FROM THE USER */}
             <GetIssuers issuers={this.props.issuers}/>
-
             </div>
         );
     }
@@ -38,7 +36,9 @@ class Main extends React.Component {
 function mapStateToProps(state) {
     console.log(state.userClass)
     return {
-        issuers: state.userClass.issuers
+        issuers: state.userClass.issuers,
+        firstName: state.userClass.firstName,
+        lastName: state.userClass.lastName,
     }
 }
 
