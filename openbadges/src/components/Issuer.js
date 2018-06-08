@@ -6,8 +6,6 @@ import SeeAwardedBadgesCard from './SeeAwardedBadgesCard';
 import CreateBadgeCard from './CreateBadgeCard';
 import CreateIssuerCard from './CreateIssuerCard';
 import AwardBadgeCard from './AwardBadgeCard';
-import ValidateNewBadgeCard from './ValidateNewBadgeCard';
-import Profile from './Profile';
 import AddUserToIssuer from './AddUserToIssuer';
 
 class Issuer extends React.Component {

@@ -8,9 +8,6 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
-import BadgeCard from './BadgeCard';
-import AwardBadge from '../Store/actions/badgeActions';
-import Client from "../Store/actions/ClientActions";
 import {compose} from "recompose";
 import {connect} from "react-redux";
 
