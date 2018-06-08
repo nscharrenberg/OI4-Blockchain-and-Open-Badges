@@ -35,9 +35,25 @@ function create(type, data){
     })
 }
 
+function put(type, id, data){
+    console.log(type, id, data);
+    return new Promise((resolve, reject) => {
+        return fetch(`http://192.168.27.142:3000/api/org.acme.empty.${type}/${id}`, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: 'put',
+            body: JSON.stringify(data)
+        })
+            .then(parseJSON)
+            .then(() => resolve())
+    })
+}
+
 function parseJSON(response) {
     return response.json();
 }
 
-const Client = { search, create, query };
+const Client = { search, create, query, put };
 export default Client;

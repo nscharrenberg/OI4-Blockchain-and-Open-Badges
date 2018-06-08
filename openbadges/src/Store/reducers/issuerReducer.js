@@ -13,7 +13,7 @@ export default function reducer(state={
     switch(action.type) {
         case "NEW_ISSUER": {
             //create new issuer to blockchain
-            const transactionName = 'Issuer'
+            const transactionName = 'Issuer';
             const data = [
                 {
                     "$class": state.network + '.' + transactionName,
@@ -27,6 +27,7 @@ export default function reducer(state={
             ];
 
             Client.create(transactionName, data);
+
             state.name = action.payload.name;
             state.description = action.payload.description;
             state.url = action.payload.url;
@@ -36,7 +37,7 @@ export default function reducer(state={
 
             console.log(data);
             console.log("issuer State: " + state);
-            alert('New Issuer Created')
+            alert('New Issuer Created');
         }
     }
     return state;
