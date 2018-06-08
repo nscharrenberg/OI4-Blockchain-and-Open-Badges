@@ -59,7 +59,7 @@ export default function reducer(state={
             }
 
             //create new user to blockchain
-            //Client.create(state.role, data);
+            Client.create(state.role, data);
             console.log('to blockchain, new user: ',data)
             return state;
         }
