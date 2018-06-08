@@ -79,41 +79,24 @@ const dummyBadgesArray = [
 ];
 
 class Badge extends React.Component {
-
-    getAllBadges(props) {
-        const issuers = props.issuers;
-        let badges = [];
-        badges = props.badges.issuerBadges[0];
-        if ((!Array.isArray(badges) || !badges.length)) {
-            return <p>No badges found.</p>
-        }
-        else{
-            return (
-                <div>
-                    {badges.map((badge, i) => (
-                        <div>
-                            <BadgeCard badge={badge} issuers={issuers} />
-                            <br/>
-                        </div>
-                    ))}
-                </div>
-            )
-        }
+    constructor(props) {
+        super(props);
     }
-
     componentDidMount() {
-        this.getAllBadges(this.props);
+        console.log(this.props.badges.issuerBadges[0]);
     }
 
     render() {
         const { classes, theme } = this.props;
 
+
         return (
             <div>
                 <h1>Fontys Badges</h1>
-                <GridList cols={5} className={classes.gridList} style={{ height: 'auto' }}>
-                    {dummyBadgesArray.map(tile => (
-                        <GridListTile style={{ height: 'auto', paddingBottom: '10px', paddingRight: '10px' }} key={tile.title}>
+                <GridList cols={5} style={{ height: 'auto' }}>
+                    /* Fuck this shit, if it works its good */
+                    {this.props.badges.issuerBadges[0].map(tile => (
+                        <GridListTile style={{ height: 'auto', paddingBottom: '10px', paddingRight: '10px' }} key={tile.entityId}>
                             <BadgeCard tile={tile} />
                         </GridListTile>
                     ))}

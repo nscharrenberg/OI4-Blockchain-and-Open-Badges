@@ -9,21 +9,23 @@ import Register from './Register';
 import Notifications from './Notifications';
 import IssuerCreate from './IssuerCreate';
 import ValidateBadges from './ValidateBadges';
+import AwardBadge from './AwardBadge';
 class Routes extends Component {
 
 	render () {
 		return (
-		<div>
-			<Route exact path="/" component={Main} />
-			<Route path="/issuer" component={Issuer} />
-			<Route path="/badge" component={Badge} />
-			<Route path="/profile" component={Profile} />
-            <Route path="/login" component={Login} />
-            <Route path="/register" component={Register} />
-            <Route path="/notifications" component={Notifications} />
-            <Route path="/issuer/create" component={IssuerCreate} />
-			<Route path="/validator" component={ValidateBadges} />
-		</div>
+			<div>
+				<Route exact path="/" component={Main} />
+				<Route path="/issuer" component={Issuer} />
+				<Route path="/awardBadge/:id" component={AwardBadge} />
+				<Route path="/badge" component={Badge} />
+				<Route path="/profile" component={Profile} />
+				<Route path="/login" component={Login} />
+				<Route path="/register" component={Register} />
+				<Route path="/notifications" component={Notifications} />
+				<Route path="/issuer/create" component={IssuerCreate} />
+				<Route path="/validator" component={ValidateBadges} />
+			</div>
 		);
 	}
 }
