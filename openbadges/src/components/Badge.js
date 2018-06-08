@@ -4,6 +4,8 @@ import { withStyles } from '@material-ui/core/styles';
 import BadgeCard from './Badge/Card';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
+import { connect } from 'react-redux';
+import { compose } from 'recompose';
 
 
 const styles = theme => ({
@@ -100,4 +102,18 @@ Badge.propTypes = {
     theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(Badge);
+function mapStateToProps(state) {
+    console.log('this is userclass from state: ',state.userClass)
+    return {
+        issuers: state.userClass.issuers,
+        firstName: state.userClass.firstName,
+        lastName: state.userClass.lastName,
+        entityId: state.userClass.entityId,
+        badges: state.userClass.badges
+    }
+}
+
+export default compose(
+    withStyles(styles, { withTheme: true }),
+    connect(mapStateToProps)
+)(Badge);

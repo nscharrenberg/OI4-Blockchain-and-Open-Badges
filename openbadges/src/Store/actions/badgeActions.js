@@ -1,13 +1,27 @@
 import axios from 'axios';
+import Client from '../actions/ClientActions';
 
-export function changeName(name) {
-    console.log('I got it');
-    return {
-        type: "CHANGE_NAME",
-        payload: {
-            name: name
-        }
-    }
+//This could be done more effective by using queries.
+function GetBadges(issuer, entityId){
+    return new Promise( (resolve, reject) => {
+        Client.search('BadgeClass').then(data => {
+            //store Badges CREATED by user to own array
+            let userBadges = []
+            userBadges.push(data.filter(badge => badge.teacher ===  "resource:org.acme.empty.Teacher#" + entityId))
+
+            //store Badges from each issuer to own array
+            let issuerBadges = []
+            var i;
+            for(i = 0; i < issuer.length; i++){
+                issuerBadges.push(data.filter(badge => badge.issuer === "resource:org.acme.empty.Issuer#" + issuer[i].entityId))
+            }
+            //return all badges
+            resolve({
+                issuerBadges: issuerBadges,
+                userBadges: userBadges,
+            })  
+        })
+    })
 }
 
 function getAllIssuedBadges() {
@@ -50,5 +64,5 @@ function parseJSON(response) {
     return response.json();
 }
 
-const Badge = { awardBadge, getAllIssuedBadges };
+const Badge = { awardBadge, getAllIssuedBadges,GetBadges };
 export default Badge;

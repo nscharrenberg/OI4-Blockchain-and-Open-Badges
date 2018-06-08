@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
-import BadgeDetailedCard from './BadgeDetailedCard';
+import BadgeCard from './BadgeCard';
 
 const styles = theme => ({
     root: {
@@ -85,7 +85,7 @@ class SeeAwardedBadgesCard extends React.Component {
           </div>*/}
         </ExpansionPanelSummary>
         <ExpansionPanelDetails className={classes.details}>
-          <BadgeDetailedCard />
+          <BadgeCard />
         </ExpansionPanelDetails>
       </ExpansionPanel>
     </div>

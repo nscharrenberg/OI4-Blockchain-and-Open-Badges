@@ -55,7 +55,7 @@ class CreateBadgeCard extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			imgHash: 'this_is_img_hash',
+			imgHash: 'https://badgr-io-media.s3.amazonaws.com/uploads/badges/issuer_badgeclass_da2d8fbd-f17b-4bb4-afe9-4b62c2d8f549.png',
 			badgeName: '',
 			badgeDescription: '',
 			badgeCriteria: '',
@@ -80,6 +80,7 @@ class CreateBadgeCard extends React.Component {
 
         return (
             <div>
+            <h1>Create Badge</h1>
                 <Card className={classes.card}>
                     <form onSubmit={this.handleSubmit.bind(this)}>
                     <CardMedia className={classes.cover}>
@@ -170,7 +171,7 @@ function mapDispatchToProps(dispatch) {
 
 			new Promise(
 				(resolve, reject) =>{
-				   Client.search('NewBadge')
+				   Client.search('BadgeClass')
 					.then(data => {
 						const nextId = parseInt(data.slice(-1)[0].entityId) + 1
 						console.log('this is nextid:',nextId)
@@ -179,7 +180,7 @@ function mapDispatchToProps(dispatch) {
 				});
 
 			function sendData(id) {
-				//console.log('this is what I send to redux:',data, 'id: ', id);
+				console.log('this is what I send to redux:',data, 'id: ', id);
 				const action = {type: 'NEW_BADGE', payload: data, id: id};
 				dispatch(action);
 			}

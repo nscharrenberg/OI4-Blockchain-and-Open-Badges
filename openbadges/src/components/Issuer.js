@@ -21,19 +21,19 @@ class Issuer extends React.Component {
     render () {
         return (
             <div>
-                {/* DOESN'T WORK ANYMORE - HAS TO SEND ISSUER INFO 
-                <IssuerCard />*/}
-                <CreateBadgeCard />
-                <hr/>
-                <ValidateNewBadgeCard />
-                <hr/>
-                <AwardBadgeCard />
-                <hr/>
+            <AwardBadgeCard />
+            <CreateBadgeCard />
+            <CreateIssuerCard />
+            <AddUserToIssuer />
+            {/*
+                DOESN'T WORK ANYMORE - HAS TO SEND PROPS INFO 
+                
+                <IssuerCard />
                 <BadgeCard />
+                <ValidateNewBadgeCard />
                 <ValidateBadgeAwardCard />
-                <hr/>
-                <CreateIssuerCard />
-                <AddUserToIssuer />
+                
+            */}
             </div>
         );
     }

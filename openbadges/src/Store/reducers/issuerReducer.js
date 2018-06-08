@@ -8,7 +8,7 @@ export default function reducer(state={
     email: 'lol@lol.com',
 }, action) {
     switch(action.type) {
-        case "CHANGE_NAME": {
+        /*case "CHANGE_NAME": {
             state = {...state, name: action.payload}
         }
         case "CHANGE_DESCRIPTION": {
@@ -19,7 +19,7 @@ export default function reducer(state={
         }
         case "CHANGE_IMAGE": {
             state = {...state, img: action.payload}
-        }
+        }*/
     }
     return state;
 };

@@ -51,6 +51,14 @@ class Nav extends Component {
 							<ListItemText primary="Badge" />
 						</ListItem>
 					</Link>
+					<Link to="/validator">
+						<ListItem button>
+							<ListItemIcon>
+								<SendIcon />
+							</ListItemIcon>
+							<ListItemText primary="validator" />
+						</ListItem>
+					</Link>
                 </List>
 			</div>
 		);

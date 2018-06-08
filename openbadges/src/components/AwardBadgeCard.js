@@ -68,6 +68,7 @@ class AwardBadgeCard extends React.Component {
 
         return (
             <div>
+            <h1>Award/Issue Badge</h1>
                 <Card className={classes.card}>
                     <CardMedia
                         className={classes.cover}

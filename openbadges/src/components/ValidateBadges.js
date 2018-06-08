@@ -17,70 +17,53 @@ import {connect} from "react-redux";
 import BadgeActions from '../Store/actions/badgeActions';
 import Button from '@material-ui/core/Button';
 
-const styles = theme => ({
-
-});
+function GetUnvalidatedBadges(props){
+    const myIssuers = props.issuers;
+    const allBadges = props.badges.issuerBadges
+    console.log('allB:',allBadges)
+    if ((!Array.isArray(allBadges) || !allBadges.length)) {
+       return <p>No badges found.</p>
+    }
+    else {
+        let badges = props.badges.issuerBadges[0].filter(badge => badge.validated == false)
+        console.log(badges)
+        return (
+            <div>
+            {badges.map((badge, i) => (
+                <div key={i}>
+                <ValidateNewBadgeCard badge={badge} issuers={myIssuers} />
+                <br/>
+                </div>
+            ))}
+            </div>
+        )
+    }
+}
 
 class ValidateBadges extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            badges: [],
-        }
-    }
-
-    componentDidMount() {
-        this.state.badges = BadgeActions.getAllIssuedBadges();
-        console.log("Badges: " + BadgeActions.getAllIssuedBadges().data);
     }
 
     render () {
         return (
             <div>
-                <h1>Badges to be Validated</h1>
-                {JSON.stringify(BadgeActions.getAllIssuedBadges())}
-                {this.state.badges.map((badge) => {
-                    <ValidateBadgeAwardCard badge={badge}  />
-                })}
+                <h1>New Badges to be Validated</h1>
+                <GetUnvalidatedBadges badges={this.props.badges} issuers={this.props.issuers} />
             </div>
         );
     }
 }
 
-ValidateBadges.propTypes = {
-    classes: PropTypes.object.isRequired,
-    theme: PropTypes.object.isRequired,
-};
-
 function mapStateToProps(state) {
+    console.log(state)
     return {
-        name: state.userClass.firstName
+        issuers: state.userClass.issuers,
+        firstName: state.userClass.firstName,
+        lastName: state.userClass.lastName,
+        entityId: state.userClass.entityId,
+        badges: state.userClass.badges
     }
 }
 
-function mapDispatchToProps(dispatch) {
-    return {
-        onSubmit(data) {
-            new Promise(
-                (resolve, reject) =>{
-                    Client.search(data.role)
-                        .then(data => {
-                            //get next available entityId
-                            let nextId = parseInt(data.slice(-1)[0].entityId) + 1
-                            sendData(nextId)
-                        })
-                });
-
-            function sendData(id) {
-                const login = true
-                const action = {type: 'NEW_USER', payload: data, id: id, login:login };
-                dispatch(action);
-            }
-        }
-    }
-}
-
-export default compose(
-    withStyles(styles, { withTheme: true }),
-    connect(mapStateToProps, mapDispatchToProps)
-)(ValidateBadges);
+export default connect(mapStateToProps)(ValidateBadges);

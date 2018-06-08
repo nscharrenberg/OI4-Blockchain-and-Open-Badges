@@ -9,10 +9,12 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
 import BadgeDetailedCard from './BadgeDetailedCard';
+import { connect } from 'react-redux';
+import { compose } from 'recompose';
 
 const styles = theme => ({
     root: {
-        margin: '1.5em 1.5em 1.5em 1.5em',
+        margin: '0.1em 1.5em 0.1em 1.5em',
     },
     heading: {
         margin: '10px',
@@ -61,11 +63,21 @@ const styles = theme => ({
 class ValidateBadgeAwardCard extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      thisBadge: this.props.badge,
+      validatorId: this.props.entityId
+    }
   }
+
+    handleValidation(event) {
+        event.preventDefault();
+        this.props.handleValidation(this.state.thisBadge, this.state.validatorId);
+    }  
 
   render () {
 
-  const { classes } = this.props;
+  const { classes, theme } = this.props;
+
   return (
     <div className={classes.root}>
       <ExpansionPanel>
@@ -75,26 +87,26 @@ class ValidateBadgeAwardCard extends React.Component {
           <Avatar alt="BadgeLogo" src="https://badgr-io-media.s3.amazonaws.com/uploads/badges/issuer_badgeclass_da2d8fbd-f17b-4bb4-afe9-4b62c2d8f549.png" className={classes.cover} />
           </div>
           <div className={classes.column}>
-            <Typography className={classes.heading}>Name of the new Badge</Typography>
+            <Typography className={classes.heading}>{this.props.badge.name}</Typography>
           </div>
           <div className={classes.column}>
-            <Typography className={classes.secondaryHeading}>Name of Teacher</Typography>
+            <Typography className={classes.secondaryHeading}>{this.props.badge.teacher}</Typography>
           </div>
           <div className={classes.columnButton}>
-            <Button variant="raised" color="success" style={{backgroundColor: '#00C853'}}><i class="material-icons" style={{color:'white'}}>done</i></Button>
+            <Button onClick={this.handleValidation.bind(this)} variant="raised" color="default" style={{backgroundColor: '#00C853'}}><i className="material-icons" style={{color:'white'}}>done</i></Button>
           </div>
           <div className={classes.columnButton}>
-            <Button variant="raised" color="success" style={{backgroundColor: '#F44336'}}><i class="material-icons" style={{color:'white'}}>clear</i></Button>
+            <Button variant="raised" color="default" style={{backgroundColor: '#F44336'}}><i className="material-icons" style={{color:'white'}}>clear</i></Button>
           </div>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails className={classes.details}>
-          <BadgeDetailedCard />
+          <BadgeDetailedCard badge={this.state.thisBadge} issuers={this.props.issuers} />
           <div className={classes.extrabuttons}>
           <Typography variant="subheading" color="textSecondary">
               Verificate new badge: 
             </Typography>
-              <Button className={classes.columnButton} variant="raised" color="success" style={{backgroundColor: '#00C853'}}><i class="material-icons" style={{color:'white'}}>done</i></Button>
-              <Button className={classes.columnButton} variant="raised" color="success" style={{backgroundColor: '#F44336'}}><i class="material-icons" style={{color:'white'}}>clear</i></Button>
+              <Button onClick={this.handleValidation.bind(this)} className={classes.columnButton} variant="raised" color="default" style={{backgroundColor: '#00C853'}}><i className="material-icons" style={{color:'white'}}>done</i></Button>
+              <Button className={classes.columnButton} variant="raised" color="default" style={{backgroundColor: '#F44336'}}><i className="material-icons" style={{color:'white'}}>clear</i></Button>
           </div>
         </ExpansionPanelDetails>
       </ExpansionPanel>
@@ -106,6 +118,30 @@ class ValidateBadgeAwardCard extends React.Component {
 
 ValidateBadgeAwardCard.propTypes = {
   classes: PropTypes.object.isRequired,
+  theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ValidateBadgeAwardCard);
+function mapDispatchToProps(dispatch) {
+    return {
+        handleValidation(data, validatorId) {
+          console.log(data)
+          const action = {type: 'VALIDATE_BADGE', payload: data, validatorId: validatorId };
+          dispatch(action);
+        }
+    }
+}
+
+function mapStateToProps(state) {
+    return {
+        issuers: state.userClass.issuers,
+        firstName: state.userClass.firstName,
+        lastName: state.userClass.lastName,
+        entityId: state.userClass.entityId,
+        badges: state.userClass.badges
+    }
+}
+
+export default compose(
+    withStyles(styles, { withTheme: true }),
+    connect(mapStateToProps, mapDispatchToProps)
+)(ValidateBadgeAwardCard);

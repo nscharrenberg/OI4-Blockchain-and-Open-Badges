@@ -7,6 +7,8 @@ import CardMedia from '@material-ui/core/CardMedia';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import { connect } from 'react-redux';
+import { compose } from 'recompose';
 
 const styles = theme => ({
   card: {
@@ -41,6 +43,22 @@ const styles = theme => ({
   }
 });
 
+//Have to be TESTED with multiple issuers
+//Have to get issuerID and chance it to name and bla bla bla
+function GetIssuerName(props) {
+  /*console.log('GetIssuerName: ' ,props.issuers)
+  let badgeCreatorIssuerId = props.badgeIssuerId.split('#')[1]
+  console.log('badgeCreatorIssuerId: ', badgeCreatorIssuerId)
+  let issuerName = props.issuers.filter(issuer => {
+    issuer.entityId == badgeCreatorIssuerId
+      return issuer.name
+  })
+  //issuerName = issuerName.name
+  console.log('issuerName IS :',issuerName)*/
+
+  return (<p>Issuing Organization: Need to be fixed</p>);
+}
+
 class BadgeCard extends React.Component {
   constructor(props) {
     super(props);
@@ -60,10 +78,9 @@ class BadgeCard extends React.Component {
             />
         <div className={classes.details}>
           <CardContent className={classes.content}>
-            <Typography variant="headline">Badge Class Name</Typography>
-            
+            <Typography variant="headline">{this.props.badge.name}</Typography>
             <Typography variant="subheading" color="textSecondary">
-              Issuer Name
+              <GetIssuerName badgeIssuerId={this.props.badge.issuer} issuers={this.props.issuers} />
             </Typography>
             <div className={classes.controls}>
                 <Button className={classes.awardButton}>AWARD</Button>
@@ -75,22 +92,22 @@ class BadgeCard extends React.Component {
             <h4>Description:</h4>
             </Typography>
             <Typography  variant="body" color="textSecondary">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <p>{this.props.badge.description}</p>            
             </Typography>
             <Typography variant="subheading" color="textSecondary">
             <h4>Criteria:</h4>
             </Typography>
             <Typography variant="body" color="textSecondary">
-            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>          
+            <p>{this.props.badge.criteriaUrl}</p>            
             </Typography>
             <Typography variant="subheading" color="textSecondary">
-              <h4>Validated: True/False</h4>
+              <h4>Validated: True/False</h4> 
             </Typography>
             <Typography variant="subheading" color="textSecondary">
               <h4>Validator: Name of Validator</h4>
             </Typography>
             <Typography variant="subheading" color="textSecondary">
-              <h4>Badge Creator: Name of Teacher</h4>
+              <h4>Badge Creator: {this.props.badge.teacherId}</h4>
             </Typography>
             </div>
           </CardContent>
@@ -107,4 +124,17 @@ BadgeCard.propTypes = {
   theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(BadgeCard);
+function mapStateToProps(state) {
+    return {
+        issuers: state.userClass.issuers,
+        firstName: state.userClass.firstName,
+        lastName: state.userClass.lastName,
+        entityId: state.userClass.entityId,
+        badges: state.userClass.badges
+    }
+}
+
+export default compose(
+    withStyles(styles, { withTheme: true }),
+    connect(mapStateToProps)
+)(BadgeCard);

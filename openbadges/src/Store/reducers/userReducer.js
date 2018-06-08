@@ -1,4 +1,5 @@
 import Client from '../actions/ClientActions';
+import Badge from '../actions/badgeActions';
 
 export default function reducer(state={
     login: false,
@@ -9,6 +10,7 @@ export default function reducer(state={
     network: 'org.acme.empty', //hardcoded for now
     role: '',
     issuers: [],
+    badges: [],
 }, action) { 
     switch(action.type) {
         case "NEW_USER" : {
@@ -35,7 +37,7 @@ export default function reducer(state={
                         "password": action.payload.password,
                         "email": state.email,
                         "role": state.role,
-                        "issuers": [1001],
+                        "issuers": [],
                     }
                 ]
             }
@@ -60,16 +62,32 @@ export default function reducer(state={
         }
         case "LOGIN" : {
 
-            state = {...state,
-                entityId: action.payload.entityId,
-                firstName: action.payload.firstName,
-                lastName: action.payload.lastName,
-                login: action.login,
-                email: action.payload.email,
-                role: action.payload.role,
-                issuers: action.payload.issuers, // store issuers under current user
-            }
+            if(action.payload.role == "BadgeUser") {
+                state = {...state,
+                    entityId: action.payload.entityId,
+                    firstName: action.payload.firstName,
+                    lastName: action.payload.lastName,
+                    login: action.login,
+                    email: action.payload.email,
+                    role: action.payload.role,
+                    badges: action.badgeData,
+                }
             return state;
+            }
+
+            if((action.payload.role == "Teacher") || (action.payload.role == "Validator")) {
+                state = {...state,
+                    entityId: action.payload.entityId,
+                    firstName: action.payload.firstName,
+                    lastName: action.payload.lastName,
+                    login: action.login,
+                    email: action.payload.email,
+                    role: action.payload.role,
+                    issuers: action.payload.issuers, // store issuers under current user
+                    badges: action.badgeData,
+                }
+                return state;
+            }
         }
         default:
             return state

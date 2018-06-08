@@ -44,7 +44,6 @@ class App extends Component {
 }
 
 function mapStateToProps(state) {
-    console.log(state.userClass)
     return {
         login: state.userClass.login,
         username: state.userClass.name

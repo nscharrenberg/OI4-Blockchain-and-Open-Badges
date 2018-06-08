@@ -142,7 +142,7 @@ class MiniDrawer extends React.Component {
                         className={classNames(classes.content)}
                     >
                         <div className={classes.toolbar} />
-                        <div onClick={this.handleDrawerClose}>
+                        <div>
                             <Routes />
                         </div>
 				</main>

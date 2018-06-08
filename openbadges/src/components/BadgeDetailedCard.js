@@ -7,6 +7,8 @@ import CardMedia from '@material-ui/core/CardMedia';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import { connect } from 'react-redux';
+import { compose } from 'recompose';
 
 const styles = theme => ({
   card: {
@@ -46,8 +48,14 @@ const styles = theme => ({
   }
 });
 
-function MediaControlCard(props) {
-  const { classes, theme } = props;
+class BadgeDetailedCard extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render () {
+
+  const { classes, theme } = this.props;
 
   return (
     <div>
@@ -59,37 +67,37 @@ function MediaControlCard(props) {
             />
         <div className={classes.details}>
           <CardContent className={classes.content}>
-            <Typography variant="headline">Badgel Class Name</Typography>
+            <Typography variant="headline">{this.props.badge.name}</Typography>
             <Typography variant="subheading" color="textSecondary">
-              Issuer Name
+              {this.props.badge.issuer}
             </Typography>
             <div className={classes.badgeInfo}>
             <Typography variant="subheading" color="textSecondary">
-              <h4>Validated: True/False</h4>
+              {this.props.badge.validated}
             </Typography>
             <Typography variant="subheading" color="textSecondary">
-              <h4>Validator: Name of Validator</h4>
+              Validator: Name of Validator
             </Typography>
             <Typography variant="subheading" color="textSecondary">
-              <h4>Badge Creator: Name of Teacher</h4>
+              {this.props.badge.teacher}
             </Typography>
             <Typography  variant="subheading" color="textSecondary">
-            <h4>Description:</h4>
+             Description:
             </Typography>
             <Typography  variant="body" color="textSecondary">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <p>{this.props.badge.description}</p>
             </Typography>
             <Typography  variant="subheading" color="textSecondary">
             <h4>Criteria:</h4>
             </Typography>
             <Typography  variant="body" color="textSecondary">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <p>{this.props.badge.criteriaUrl}</p>
             </Typography>
             <Typography variant="subheading" color="textSecondary">
             <h4>Evidence:</h4>
             </Typography>
             <Typography variant="body" color="textSecondary">
-            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <p>We are missing Evidence!!!</p>
             </Typography>
             <hr />
             </div>
@@ -99,11 +107,26 @@ function MediaControlCard(props) {
       </Card>
     </div>
   );
+
+  }
 }
 
-MediaControlCard.propTypes = {
+BadgeDetailedCard.propTypes = {
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(MediaControlCard);
+function mapStateToProps(state) {
+    return {
+        issuers: state.userClass.issuers,
+        firstName: state.userClass.firstName,
+        lastName: state.userClass.lastName,
+        entityId: state.userClass.entityId,
+        badges: state.userClass.badges
+    }
+}
+
+export default compose(
+    withStyles(styles, { withTheme: true }),
+    connect(mapStateToProps)
+)(BadgeDetailedCard);
