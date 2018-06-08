@@ -43,9 +43,12 @@ class Register extends React.Component {
         event.preventDefault();
         console.log(this.state.role)
 
-        if ((this.state.role == 'Teacher') || (this.state.role == "Validator") ||  (this.state.role == "BadgeUser")) {
+        if ((this.state.role == 'Teacher') || (this.state.role == "Validator")) {
             this.props.onSubmit(this.state);
             //this.props.history.push("/");    
+        }
+        else if (this.state.role == "BadgeUser") {
+            alert("oops.BadgeUser Register is not supported")
         }
         else {
             alert('Incorrect user role')
@@ -244,6 +247,7 @@ function mapDispatchToProps(dispatch) {
                 const login = true
                 const action = {type: 'NEW_USER', payload: data, login:login };
                 dispatch(action);
+                alert('New user created - For better system performance, please logout and login')
             }
         }
     }

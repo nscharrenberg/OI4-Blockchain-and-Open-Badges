@@ -160,19 +160,28 @@ function mapDispatchToProps(dispatch) {
     return {
         onLogin(data) {
             console.log(data)
+            let badgeData = []
+            let staffData = []
 
             if(data.role === "BadgeUser") {
-                login()
+                alert("Sorry, BadgeUser Login is not supported")
             }
             else {
                 Badge.GetBadges(data.issuers, data.entityId).then(data => {
-                    login(data)
+                    badgeData.push(data)
+                }).then(data => {
+                    Badge.GetStaff().then(data => {
+                        staffData.push(data)
+                    }).then(login());
                 })                 
             };
+
+            console.log('badgeData: ',badgeData, 'staffData',staffData);
   
-            function login(badgeData) {
+            function login() {
                 const login = true
-                const action = {type: 'LOGIN', payload: data, login: login, badgeData: badgeData};
+                const action = {type: 'LOGIN', payload: data, login: login, staffData: staffData, badgeData: badgeData };
+                console.log('sended action:',action)
                 dispatch(action);       
             }
         }

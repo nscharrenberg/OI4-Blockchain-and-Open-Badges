@@ -92,9 +92,7 @@ class AddUserToIssuer extends React.Component {
                                     value={this.state.userEmail}
                                 />
                                 <p>User will be attached to Issuer:</p>
-                                        {this.props.issuers.map((issuer, i) => (
-                                            <p>{issuer.name}</p>
-                                        ))}
+                                        <p>This need's to be implemented</p>
                                 <div className={classes.controls}>
                                     <Button type={"submit"} name="createIssuer" id="createIssuer" className={classes.verificationButton} variant="raised" color="success" style={{backgroundColor: '#00C853', color:'white'}}>Attach</Button>
                                     <Button className={classes.verificationButton} variant="raised" color="success" style={{backgroundColor: '#F44336', color:'white'}}>Cancel</Button>
@@ -125,23 +123,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         onSubmit(data) {
-            console.log('this is badge data: ' ,data)
-
-            new Promise(
-                (resolve, reject) =>{
-                    Client.search('NewBadge')
-                        .then(data => {
-                            const nextId = parseInt(data.slice(-1)[0].entityId) + 1
-                            console.log('this is nextid:',nextId)
-                            sendData(nextId)
-                        })
-                });
-
-            function sendData(id) {
-                //console.log('this is what I send to redux:',data, 'id: ', id);
-                const action = {type: 'NEW_BADGE', payload: data, id: id};
-                dispatch(action);
-            }
+            //NEED TO IMPLEMENT
         }
     }
 

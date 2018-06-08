@@ -4,24 +4,27 @@ import {connect} from "react-redux";
 
 function GetUnvalidatedBadges(props){
     const myIssuers = props.issuers;
-    const allBadges = props.badges.issuerBadges
-    console.log('allB:',allBadges)
-    if ((!Array.isArray(allBadges) || !allBadges.length)) {
-       return <p>No badges found.</p>
+    let badges = []
+    if ((typeof(props.badges) === 'undefined' || props.badges.length == 0)) {
+        return <p>No badges found!</p>
     }
     else {
-        let badges = props.badges.issuerBadges[0].filter(badge => badge.validated == false)
-        console.log(badges)
-        return (
-            <div>
-            {badges.map((badge, i) => (
-                <div key={i}>
-                <ValidateNewBadgeCard badge={badge} issuers={myIssuers} />
-                <br/>
+        if ((!Array.isArray(props.badges.issuerBadges[0]) || !props.badges.issuerBadges[0].length)) {
+            return <p>No badges found!</p>
+        }
+        else {
+            badges = props.badges.issuerBadges[0].filter(badge => badge.validated == false)
+            return (
+                <div>
+                {badges.map((badge, i) => (
+                    <div>
+                    <ValidateNewBadgeCard badge={badge} issuers={myIssuers} />
+                    <br/>
+                    </div>
+                ))}
                 </div>
-            ))}
-            </div>
-        )
+            )
+        }
     }
 }
 

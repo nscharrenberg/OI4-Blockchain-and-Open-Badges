@@ -21,7 +21,7 @@ function GetIssuers(props){
 function GetCreatedBadges(props){
     const myIssuers = props.issuers;
     let badges = []
-    if(typeof(props.badges) === 'undefined') {
+    if ((typeof(props.badges) === 'undefined' || !props.badges.length)) {
         return <p>No badges found!</p>
     }
     else {
@@ -46,8 +46,9 @@ function GetCreatedBadges(props){
 
 function GetAllBadges(props){
     const myIssuers = props.issuers;
+    console.log("getallb:",props.badges, typeof(props.badges))
     let badges = []
-    if(typeof(props.badges) === 'undefined') {
+    if ((typeof(props.badges) === 'undefined' || props.badges.length == 0)) {
         return <p>No badges found!</p>
     }
     else {

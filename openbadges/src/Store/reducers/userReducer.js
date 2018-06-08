@@ -9,8 +9,9 @@ export default function reducer(state={
     email: '',
     network: 'org.acme.empty', //hardcoded for now
     role: '',
-    issuers: [],
-    badges: [],
+    issuers: '',
+    badges: '',
+    staff: '',
 }, action) { 
     switch(action.type) {
         case "NEW_USER" : {
@@ -22,8 +23,9 @@ export default function reducer(state={
                     email: action.payload.emails, 
                     role: action.payload.role,
                     entityId: action.payload.entityId,
-                    login: action.login,
+                    login: action.login
             }
+            console.log('newuser: ',state)
 
             let data = [];
 
@@ -37,7 +39,8 @@ export default function reducer(state={
                         "password": action.payload.password,
                         "email": state.email,
                         "role": state.role,
-                        "issuers": [],
+                        "issuers": []
+
                     }
                 ]
             }
@@ -50,13 +53,13 @@ export default function reducer(state={
                         "lastName": state.lastName,
                         "password": action.payload.password,
                         "email": state.email,
-                        "role": state.role,
+                        "role": state.role
                     }
                 ]
             }
 
             //create new user to blockchain
-            Client.create(state.role, data);
+            //Client.create(state.role, data);
             console.log('to blockchain, new user: ',data)
             return state;
         }
@@ -70,7 +73,7 @@ export default function reducer(state={
                     login: action.login,
                     email: action.payload.email,
                     role: action.payload.role,
-                    badges: action.badgeData,
+                    badges: action.badgeData
                 }
             return state;
             }
@@ -84,8 +87,10 @@ export default function reducer(state={
                     email: action.payload.email,
                     role: action.payload.role,
                     issuers: action.payload.issuers, // store issuers under current user
-                    badges: action.badgeData,
+                    badges: action.badgeData[0],
+                    staff: action.staffData[0]
                 }
+                console.log('after login state:',state)
                 return state;
             }
         }

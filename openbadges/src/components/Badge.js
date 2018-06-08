@@ -78,12 +78,34 @@ const dummyBadgesArray = [
     },
 ];
 
+function GetBadges(props){
+    console.log('propbag:',props.badges);
+    let badges = []
+
+    if ((typeof(props.badges) === 'undefined' || props.badges.length == 0)) {
+       return <p>No badges found!</p>
+    }
+    else {
+        if ((!Array.isArray(props.badges.issuerBadges[0]) || !props.badges.issuerBadges[0].length)) {
+            return <p>No badges found!</p>
+        }
+        else {
+            badges = props.badges.issuerBadges[0]
+            return (
+                    badges.map(tile => (                     
+                        <GridListTile style={{ height: 'auto', paddingBottom: '10px', paddingRight: '10px' }} key={tile.entityId}>
+                            <BadgeCard tile={tile} />
+                        </GridListTile>
+                    ))
+            );
+        }
+    }
+                    
+}
+
 class Badge extends React.Component {
     constructor(props) {
         super(props);
-    }
-    componentDidMount() {
-        console.log(this.props.badges.issuerBadges[0]);
     }
 
     render() {
@@ -92,14 +114,9 @@ class Badge extends React.Component {
 
         return (
             <div>
-                <h1>Fontys Badges</h1>
+                <h1>All Badges</h1>
                 <GridList cols={5} style={{ height: 'auto' }}>
-                    /* Fuck this shit, if it works its good */
-                    {this.props.badges.issuerBadges[0].map(tile => (
-                        <GridListTile style={{ height: 'auto', paddingBottom: '10px', paddingRight: '10px' }} key={tile.entityId}>
-                            <BadgeCard tile={tile} />
-                        </GridListTile>
-                    ))}
+                    <GetBadges badges={this.props.badges} />
                 </GridList>
             </div>
         );
