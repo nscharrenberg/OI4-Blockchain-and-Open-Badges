@@ -62,7 +62,7 @@ class CreateIssuerCard extends React.Component {
             description: '',
             url: '',
             role: 'Issuer',
-            userId: props.userId,
+            user: props.user,
         }
     }
 
@@ -174,7 +174,7 @@ function mapStateToProps(state) {
     console.log(state.issuerClass);
     return {
         entityId: state.issuerClass.entityId,
-        userId: state.userClass.entityId
+        user: state.userClass,
     }
 }
 

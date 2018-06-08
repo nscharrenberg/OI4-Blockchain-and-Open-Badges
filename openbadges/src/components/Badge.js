@@ -79,6 +79,32 @@ const dummyBadgesArray = [
 ];
 
 class Badge extends React.Component {
+
+    getAllBadges(props) {
+        const issuers = props.issuers;
+        let badges = [];
+        badges = props.badges.issuerBadges[0];
+        if ((!Array.isArray(badges) || !badges.length)) {
+            return <p>No badges found.</p>
+        }
+        else{
+            return (
+                <div>
+                    {badges.map((badge, i) => (
+                        <div>
+                            <BadgeCard badge={badge} issuers={issuers} />
+                            <br/>
+                        </div>
+                    ))}
+                </div>
+            )
+        }
+    }
+
+    componentDidMount() {
+        this.getAllBadges(this.props);
+    }
+
     render() {
         const { classes, theme } = this.props;
 

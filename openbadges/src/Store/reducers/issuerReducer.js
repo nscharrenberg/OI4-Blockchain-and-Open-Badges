@@ -28,6 +28,28 @@ export default function reducer(state={
 
             Client.create(transactionName, data);
 
+            if(action.payload.user.role === 'Teacher') {
+
+            } else if(action.payload.user.role === 'Validator') {
+                let updated = action.payload.user.issuers.slice();
+                updated.push(action.id.toString());
+                action.payload.user.setState({
+                    issuers: updated,
+                });
+
+                action.payload.user.issuers.push(action.id.toString());
+
+                console.log("Issuer Array: " + action.payload.user.issuers);
+                Client.put('Validator', action.payload.user.entityId, {
+                    "$class": state.network + '.' + 'Validator',
+                    "issuers": action.payload.user.issuers,
+                });
+
+                console.log("Array: " + action.payload.user.issuers);
+            } else {
+                alert('We could not attach your account to the created Issuer, as you have an invalid Role.');
+            }
+
             state.name = action.payload.name;
             state.description = action.payload.description;
             state.url = action.payload.url;
