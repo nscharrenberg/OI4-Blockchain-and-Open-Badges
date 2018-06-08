@@ -7,7 +7,10 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import Typography from '@material-ui/core/Typography'
+import {
+    Link,
+} from 'react-router-dom';
 
 const styles = theme => ({
     paper: {
@@ -38,21 +41,24 @@ class BadgeCard extends React.Component {
                     <Card className={classes.card}>
                         <CardMedia
                             className={classes.media}
-                            image={this.props.tile.img}
+                            image={this.props.tile.imageUrl}
                             title="Contemplative Reptile"
                         />
                         <CardContent>
                             <Typography gutterBottom variant="headline" component="h2">
-                                {this.props.tile.title}
+                                {this.props.tile.name}
                             </Typography>
                             <Typography component="p">
                                 {this.props.tile.description}
                             </Typography>
                         </CardContent>
                         <CardActions>
-                            <Button color="secondary" className={[classes.button]} >
-                                Award Badge
-                            </Button>
+                            <Link to={`/awardBadge/${this.props.tile.entityId}`}>
+                                <Button color="secondary" className={[classes.button]} >
+                                    Award Badge
+                                </Button>
+                            </Link>
+
                             <Button><i class="material-icons">edit</i></Button>
                         </CardActions>
                     </Card>
