@@ -4,13 +4,11 @@ import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import {connect} from 'react-redux';
 import { compose } from "recompose";
-import axios from 'axios';
 import Client from '../Store/actions/ClientActions';
 
 const styles = theme => ({
@@ -54,13 +52,17 @@ const styles = theme => ({
 class CreateIssuerCard extends React.Component {
     constructor(props) {
         super(props);
+
+        // TODO: REMOVE Role for Issuer on Backend. For now role is hardcoded for Issuer.
         this.state = {
-            imgHash: 'this_is_img_hash',
-            badgeName: '',
-            badgeDescription: '',
-            badgeCriteria: '',
+            imgHash: 'https://badgr-io-media.s3.amazonaws.com/uploads/badges/issuer_badgeclass_da2d8fbd-f17b-4bb4-afe9-4b62c2d8f549.png',
             entityId: props.entityId,
-            issuerId: props.issuerId,
+            name: '',
+            email: '',
+            description: '',
+            url: '',
+            role: 'Issuer',
+            user: props.user,
         }
     }
 
@@ -73,7 +75,7 @@ class CreateIssuerCard extends React.Component {
         this.setState({
             [e.target.name]: e.target.value
         });
-    }
+    };
 
     render () {
         const { classes, theme } = this.props;
@@ -105,50 +107,50 @@ class CreateIssuerCard extends React.Component {
                                     Name:
                                 </Typography>
                                 <TextField
-                                    id="issuerName"
-                                    name="issuerName"
+                                    id="name"
+                                    name="name"
                                     placeholder="Name of the Issuer:"
                                     className={classes.textField}
                                     margin="normal"
                                     onChange={e => this.change(e) }
-                                    value={this.state.firstName}
+                                    value={this.state.name}
                                 />
                                 <Typography variant="subheading" color="textSecondary">
                                     Website:
                                 </Typography>
                                 <TextField
-                                    id="issuerWebsite"
-                                    name="issuerWebsite"
+                                    id="url"
+                                    name="url"
                                     placeholder="Website:"
                                     className={classes.textField}
                                     margin="normal"
                                     onChange={e => this.change(e) }
-                                    value={this.state.firstName}
+                                    value={this.state.url}
                                 />
                                 <Typography variant="subheading" color="textSecondary">
                                     Email:
                                 </Typography>
                                 <TextField
-                                    id="issuerEmail"
-                                    name="issuerEmail"
+                                    id="email"
+                                    name="email"
                                     placeholder="Email:"
                                     className={classes.textField}
                                     margin="normal"
                                     onChange={e => this.change(e) }
-                                    value={this.state.firstName}
+                                    value={this.state.email}
                                 />
                                 <Typography variant="subheading" color="textSecondary">
                                     Description:
                                 </Typography>
                                 <TextField
-                                    id="issuerDescription"
-                                    name="issuerDescription"
+                                    id="description"
+                                    name="description"
                                     multiline
                                     placeholder="Description:"
                                     className={classes.textField}
                                     margin="normal"
                                     onChange={e => this.change(e) }
-                                    value={this.state.firstName}
+                                    value={this.state.description}
                                 />
                                 <div className={classes.controls}>
                                     <Button type={"submit"} name="createIssuer" id="createIssuer" className={classes.verificationButton} variant="raised" color="success" style={{backgroundColor: '#00C853', color:'white'}}>Create Issuer</Button>
@@ -169,31 +171,31 @@ CreateIssuerCard.propTypes = {
 };
 
 function mapStateToProps(state) {
-    console.log(state.userClass)
+    console.log(state.issuerClass);
     return {
-        entityId: state.userClass.entityId,
-        issuerId: state.issuerClass.issuerId,
+        entityId: state.issuerClass.entityId,
+        user: state.userClass,
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         onSubmit(data) {
-            console.log('this is badge data: ' ,data)
+            console.log('this is the issuer data: ' ,data)
 
             new Promise(
                 (resolve, reject) =>{
-                    Client.search('NewBadge')
+                    Client.search('Issuer')
                         .then(data => {
-                            const nextId = parseInt(data.slice(-1)[0].entityId) + 1
-                            console.log('this is nextid:',nextId)
+                            const nextId = parseInt(data.slice(-1)[0].entityId) + 1;
+                            console.log('this is nextid:',nextId);
                             sendData(nextId)
                         })
                 });
 
             function sendData(id) {
                 //console.log('this is what I send to redux:',data, 'id: ', id);
-                const action = {type: 'NEW_BADGE', payload: data, id: id};
+                const action = {type: 'NEW_ISSUER', payload: data, id: id};
                 dispatch(action);
             }
         }

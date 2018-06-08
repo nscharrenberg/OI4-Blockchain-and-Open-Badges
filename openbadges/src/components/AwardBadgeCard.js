@@ -4,16 +4,11 @@ import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import Avatar from '@material-ui/core/Avatar';
-import {bindActionCreators} from 'redux'
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
-import  { Redirect } from 'react-router-dom'
-import Client from "../Store/actions/ClientActions";
 
 const styles = theme => ({
     card: {

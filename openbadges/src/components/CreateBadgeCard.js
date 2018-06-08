@@ -4,13 +4,11 @@ import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import {connect} from 'react-redux';
 import { compose } from "recompose";
-import axios from 'axios';
 import Client from '../Store/actions/ClientActions';
 
 const styles = theme => ({
@@ -73,7 +71,7 @@ class CreateBadgeCard extends React.Component {
 		this.setState({
 		   [e.target.name]: e.target.value
 		});
-	}
+	};
 
 	render () {
 		const { classes, theme } = this.props;
@@ -170,11 +168,11 @@ function mapDispatchToProps(dispatch) {
       console.log('this is badge data: ' ,data)
 
 			new Promise(
-				(resolve, reject) =>{
+				(resolve, reject) => {
 				   Client.search('BadgeClass')
 					.then(data => {
-						const nextId = parseInt(data.slice(-1)[0].entityId) + 1
-						console.log('this is nextid:',nextId)
+						const nextId = parseInt(data.slice(-1)[0].entityId) + 1;
+						console.log('this is nextid:',nextId);
 						sendData(nextId)
 					})
 				});
@@ -186,7 +184,6 @@ function mapDispatchToProps(dispatch) {
 			}
 		}
 	}
-
 }
 
 export default compose(

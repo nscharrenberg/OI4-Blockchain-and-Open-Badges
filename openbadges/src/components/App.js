@@ -4,7 +4,6 @@ import Skeleton from './Skeleton';
 import { Provider } from 'react-redux';
 import store from '../Store';
 import {connect} from 'react-redux';
-import { compose } from "recompose";
 import LoginRegister from './LoginRegister';
 
 function UserGreeting(props) {

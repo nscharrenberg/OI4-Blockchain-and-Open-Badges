@@ -1,21 +1,6 @@
 import React from "react";
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import IssuerCard from './IssuerCard';
-import BadgeCard from './BadgeCard';
-import ValidateBadgeAwardCard from './ValidateBadgeAwardCard';
-import SeeAwardedBadgesCard from './SeeAwardedBadgesCard';
-import CreateBadgeCard from './CreateBadgeCard';
-import CreateIssuerCard from './CreateIssuerCard';
-import AwardBadgeCard from './AwardBadgeCard';
 import ValidateNewBadgeCard from './ValidateNewBadgeCard';
-import Profile from './Profile';
-import AddUserToIssuer from './AddUserToIssuer';
-import Client from "../Store/actions/ClientActions";
-import {compose} from "recompose";
 import {connect} from "react-redux";
-import BadgeActions from '../Store/actions/badgeActions';
-import Button from '@material-ui/core/Button';
 
 function GetUnvalidatedBadges(props){
     const myIssuers = props.issuers;

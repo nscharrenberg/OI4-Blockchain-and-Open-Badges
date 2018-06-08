@@ -9,11 +9,8 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import Lock from '@material-ui/icons/Lock';
 import Client from '../Store/actions/ClientActions';
 import Badge from '../Store/actions/badgeActions';
-
-import {bindActionCreators} from 'redux'
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
-import  { Redirect } from 'react-router-dom'
 
 const styles = theme => ({
     root: {
