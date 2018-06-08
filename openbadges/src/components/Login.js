@@ -172,8 +172,6 @@ function mapDispatchToProps(dispatch) {
                 const action = {type: 'LOGIN', payload: data, login: login, badgeData: badgeData};
                 dispatch(action);       
             }
-
-
         }
     }
 }
