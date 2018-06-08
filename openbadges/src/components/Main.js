@@ -20,44 +20,53 @@ function GetIssuers(props){
 
 function GetCreatedBadges(props){
     const myIssuers = props.issuers;
-    if ((!Array.isArray(props.badges.userBadges[0]) || !props.badges.userBadges[0].length)) {
+    let badges = []
+    if(typeof(props.badges) === 'undefined') {
         return <p>No badges found!</p>
     }
     else {
-        let badges = []
-        badges = props.badges.userBadges[0];
-        return (
-            <div>
-            {badges.map((badge, i) => (
+        if ((!Array.isArray(props.badges.userBadges[0]) || !props.badges.userBadges[0].length)) {
+            return <p>No badges found!</p>
+        }
+        else {
+            badges = props.badges.userBadges[0];
+            return (
                 <div>
-                <BadgeCard badge={badge} issuers={myIssuers} />
-                <br/>
-                </div>
-            ))}
-            </div>
-        )
-    }
-}
-
-function GetAllBadges(props){
-    const myIssuers = props.issuers;
-    let badges = []
-    badges = props.badges.issuerBadges[0];
-    console.log('allBadges: ',badges)
-    if ((!Array.isArray(badges) || !badges.length)) {
-       return <p>No badges found.</p>
-    }
-    else{
-        return (
-            <div>
                 {badges.map((badge, i) => (
                     <div>
                     <BadgeCard badge={badge} issuers={myIssuers} />
                     <br/>
                     </div>
                 ))}
-            </div>
-        )
+                </div>
+            )
+        }
+    }
+}
+
+function GetAllBadges(props){
+    const myIssuers = props.issuers;
+    let badges = []
+    if(typeof(props.badges) === 'undefined') {
+        return <p>No badges found!</p>
+    }
+    else {
+        if ((!Array.isArray(props.badges.issuerBadges[0]) || !props.badges.issuerBadges[0].length)) {
+            return <p>No badges found!</p>
+        }
+        else {
+            badges = props.badges.issuerBadges[0];
+            return (
+                <div>
+                {badges.map((badge, i) => (
+                    <div>
+                    <BadgeCard badge={badge} issuers={myIssuers} />
+                    <br/>
+                    </div>
+                ))}
+                </div>
+            )
+        }
     }
 }
 

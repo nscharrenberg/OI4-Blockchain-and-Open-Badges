@@ -160,10 +160,16 @@ function mapDispatchToProps(dispatch) {
     return {
         onLogin(data) {
             console.log(data)
-            Badge.GetBadges(data.issuers, data.entityId).then(data => {
-                login(data)
-            })   
 
+            if(data.role === "BadgeUser") {
+                login()
+            }
+            else {
+                Badge.GetBadges(data.issuers, data.entityId).then(data => {
+                    login(data)
+                })                 
+            };
+  
             function login(badgeData) {
                 const login = true
                 const action = {type: 'LOGIN', payload: data, login: login, badgeData: badgeData};

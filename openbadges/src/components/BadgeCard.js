@@ -38,7 +38,7 @@ const styles = theme => ({
   },  
   badgeInfo: {
     marginTop: '15px',
-    width:'40%',
+    width:'80%',
   }
 });
 
