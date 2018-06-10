@@ -16,7 +16,6 @@ function GetBadges(issuer, entityId){
                 issuerBadges.push(data.filter(badge => badge.issuer === "resource:org.acme.empty.Issuer#" + issuer[i].entityId))
             }
             //return all badges
-            console.log('getbadges resolve:',resolve)
             resolve({
                 issuerBadges: issuerBadges,
                 userBadges: userBadges
@@ -32,13 +31,14 @@ function GetStaff(issuer, entityId) {
         let allTeacher = []
         Client.search('Teacher').then(data => {
             allTeacher.push(data)
-            console.log('allteachers:',allTeacher)
         }).then(data => {
             Client.search('Validator').then(data => {
                 allValidators.push(data)
-                console.log('allValidators:',allValidators)
             })
-        }).then(resolve({allValidators, allTeacher}))  
+        }).then(resolve({
+            allValidators: allValidators,
+            allTeacher: allTeacher
+        }))  
     })
 }
 

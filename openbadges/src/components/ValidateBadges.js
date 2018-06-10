@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 
 function GetUnvalidatedBadges(props){
     const myIssuers = props.issuers;
+    const staff = props.staff
     let badges = []
     if ((typeof(props.badges) === 'undefined' || props.badges.length == 0)) {
         return <p>No badges found!</p>
@@ -18,7 +19,7 @@ function GetUnvalidatedBadges(props){
                 <div>
                 {badges.map((badge, i) => (
                     <div>
-                    <ValidateNewBadgeCard badge={badge} issuers={myIssuers} />
+                    <ValidateNewBadgeCard badge={badge} issuers={myIssuers} staff={staff} />
                     <br/>
                     </div>
                 ))}
@@ -37,7 +38,7 @@ class ValidateBadges extends React.Component {
         return (
             <div>
                 <h1>New Badges to be Validated</h1>
-                <GetUnvalidatedBadges badges={this.props.badges} issuers={this.props.issuers} />
+                <GetUnvalidatedBadges badges={this.props.badges} issuers={this.props.issuers} staff={this.props.staff}/>
             </div>
         );
     }
@@ -50,7 +51,8 @@ function mapStateToProps(state) {
         firstName: state.userClass.firstName,
         lastName: state.userClass.lastName,
         entityId: state.userClass.entityId,
-        badges: state.userClass.badges
+        badges: state.userClass.badges,
+        staff: state.userClass.staff
     }
 }
 

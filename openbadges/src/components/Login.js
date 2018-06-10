@@ -159,7 +159,6 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         onLogin(data) {
-            console.log(data)
             let badgeData = []
             let staffData = []
 
@@ -175,13 +174,10 @@ function mapDispatchToProps(dispatch) {
                     }).then(login());
                 })                 
             };
-
-            console.log('badgeData: ',badgeData, 'staffData',staffData);
   
             function login() {
                 const login = true
                 const action = {type: 'LOGIN', payload: data, login: login, staffData: staffData, badgeData: badgeData };
-                console.log('sended action:',action)
                 dispatch(action);       
             }
         }

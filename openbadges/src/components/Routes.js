@@ -7,7 +7,6 @@ import Profile from './Profile';
 import Login from './Login';
 import Register from './Register';
 import Notifications from './Notifications';
-import IssuerCreate from './IssuerCreate';
 import ValidateBadges from './ValidateBadges';
 import AwardBadge from './AwardBadge';
 class Routes extends Component {
@@ -23,7 +22,6 @@ class Routes extends Component {
 				<Route path="/login" component={Login} />
 				<Route path="/register" component={Register} />
 				<Route path="/notifications" component={Notifications} />
-				<Route path="/issuer/create" component={IssuerCreate} />
 				<Route path="/validator" component={ValidateBadges} />
 			</div>
 		);

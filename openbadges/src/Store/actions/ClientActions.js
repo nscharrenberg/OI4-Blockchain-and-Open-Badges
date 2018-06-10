@@ -16,7 +16,7 @@ function searchById(query, id, cb) {
             accept: "application/json"
         })
             .then(parseJSON)
-            .then(data => resolve(data));
+            .then(data => resolve(data))
     })
 }
 
@@ -31,7 +31,8 @@ function query(query, cb) {
 }
 
 function create(type, data){
-    console.log(type, data)
+    console.log("this is from client.create: ",type, data);
+    console.log("this is from client.create JSONSTRTING: ",type, JSON.stringify(data));
     return new Promise((resolve, reject) => {
         return fetch(`http://192.168.27.142:3000/api/org.acme.empty.${type}`, {
             headers: {
@@ -43,13 +44,15 @@ function create(type, data){
         })
             .then(parseJSON)
             .then(() => resolve())
+            .catch(alert(reject))
     })
 }
 
-function put(type, id, data){
-    console.log(type, id, data);
+function put(type, data){
+    console.log("this is from client.put: ",type, data);
+    console.log("this is from client.put JSONSTRTING: ",type, JSON.stringify(data));
     return new Promise((resolve, reject) => {
-        return fetch(`http://192.168.27.142:3000/api/org.acme.empty.${type}/${id}`, {
+        return fetch(`http://192.168.27.142:3000/api/org.acme.empty.${type}`, {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -59,6 +62,8 @@ function put(type, id, data){
         })
             .then(parseJSON)
             .then(() => resolve())
+            .then(alert(reject))
+
     })
 }
 

@@ -124,13 +124,17 @@ BadgeCard.propTypes = {
 };
 
 function mapStateToProps(state) {
+  console.log('MY STAFF:',state.userClass.staff)
     return {
         issuers: state.userClass.issuers,
         firstName: state.userClass.firstName,
         lastName: state.userClass.lastName,
         entityId: state.userClass.entityId,
-        badges: state.userClass.badges
+        badges: state.userClass.badges,
+        staff: state.userClass.staff
     }
+
+
 }
 
 export default compose(

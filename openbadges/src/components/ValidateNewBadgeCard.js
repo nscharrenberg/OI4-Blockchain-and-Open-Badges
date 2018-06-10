@@ -60,6 +60,17 @@ const styles = theme => ({
     },
 });
 
+function FindNames(props){
+  /*console.log('FindNames prop:',props)
+  console.log(typeof(props.staff))
+  console.log(typeof(props.issuers))
+  let entityId = props.entityId.split('#')[1];
+  console.log(entityId)
+  let x = props.staff.filter(data => data.allTeachers[0].entityId === entityId)
+  console.log('print x:',x)*/
+  return <p>doing</p>
+}
+
 class ValidateBadgeAwardCard extends React.Component {
   constructor(props) {
     super(props);
@@ -90,7 +101,7 @@ class ValidateBadgeAwardCard extends React.Component {
             <Typography className={classes.heading}>{this.props.badge.name}</Typography>
           </div>
           <div className={classes.column}>
-            <Typography className={classes.secondaryHeading}>{this.props.badge.teacher}</Typography>
+            <Typography className={classes.secondaryHeading}><FindNames entityId={this.props.badge.teacher} staff={this.props.staff} issuers={this.props.issuers} /></Typography>
           </div>
           <div className={classes.columnButton}>
             <Button onClick={this.handleValidation.bind(this)} variant="raised" color="default" style={{backgroundColor: '#00C853'}}><i className="material-icons" style={{color:'white'}}>done</i></Button>

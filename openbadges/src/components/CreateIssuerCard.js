@@ -194,7 +194,8 @@ function mapDispatchToProps(dispatch) {
                 });
 
             function sendData(id) {
-                //console.log('this is what I send to redux:',data, 'id: ', id);
+                console.log(data, id)
+                console.log('this is what I send to redux:',data, 'id: ', id);
                 const action = {type: 'NEW_ISSUER', payload: data, id: id};
                 dispatch(action);
             }

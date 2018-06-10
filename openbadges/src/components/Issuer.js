@@ -19,10 +19,11 @@ class Issuer extends React.Component {
     render () {
         return (
             <div>
+            <CreateIssuerCard />
+        {/*
             <AwardBadgeCard />
             <CreateBadgeCard />
-            <CreateIssuerCard />
-            <AddUserToIssuer />
+            <AddUserToIssuer />*/}
             {/*
                 DOESN'T WORK ANYMORE - HAS TO SEND PROPS INFO 
                 
