@@ -131,8 +131,7 @@ export default function reducer(state={
                 alert("New Issuer " + action.payload.name + " created!")
 
                 //attach PUT new issuer to current user in blockchain
-                let dataToLinkUser = []
-                dataToLinkUser = [
+                let dataToLinkUser = 
                     {
                       "$class": state.network + '.' + state.role,
                       "firstName": state.firstName,
@@ -141,8 +140,7 @@ export default function reducer(state={
                       "email": state.email,
                       "role": state.role,
                       "issuers": state.issuers
-                    }
-                ];
+                    };
 
                 let type = state.role + '/' + state.entityId
                 Client.put(type, dataToLinkUser)
@@ -150,10 +148,7 @@ export default function reducer(state={
                 alert("You are now part of issuer organisation " + action.payload.name)
                 console.log("MY INFO:", state)
             });
-
         }
-        default:
-            return state
     }
     return state;
 };

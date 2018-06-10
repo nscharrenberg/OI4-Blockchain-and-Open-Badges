@@ -11,6 +11,8 @@ import Typography from '@material-ui/core/Typography'
 import {
     Link,
 } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { compose } from 'recompose';
 
 const styles = theme => ({
     paper: {
@@ -32,6 +34,20 @@ const styles = theme => ({
 });
 
 class BadgeCard extends React.Component {
+    constructor(props) {
+        super(props);
+
+        // TODO: REMOVE Role for Issuer on Backend. For now role is hardcoded for Issuer.
+        this.state = {
+            badgeId: this.props.tile.entityId,
+            awardBadgeIdIssuerId: this.props.tile.issuerId
+        }
+    }
+
+    handleSubmit(event) {
+        this.props.onClick(this.state);
+    }
+
     render() {
         const {classes, theme} = this.props;
 
@@ -54,7 +70,8 @@ class BadgeCard extends React.Component {
                         </CardContent>
                         <CardActions>
                             <Link to={`/awardBadge/${this.props.tile.entityId}`}>
-                                <Button color="secondary" className={[classes.button]} >
+                                <Button color="secondary" className={[classes.button]} 
+                                onClick={this.handleSubmit.bind(this)}>
                                     Award Badge
                                 </Button>
                             </Link>
@@ -73,4 +90,21 @@ BadgeCard.propTypes = {
     theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(BadgeCard);
+function mapStateToProps(state) {
+    return {
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        onClick(data) {
+            const action = {type: 'STORE_AWARDING_BADGE_ID', payload: data };
+            dispatch(action);
+        }
+    }
+}
+
+export default compose(
+    withStyles(styles, { withTheme: true }),
+    connect(mapStateToProps, mapDispatchToProps)
+)(BadgeCard);

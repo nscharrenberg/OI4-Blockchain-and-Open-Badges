@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import BadgeCard from './Badge/Card';
+import BadgeCardSmall from './Badge/Card';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import { connect } from 'react-redux';
@@ -94,7 +94,7 @@ function GetBadges(props){
             return (
                     badges.map(tile => (                     
                         <GridListTile style={{ height: 'auto', paddingBottom: '10px', paddingRight: '10px' }} key={tile.entityId}>
-                            <BadgeCard tile={tile} />
+                            <BadgeCardSmall tile={tile} />
                         </GridListTile>
                     ))
             );
@@ -116,7 +116,7 @@ class Badge extends React.Component {
             <div>
                 <h1>All Badges</h1>
                 <GridList cols={5} style={{ height: 'auto' }}>
-                    <GetBadges badges={this.props.badges} />
+                    <GetBadges badges={this.props.badges} issuers={this.props.issuers}/>
                 </GridList>
             </div>
         );

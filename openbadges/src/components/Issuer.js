@@ -7,6 +7,8 @@ import CreateBadgeCard from './CreateBadgeCard';
 import CreateIssuerCard from './CreateIssuerCard';
 import AwardBadgeCard from './AwardBadgeCard';
 import AddUserToIssuer from './AddUserToIssuer';
+import ValidateNewBadgeCard from './ValidateNewBadgeCard'
+
 
 class Issuer extends React.Component {
     constructor(props) {
@@ -19,11 +21,13 @@ class Issuer extends React.Component {
     render () {
         return (
             <div>
+            <CreateBadgeCard />
+            <AddUserToIssuer />
             <CreateIssuerCard />
         {/*
             <AwardBadgeCard />
-            <CreateBadgeCard />
-            <AddUserToIssuer />*/}
+            
+            */}
             {/*
                 DOESN'T WORK ANYMORE - HAS TO SEND PROPS INFO 
                 

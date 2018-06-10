@@ -59,6 +59,7 @@ class CreateBadgeCard extends React.Component {
 			badgeCriteria: '',
       entityId: props.entityId,
       issuerId: props.issuerId,
+      issuerIdToBadge: ''
 		}
 	}
 
@@ -135,6 +136,18 @@ class CreateBadgeCard extends React.Component {
                                     margin="normal"
                                     onChange={e => this.change(e) }
                                     value={this.state.firstName}
+                                /><Typography variant="subheading" color="textSecondary">
+                                Issuer ID - for which issuer new badge belongs:
+                            </Typography>
+                                <TextField
+                                    id="issuerIdToBadge"
+                                    name="issuerIdToBadge"
+                                    multiline
+                                    placeholder="Issuer ID:"
+                                    className={classes.textField}
+                                    margin="normal"
+                                    onChange={e => this.change(e) }
+                                    value={this.state.firstName}
                                 />
                             <div className={classes.controls}>
                                 <Button type={"submit"} name="createBadge" id="createBadge" className={classes.verificationButton} variant="raised" color="success" style={{backgroundColor: '#00C853', color:'white'}}>Create Badge</Button>
@@ -158,7 +171,6 @@ function mapStateToProps(state) {
 	console.log(state.userClass)
 	return {
 		entityId: state.userClass.entityId,
-    issuerId: state.issuerClass.issuerId,
 	}
 }
 

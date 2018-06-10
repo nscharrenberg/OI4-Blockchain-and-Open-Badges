@@ -10,6 +10,8 @@ import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
 import {compose} from "recompose";
 import {connect} from "react-redux";
+import BadgeDetailedCard from './BadgeDetailedCard';
+
 
 const styles = theme => ({
     root: {
@@ -98,7 +100,7 @@ class ValidateBadgeAwardCard extends React.Component {
           </div>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails className={classes.details}>
-          {/*<BadgeCard />*/}
+          <BadgeDetailedCard badge={this.state.thisBadge} issuers={this.props.issuers} />
           <div className={classes.extrabuttons}>
           <Typography variant="subheading" color="textSecondary">
               Verificate issuing: 
@@ -118,15 +120,23 @@ ValidateBadgeAwardCard.propTypes = {
   classes: PropTypes.object.isRequired,
 }
 
-function mapStateToProps(state) {
+function mapDispatchToProps(dispatch) {
     return {
-        name: state.userClass.firstName
+        handleValidation(data, validatorId) {
+          console.log('im gonna validate badge',data)
+          const action = {type: 'VALIDATE_BADGE_ISSUING', payload: data, validatorId: validatorId };
+          dispatch(action);
+        }
     }
 }
 
-function mapDispatchToProps(dispatch) {
+function mapStateToProps(state) {
     return {
-
+        issuers: state.userClass.issuers,
+        firstName: state.userClass.firstName,
+        lastName: state.userClass.lastName,
+        entityId: state.userClass.entityId,
+        badges: state.userClass.badges
     }
 }
 

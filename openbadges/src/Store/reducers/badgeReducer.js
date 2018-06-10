@@ -2,14 +2,9 @@ import Client from '../actions/ClientActions';
 
 export default function reducer(state={
     network: 'org.acme.empty', //hardcoded, need to be fixed, somewhere, somehow
-    /*name: 'My Default Name',
-    imageUrl: 'Lover88',
-    description: 'react@love.com',
-    criteriaUrl: 'peppupano',
-    issuer: '',
-    teachers: [],
-    validators: [],
-    validated: ''*/
+    awardingBadgeId: '',
+    badgeIssuerId: '',
+
 }, action) {
     switch(action.type) {
         case "NEW_BADGE": {
@@ -18,37 +13,91 @@ export default function reducer(state={
             const data = [
                 {
                   "$class": state.network + '.' + transactionName,
-                  "entityId": action.id.toString(),
+                  "entityId": action.id,
                   "name": action.payload.badgeName,
                   "imageUrl": action.payload.imgHash,
                   "description": action.payload.badgeDescription,
-                  "criteriaUrl": action.payload.badgeCriteria,
-                  "issuerId": action.payload.issuerId,
+                  "criteria": action.payload.badgeCriteria,
+                  "issuerId": action.payload.issuerIdToBadge,
                   "teacherId": action.payload.entityId,
                   "timestamp": new Date(new Date().toString().split('GMT')[0]+' UTC').toISOString()
                 }
             ]
+
             Client.create(transactionName, data);
             console.log(data)
             alert('New Badge Created')
+            return state
         }
+
         case "VALIDATE_BADGE": {
             //NOT WORKING
-            const transactionName = 'validateNewBadge'
+            const transactionName = 'ValidateNewBadge'
             const data = [
                 {
                   "$class": state.network + '.' + transactionName,
-                  "entityId": "ARGH" + new Date(new Date().toString().split('GMT')[0]+' UTC').toISOString(),
-                  "badgeId": action.payload.entityId,
-                  "validatorId": action.validatorId,
-                  "teacherId": action.payload.teacher.split('#')[1],
-                  "validated": "true",
+                  "NewBadgeId": action.payload.entityId,
+                  "validated": true,
                   "timestamp": new Date(new Date().toString().split('GMT')[0]+' UTC').toISOString()
                 }
             ]
+            
             Client.create(transactionName, data);
             console.log(data)
-            alert('Badge Validated!')
+            alert('New Badge Validated!')
+        }
+
+        case "VALIDATE_BADGE_ISSUING": {
+            //NOT WORKING
+            const transactionName = 'ValidateIssuedBadge'
+            const data = [
+                {
+                  "$class": state.network + '.' + transactionName,
+                  "IssuedBadgeId": action.payload.entityId,
+                  "validated": true,
+                  "timestamp": new Date(new Date().toString().split('GMT')[0]+' UTC').toISOString()
+                }
+            ]
+            
+            Client.create(transactionName, data);
+            console.log(data)
+            alert('Badge Issuing Validated!')
+        }
+
+        case "STORE_AWARDING_BADGE_ID": {
+          console.log('i got badge for awarding:',action.payload)
+
+          state = {
+            ...state,
+            badgeIssuerId: action.payload.awardBadgeIdIssuerId,
+            awardingBadgeId: action.payload.badgeId
+          }
+
+          console.log('award badge state',state)
+
+          return state;
+        }
+
+        case "ISSUE_BADGE": {
+          console.log('i got badge for issuing:',action.payload, action.id)
+
+          const transactionName = 'IssueBadge';
+          let issueBadgeData = [
+            {
+                  "$class": state.network + '.' + transactionName,
+                  "entityId": action.id,
+                  "badgeId": action.payload.awardingBadgeId,
+                  "teacherId": action.payload.currentUserEntityId,
+                  "userId": action.payload.receiverId,
+                  "timestamp": new Date(new Date().toString().split('GMT')[0]+' UTC').toISOString()
+            }
+
+          ];
+          
+          console.log("new badge issuing to b:",transactionName,'data to b: ',issueBadgeData)
+            
+          Client.create(transactionName, issueBadgeData)
+
         }
     }
 

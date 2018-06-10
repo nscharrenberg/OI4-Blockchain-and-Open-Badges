@@ -3,24 +3,37 @@ import Client from '../actions/ClientActions';
 
 //This could be done more effective by using queries.
 function GetBadges(issuer, entityId){
+
+    let issuedBadges = []
+    let userBadges = []
+    let issuerBadges = []
+
     return new Promise( (resolve, reject) => {
         Client.search('BadgeClass').then(data => {
             //store Badges CREATED by user to own array
-            let userBadges = []
-            userBadges.push(data.filter(badge => badge.teacher ===  "resource:org.acme.empty.Teacher#" + entityId))
+            console.log('my entityId for badge search :',entityId)
+            
+            userBadges.push(data.filter(badge => badge.teacherId ===  entityId))
 
             //store Badges from each issuer to own array
-            let issuerBadges = []
+            
             var i;
             for(i = 0; i < issuer.length; i++){
-                issuerBadges.push(data.filter(badge => badge.issuer === "resource:org.acme.empty.Issuer#" + issuer[i].entityId))
-            }
-            //return all badges
-            resolve({
-                issuerBadges: issuerBadges,
-                userBadges: userBadges
-            })  
-        })
+                issuerBadges.push(data.filter(badge => badge.issuerId === issuer[i].entityId))
+            } 
+        }).then(() => {
+            Client.search('IssuedBadgeClass').then(data => {
+                    
+                    issuedBadges.push(data)
+
+                    //return all badges
+                    resolve({
+                        issuedBadges: issuedBadges,
+                        issuerBadges: issuerBadges,
+                        userBadges: userBadges
+                    })  
+                })
+            })
     })
 }
 
@@ -42,6 +55,7 @@ function GetStaff(issuer, entityId) {
     })
 }
 
+//NOT NEEDED?
 function getAllIssuedBadges() {
     return axios.get('http://192.168.27.142:3000/api/org.acme.empty.IssuedBadgeClass', {
         headers: {
@@ -56,6 +70,7 @@ function getAllIssuedBadges() {
         .catch((error) => Promise.reject(error));
 }
 
+//NOT NEEDED?
 function awardBadge(data){
     console.log(data)
     return new Promise((resolve, reject) => {

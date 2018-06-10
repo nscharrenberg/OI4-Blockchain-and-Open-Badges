@@ -26,6 +26,11 @@ function query(query, cb) {
             accept: "application/json"
         })
             .then(parseJSON)
+            .then(function(data) {
+                console.log('Request succeeded with JSON response', data);
+              }).catch(function(error) {
+                console.log('Request failed', error);
+              })
             .then(data => resolve(data))
     })
 }

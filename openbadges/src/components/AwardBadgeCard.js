@@ -9,6 +9,8 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
+import Client from '../Store/actions/ClientActions';
+
 
 const styles = theme => ({
     card: {
@@ -44,18 +46,30 @@ const styles = theme => ({
 });
 
 class AwardBadgeCard extends React.Component {
-
     constructor(props) {
         super(props);
         this.state = {
-            firstName: '',
-            lastName: '',
-            username: '',
-            emails: '',
-            password: '',
-            role: '',
+            receiverName: '',
+            receiverEmail: '',
+            receiverEvidence: '',
+            receiverId: '',
+            awardingBadgeId: this.props.awardBadgeId,
+            awardBadgeIdIssuerId: this.props.awardBadgeIdIssuerId,
+            currentUserEntityId: this.props.currentUserEntityId
         }
     }
+
+    handleSubmit(event) {
+        event.preventDefault();
+        this.props.onSubmit(this.state);
+    }
+
+    change = e => {
+        this.setState({
+            [e.target.name]: e.target.value
+        });
+    };
+
 
     render () {
 
@@ -71,6 +85,7 @@ class AwardBadgeCard extends React.Component {
                         title="Issuer Organization Name"
                     />
                     <div className={classes.details}>
+                    <form onSubmit={this.handleSubmit.bind(this)}>
                     <CardContent className={classes.content}>
                         <Typography variant="headline">Badge Class Name</Typography>
                         <Typography variant="subheading" color="textSecondary">
@@ -79,40 +94,62 @@ class AwardBadgeCard extends React.Component {
                         <br/>
                         <form noValidate autoComplete="off">
                             <Typography variant="subheading" color="textSecondary">
-                                Badge Receiver:</Typography>
+                                Badge Receiver ID:
+                            </Typography>
+                            <TextField
+                                required
+                                id="receiverId"
+                                name="receiverId" 
+                                defaultValue=""
+                                placeholder="ID of the person (works only with this):"
+                                className={classes.textField}
+                                margin="normal"
+                                onChange={e => this.change(e) }
+                                value={this.state.receiverId}
+                            />
                             <TextField
                                 id="receiverName"
+                                name="receiverName" 
                                 defaultValue=""
                                 placeholder="Name of the person:"
                                 className={classes.textField}
                                 margin="normal"
+                                onChange={e => this.change(e) }
+                                value={this.state.receiverName}
                             />
                             <Typography variant="subheading" color="textSecondary">
                                 Badge Receiver Email:
                             </Typography>
                             <TextField
-                                id="receiveEmail"
+                                id="receiverEmail"
+                                name="receiverEmail" 
                                 defaultValue=""
                                 placeholder="Email of the person:"
                                 className={classes.textField}
                                 margin="normal"
+                                onChange={e => this.change(e) }
+                                value={this.state.receiverEmail}
                             /><Typography variant="subheading" color="textSecondary">
                             Evidence:
                         </Typography>
                             <TextField
                                 id="receiverEvidence"
+                                name="receiverEvidence"
                                 defaultValue=""
                                 multiline
                                 placeholder="Evidence (optional:"
                                 className={classes.textField}
                                 margin="normal"
+                                onChange={e => this.change(e) }
+                                value={this.state.receiverEvidence}
                             />
                         </form>
                         <div className={classes.controls}>
-                            <Button className={classes.verificationButton} variant="raised" color="success" style={{backgroundColor: '#00C853', color:'white'}}>Award</Button>
+                            <Button type={"submit"} className={classes.verificationButton} variant="raised" color="success" style={{backgroundColor: '#00C853', color:'white'}}>Award</Button>
                             <Button className={classes.verificationButton} variant="raised" color="success" style={{backgroundColor: '#F44336', color:'white'}}>Cancel</Button>
                         </div>
                     </CardContent>
+                    </form>
                 </div>
                 </Card>
             </div>
@@ -127,19 +164,34 @@ AwardBadgeCard.propTypes = {
 
 function mapStateToProps(state) {
     return {
+        awardBadgeId: state.badgeClass.awardingBadgeId,
+        awardBadgeIdIssuerId: state.badgeClass.badgeIssuerId,
+        currentUserEntityId: state.userClass.entityId,
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        onLogin(data) {
-            console.log(data)
-            const action = {type: 'LOGIN', payload: data, login: true };
-            dispatch(action);
+        onSubmit(data) {
+
+            new Promise(
+                (resolve, reject) => {
+                   Client.search('IssuedBadgeClass')
+                    .then(data => {
+                        const nextId = parseInt(data.slice(-1)[0].entityId) + 1;
+                        console.log('this is nextid:',nextId);
+                        sendData(nextId)
+                    })
+            });
+
+            function sendData(id) {
+                console.log(data)
+                const action = {type: 'ISSUE_BADGE', payload: data, id: id };
+                dispatch(action);
+            }
         }
     }
 }
-
 
 export default compose(
     withStyles(styles, { withTheme: true }),

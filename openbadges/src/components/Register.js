@@ -231,12 +231,12 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         onSubmit(data) {
-            //MODIFY THIS TO CHECK IF PCN IS TAKEN
             new Promise(
                 (resolve, reject) =>{
                    Client.search(data.role + '/' + data.entityId)
                     .then(data => {
                         if(data.error)
+                            //meaning id is free
                             sendData()
                         else
                             alert('PCN number already used')

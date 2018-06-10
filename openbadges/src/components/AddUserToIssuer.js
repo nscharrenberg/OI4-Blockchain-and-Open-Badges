@@ -53,8 +53,8 @@ class AddUserToIssuer extends React.Component {
         super(props);
         this.state = {
             imgHash: 'userEmail',
-            entityId: props.entityId,
-            issuerId: props.issuerId,
+            newUserId: '',
+            issuerID: ''
         }
     }
 
@@ -80,19 +80,31 @@ class AddUserToIssuer extends React.Component {
                         <div className={classes.details}>
                             <CardContent className={classes.content}>
                                 <Typography variant="subheading" color="textSecondary">
-                                    User Email:
+                                    You can attach any existing user to any existing issuer.
                                 </Typography>
                                 <TextField
-                                    id="userEmail"
-                                    name="userEmail"
-                                    placeholder="Name of the user:"
+                                    required
+                                    id="newUserId"
+                                    name="newUserId"
+                                    placeholder="ID of the user:"
                                     className={classes.textField}
                                     margin="normal"
                                     onChange={e => this.change(e) }
-                                    value={this.state.userEmail}
+                                    value={this.state.newUserId}
                                 />
-                                <p>User will be attached to Issuer:</p>
-                                        <p>This need's to be implemented</p>
+                                <Typography variant="subheading" color="textSecondary">
+                                    
+                                </Typography>
+                                <TextField
+                                    required
+                                    id="issuerID"
+                                    name="issuerID"
+                                    placeholder="ID of the Issuer:"
+                                    className={classes.textField}
+                                    margin="normal"
+                                    onChange={e => this.change(e) }
+                                    value={this.state.issuerID}
+                                />
                                 <div className={classes.controls}>
                                     <Button type={"submit"} name="createIssuer" id="createIssuer" className={classes.verificationButton} variant="raised" color="success" style={{backgroundColor: '#00C853', color:'white'}}>Attach</Button>
                                     <Button className={classes.verificationButton} variant="raised" color="success" style={{backgroundColor: '#F44336', color:'white'}}>Cancel</Button>
@@ -123,7 +135,9 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         onSubmit(data) {
-            //NEED TO IMPLEMENT
+                console.log('this is what I send to redux:',data );
+                const action = {type: 'ATTACH_USER_TO_ISSUER', payload: data };
+                dispatch(action);
         }
     }
 
