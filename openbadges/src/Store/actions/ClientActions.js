@@ -43,8 +43,12 @@ function create(type, data){
             body: JSON.stringify(data)
         })
             .then(parseJSON)
+            .then(function(data) {
+                console.log('Request succeeded with JSON response', data);
+              }).catch(function(error) {
+                console.log('Request failed', error);
+              })
             .then(() => resolve())
-            .catch(alert(reject))
     })
 }
 
@@ -61,8 +65,12 @@ function put(type, data){
             body: JSON.stringify(data)
         })
             .then(parseJSON)
+            .then(function(data) {
+                console.log('Request succeeded with JSON response', data);
+              }).catch(function(error) {
+                console.log('Request failed', error);
+              })
             .then(() => resolve())
-            .then(alert(reject))
 
     })
 }

@@ -112,7 +112,7 @@ export default function reducer(state={
 
             console.log("I stored new issuer to state and this is: " ,state)
 
-            //store new issuer to blockchain
+            //WORKING store new issuer POST to blockchain
             const transactionNameIssuer = 'Issuer';
             let dataToIssuer = [
                 {
@@ -125,32 +125,32 @@ export default function reducer(state={
                     "role": action.payload.role
                 }
             ];
-
-            Client.create(transactionNameIssuer, dataToIssuer);
             console.log("new issuer to b:",transactionNameIssuer,'data to b: ',dataToIssuer)
-            alert("New Issuer " + action.payload.name + " created!")
+            
+            Client.create(transactionNameIssuer, dataToIssuer).then(() => {
+                alert("New Issuer " + action.payload.name + " created!")
 
-            //attach new issuer to current user in blockchain
-            let dataToLinkUser = []
-            dataToLinkUser = [
-                {
-                  "$class": state.network + '.' + state.role,
-                  "firstName": state.firstName,
-                  "lastName": state.lastName,
-                  "password": "dummyForNow",
-                  "email": state.email,
-                  "role": state.role,
-                  "issuers": state.issuers
-                }
-            ];
+                //attach PUT new issuer to current user in blockchain
+                let dataToLinkUser = []
+                dataToLinkUser = [
+                    {
+                      "$class": state.network + '.' + state.role,
+                      "firstName": state.firstName,
+                      "lastName": state.lastName,
+                      "password": "dummyForNow",
+                      "email": state.email,
+                      "role": state.role,
+                      "issuers": state.issuers
+                    }
+                ];
 
-            let dataNull = []
+                let type = state.role + '/' + state.entityId
+                Client.put(type, dataToLinkUser)
+                console.log('put to b ! type is: ',type,'dataToLinkUser:', dataToLinkUser)
+                alert("You are now part of issuer organisation " + action.payload.name)
+                console.log("MY INFO:", state)
+            });
 
-            let type = state.role + '/' + state.entityId
-            Client.put(type, dataToLinkUser)
-            console.log('put to b ! type is: ',type,'dataToLinkUser:', dataNull)
-            alert("You are now part of issuer organisation " + action.payload.name)
-            console.log("MY INFO:", state)
         }
         default:
             return state
