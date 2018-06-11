@@ -178,9 +178,15 @@ function mapDispatchToProps(dispatch) {
                 (resolve, reject) => {
                    Client.search('IssuedBadgeClass')
                     .then(data => {
-                        const nextId = parseInt(data.slice(-1)[0].entityId) + 1;
-                        console.log('this is nextid:',nextId);
-                        sendData(nextId)
+                        if(data.entityId == undefined) {
+                            const nextId = 5005
+                            sendData(nextId)
+                        }
+                        else {
+                            const nextId = parseInt(data.slice(-1)[0].entityId) + 1;
+                            console.log('this is nextid:',nextId);
+                            sendData(nextId)
+                        }
                     })
             });
 

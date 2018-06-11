@@ -23,28 +23,33 @@ export default function reducer(state={
                   "timestamp": new Date(new Date().toString().split('GMT')[0]+' UTC').toISOString()
                 }
             ]
-
+            console.log('New Badge Created',transactionName, data)
             Client.create(transactionName, data);
             console.log(data)
             alert('New Badge Created')
             return state
         }
 
-        case "VALIDATE_BADGE": {
+        case "VALIDATE_NEW_BADGE": {
+
+          console.log('validate:data before b:',action.payload,action.validatorId)
             //NOT WORKING
             const transactionName = 'ValidateNewBadge'
             const data = [
                 {
                   "$class": state.network + '.' + transactionName,
-                  "NewBadgeId": action.payload.entityId,
+                  "newBadgeId": action.payload.entityId,
                   "validated": true,
+                  "validatorId": action.validatorId,
                   "timestamp": new Date(new Date().toString().split('GMT')[0]+' UTC').toISOString()
                 }
             ]
-            
+
+            console.log('New Badge Validated!',transactionName, data)
             Client.create(transactionName, data);
             console.log(data)
             alert('New Badge Validated!')
+            return state
         }
 
         case "VALIDATE_BADGE_ISSUING": {
@@ -55,13 +60,15 @@ export default function reducer(state={
                   "$class": state.network + '.' + transactionName,
                   "IssuedBadgeId": action.payload.entityId,
                   "validated": true,
+                  "validatorId": action.validatorId,
                   "timestamp": new Date(new Date().toString().split('GMT')[0]+' UTC').toISOString()
                 }
             ]
-            
+
+            console.log('New Badge Validated!',transactionName, data)
             Client.create(transactionName, data);
-            console.log(data)
             alert('Badge Issuing Validated!')
+            return state
         }
 
         case "STORE_AWARDING_BADGE_ID": {
@@ -86,16 +93,17 @@ export default function reducer(state={
             {
                   "$class": state.network + '.' + transactionName,
                   "entityId": action.id,
-                  "badgeId": action.payload.awardingBadgeId,
+                  "badgeclassId": action.payload.awardingBadgeId,
                   "teacherId": action.payload.currentUserEntityId,
-                  "userId": action.payload.receiverId,
+                  "recipientId": action.payload.receiverId,
+                  "issuerId": action.payload.awardBadgeIdIssuerId,
+                  "evidence": action.payload.receiverEvidence,
                   "timestamp": new Date(new Date().toString().split('GMT')[0]+' UTC').toISOString()
             }
 
-          ];
+          ]
           
           console.log("new badge issuing to b:",transactionName,'data to b: ',issueBadgeData)
-            
           Client.create(transactionName, issueBadgeData)
 
         }

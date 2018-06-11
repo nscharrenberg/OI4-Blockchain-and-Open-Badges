@@ -136,7 +136,7 @@ function mapDispatchToProps(dispatch) {
     return {
         handleValidation(data, validatorId) {
           console.log('im gonna validate badge',data)
-          const action = {type: 'VALIDATE_BADGE', payload: data, validatorId: validatorId };
+          const action = {type: 'VALIDATE_NEW_BADGE', payload: data, validatorId: validatorId };
           dispatch(action);
         }
     }
