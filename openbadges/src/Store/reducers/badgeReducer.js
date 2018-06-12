@@ -8,7 +8,7 @@ export default function reducer(state={
 }, action) {
     switch(action.type) {
         case "NEW_BADGE": {
-            //create new badge to blockchain
+                       //create new badge to blockchain
             const transactionName = 'NewBadge'
             const data = [
                 {

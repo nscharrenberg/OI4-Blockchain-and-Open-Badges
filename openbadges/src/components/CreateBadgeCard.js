@@ -10,7 +10,7 @@ import TextField from '@material-ui/core/TextField';
 import {connect} from 'react-redux';
 import { compose } from "recompose";
 import Client from '../Store/actions/ClientActions';
-
+import IpfsApi from 'ipfs-api';
 const styles = theme => ({
   card: {
   	display: 'flex',
@@ -53,7 +53,8 @@ class CreateBadgeCard extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			imgHash: 'https://badgr-io-media.s3.amazonaws.com/uploads/badges/issuer_badgeclass_da2d8fbd-f17b-4bb4-afe9-4b62c2d8f549.png',
+            file: "",
+			imgHash: '',
 			badgeName: '',
 			badgeDescription: '',
 			badgeCriteria: '',
@@ -61,17 +62,47 @@ class CreateBadgeCard extends React.Component {
       issuerId: props.issuerId,
       issuerIdToBadge: ''
 		}
-	}
+        this.ipfsApi = IpfsApi("localhost",5001)
+  
+  }
+
+  saveToIpfs = (reader) => {
+    let ipfsId
+    const buffer = Buffer.from(reader.result)
+    this.ipfsApi.add(buffer)
+    .then((response) => {
+      console.log(response)
+      ipfsId = response[0].hash
+      console.log(ipfsId)
+      this.setState({imgHash: "https://ipfs.io/ipfs/"+ipfsId})
+
+      this.props.onSubmit(this.state);
+    }).catch((err) => {
+      console.error(err)
+    })
+  }
+
+  arrayBufferToString = (arrayBuffer) => {
+    return String.fromCharCode.apply(null, new Uint16Array(arrayBuffer))
+  }
+
 
 	handleSubmit(event) {
-		event.preventDefault();
-		this.props.onSubmit(this.state);
-	}
-
+        event.preventDefault();
+        let reader = new window.FileReader()
+        console.log(this.state.file)
+        reader.onloadend = () => this.saveToIpfs(reader)
+        reader.readAsArrayBuffer(this.state.file)
+    }
 	change = e => {
 		this.setState({
 		   [e.target.name]: e.target.value
-		});
+        });
+        if (e.target.name==='file'){
+            this.setState({
+                file: e.target.files[0]
+            });
+        }
 	};
 
 	render () {
@@ -83,13 +114,9 @@ class CreateBadgeCard extends React.Component {
                 <Card className={classes.card}>
                     <form onSubmit={this.handleSubmit.bind(this)}>
                     <CardMedia className={classes.cover}>
-                        <input
-                            accept="image/*"
-                            className={classes.input}
-                            id="raised-button-file"
-                            multiple
-                            type="file"
-                        />
+                        <input  className={classes.input}
+                            id="raised-button-file" type="file" name="file" onChange={this.change} />
+                       
                         <label htmlFor="raised-button-file">
                             <Button variant="raised" component="div" className={classes.imageTxt}>
                                 <i className="material-icons" style={{fontSize: '48px'}}>cloud_upload</i>
