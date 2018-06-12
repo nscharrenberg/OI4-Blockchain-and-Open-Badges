@@ -71,14 +71,13 @@ class CreateBadgeCard extends React.Component {
     const buffer = Buffer.from(reader.result)
     this.ipfsApi.add(buffer)
     .then((response) => {
-      console.log(response)
+      console.log('ipfs response:',response)
       ipfsId = response[0].hash
-      console.log(ipfsId)
+      console.log('ipfs id:',ipfsId)
       this.setState({imgHash: "https://ipfs.io/ipfs/"+ipfsId})
-
       this.props.onSubmit(this.state);
     }).catch((err) => {
-      console.error(err)
+      console.error('ipfs error:',err)
     })
   }
 
@@ -90,10 +89,11 @@ class CreateBadgeCard extends React.Component {
 	handleSubmit(event) {
         event.preventDefault();
         let reader = new window.FileReader()
-        console.log(this.state.file)
+        console.log('filestate from handlesubmit:',this.state.file)
         reader.onloadend = () => this.saveToIpfs(reader)
         reader.readAsArrayBuffer(this.state.file)
     }
+
 	change = e => {
 		this.setState({
 		   [e.target.name]: e.target.value

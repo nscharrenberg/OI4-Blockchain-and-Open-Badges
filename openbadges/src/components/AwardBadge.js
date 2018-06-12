@@ -56,8 +56,8 @@ function mapStateToProps(state) {
     console.log('this is userclass from state: ',state.userClass)
     return {
         issuers: state.userClass.issuers,
-        firstName: state.userClass.firstName,
-        lastName: state.userClass.lastName,
+        firstname: state.userClass.firstname,
+        lastname: state.userClass.lastname,
         entityId: state.userClass.entityId,
         badges: state.userClass.badges
     }

@@ -51,8 +51,8 @@ export default function reducer(state={
                         let dataToAttachUser = 
                         {
                           "$class": state.network + '.' + userData.role,
-                          "firstName": userData.firstName,
-                          "lastName": userData.lastName,
+                          "firstname": userData.firstname,
+                          "lastname": userData.lastname,
                           "password": "dummyForNow",
                           "email": userData.email,
                           "role": userData.role,

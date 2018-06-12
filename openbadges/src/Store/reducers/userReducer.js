@@ -4,8 +4,8 @@ import Badge from '../actions/badgeActions';
 export default function reducer(state={
     login: false,
     entityId:'',
-    firstName: '',
-    lastName: '',
+    firstname: '',
+    lastname: '',
     email: '',
     network: 'org.acme.empty', //hardcoded for now
     role: '',
@@ -18,8 +18,8 @@ export default function reducer(state={
             
             state = {
                 ...state, 
-                    firstName: action.payload.firstName,
-                    lastName: action.payload.lastName, 
+                    firstname: action.payload.firstname,
+                    lastname: action.payload.lastname, 
                     email: action.payload.emails, 
                     role: action.payload.role,
                     entityId: action.payload.entityId,
@@ -34,8 +34,8 @@ export default function reducer(state={
                     {
                         "$class": state.network + '.' + state.role,
                         "entityId": state.entityId,
-                        "firstName": state.firstName,
-                        "lastName": state.lastName,
+                        "firstname": state.firstname,
+                        "lastname": state.lastname,
                         "password": action.payload.password,
                         "email": state.email,
                         "role": state.role,
@@ -49,8 +49,8 @@ export default function reducer(state={
                     {
                         "$class": state.network + '.' + state.role,
                         "entityId": state.entityId,
-                        "firstName": state.firstName,
-                        "lastName": state.lastName,
+                        "firstname": state.firstname,
+                        "lastname": state.lastname,
                         "password": action.payload.password,
                         "email": state.email,
                         "role": state.role
@@ -68,8 +68,8 @@ export default function reducer(state={
             if(action.payload.role == "BadgeUser") {
                 state = {...state,
                     entityId: action.payload.entityId,
-                    firstName: action.payload.firstName,
-                    lastName: action.payload.lastName,
+                    firstname: action.payload.firstname,
+                    lastname: action.payload.lastname,
                     login: action.login,
                     email: action.payload.email,
                     role: action.payload.role,
@@ -81,8 +81,8 @@ export default function reducer(state={
             if((action.payload.role == "Teacher") || (action.payload.role == "Validator")) {
                 state = {...state,
                     entityId: action.payload.entityId,
-                    firstName: action.payload.firstName,
-                    lastName: action.payload.lastName,
+                    firstname: action.payload.firstname,
+                    lastname: action.payload.lastname,
                     login: action.login,
                     email: action.payload.email,
                     role: action.payload.role,
@@ -134,8 +134,8 @@ export default function reducer(state={
                 let dataToLinkUser = 
                     {
                       "$class": state.network + '.' + state.role,
-                      "firstName": state.firstName,
-                      "lastName": state.lastName,
+                      "firstname": state.firstname,
+                      "lastname": state.lastname,
                       "password": "dummyForNow",
                       "email": state.email,
                       "role": state.role,

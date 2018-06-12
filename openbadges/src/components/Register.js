@@ -30,8 +30,8 @@ class Register extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            firstName: '',
-            lastName: '',
+            firstname: '',
+            lastname: '',
             entityId: '',
             emails: '',
             password: '',
@@ -83,8 +83,8 @@ class Register extends React.Component {
                                         <Grid item>
                                             <TextField 
                                             required 
-                                            id="firstName" 
-                                            name="firstName" 
+                                            id="firstname" 
+                                            name="firstname" 
                                             label="First name" 
                                             onChange={e => this.change(e) }
                                             value={this.state.firstName}
@@ -101,8 +101,8 @@ class Register extends React.Component {
                                         <Grid item>
                                             <TextField 
                                             required 
-                                            id="lastName" 
-                                            name="lastName" 
+                                            id="lastname" 
+                                            name="lastname" 
                                             label="Last name" 
                                             onChange={e => this.change(e) }
                                             value={this.state.lastName}
@@ -224,7 +224,7 @@ Register.propTypes = {
 
 function mapStateToProps(state) {
     return {
-      name: state.userClass.firstName
+      name: state.userClass.firstname
     }
 }
 

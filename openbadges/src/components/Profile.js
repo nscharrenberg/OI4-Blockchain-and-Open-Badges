@@ -12,8 +12,8 @@ class Profile extends React.Component {
         	<div>
         	<h1>You Profile Info:</h1>
         	<p>entityId: {this.props.entityId}</p>
-            <p>First name: {this.props.firstName}</p>
-            <p>Last name: {this.props.lastName}</p>
+            <p>First name: {this.props.firstname}</p>
+            <p>Last name: {this.props.lastname}</p>
             <p>Email: {this.props.email}</p>
             <p>Username: {this.props.username}</p>
             <p>Network: {this.props.network}</p>
@@ -34,8 +34,8 @@ function mapStateToProps(state) {
     console.log('this is from profile:',state.userClass)
 	return {
 		entityId: state.userClass.entityId,
-	    firstName: state.userClass.firstName,
-	    lastName: state.userClass.lastName,
+	    firstname: state.userClass.firstname,
+	    lastname: state.userClass.lastname,
 	    email: state.userClass.email,
 	    username: state.userClass.username,
 	    network: state.userClass.network,

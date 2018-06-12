@@ -133,8 +133,8 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
     return {
         issuers: state.userClass.issuers,
-        firstName: state.userClass.firstName,
-        lastName: state.userClass.lastName,
+        firstname: state.userClass.firstname,
+        lastname: state.userClass.lastname,
         entityId: state.userClass.entityId,
         badges: state.userClass.badges
     }

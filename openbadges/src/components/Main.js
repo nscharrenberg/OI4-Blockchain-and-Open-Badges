@@ -81,7 +81,7 @@ class Main extends React.Component {
     render () {
         return (
             <div>
-            <h2>Welcome {this.props.firstName} {this.props.lastName}</h2>
+            <h2>Welcome {this.props.firstname} {this.props.lastname}</h2>
             <h3>You are part of Issuer Organisations:</h3>
             <GetIssuers issuers={this.props.issuers} />
             <hr/>
@@ -100,8 +100,8 @@ function mapStateToProps(state) {
     console.log(state)
     return {
         issuers: state.userClass.issuers,
-        firstName: state.userClass.firstName,
-        lastName: state.userClass.lastName,
+        firstname: state.userClass.firstname,
+        lastname: state.userClass.lastname,
         entityId: state.userClass.entityId,
         badges: state.userClass.badges
     }
