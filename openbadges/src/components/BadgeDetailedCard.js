@@ -120,7 +120,7 @@ function mapStateToProps(state) {
         firstname: state.userClass.firstname,
         lastname: state.userClass.lastname,
         entityId: state.userClass.entityId,
-        badges: state.userClass.badges
+        badges: state.badgeClass.badges
     }
 }
 

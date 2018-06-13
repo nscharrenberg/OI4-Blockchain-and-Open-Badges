@@ -21,7 +21,8 @@ function GetIssuers(props){
 function GetCreatedBadges(props){
     const myIssuers = props.issuers;
     let badges = []
-    if ((typeof(props.badges) === 'undefined' || !props.badges.length == 0)) {
+    return <p>doing</p>
+    /*if ((typeof(props.badges) === 'undefined' || !props.badges.length == 0)) {
         return <p>No badges found!</p>
     }
     else {
@@ -42,14 +43,15 @@ function GetCreatedBadges(props){
                 </div>
             )
         }
-    }
+    }*/
 }
 
 function GetAllBadges(props){
     const myIssuers = props.issuers;
     console.log("getallb:",props.badges, typeof(props.badges))
     let badges = []
-    if ((typeof(props.badges) === 'undefined' || props.badges.length == 0)) {
+    return <p>doing</p>
+    /*if ((typeof(props.badges) === 'undefined' || props.badges.length == 0)) {
         return <p>No badges found!</p>
     }
     else {
@@ -69,6 +71,26 @@ function GetAllBadges(props){
                 </div>
             )
         }
+    }*/
+}
+
+function GetMyBadges(props){
+    const myIssuers = props.issuers;
+    if (props.userBadges.length === 0) {
+       return <p>No badges found!</p>
+    }
+    else {
+        let badges = props.userBadges
+                return (
+                    <div>
+                    {badges.map((badge, i) => (
+                        <div>
+                        <BadgeCard badge={badge} issuers={myIssuers} />
+                        <br/>
+                        </div>
+                    ))}
+                    </div>
+                );                
     }
 }
 
@@ -85,12 +107,21 @@ class Main extends React.Component {
             <h3>You are part of Issuer Organisations:</h3>
             <GetIssuers issuers={this.props.issuers} />
             <hr/>
-            <h3>All Badges you created</h3>
+            <h3>These are your own badges:</h3>
+            <GetMyBadges 
+                    issuerBadges={this.props.issuerBadges}
+                    issuedBadges={this.props.issuedBadges}
+                    userBadges={this.props.userBadges}  
+                    issuers={this.props.issuers}
+                    />
+            <hr/>
+
+            {/*<h3>All Badges you created</h3>
             <GetCreatedBadges badges={this.props.badges} issuers={this.props.issuers} />
             <hr/>
             <h3>All Badges From your Organisations</h3>
             <GetAllBadges badges={this.props.badges} issuers={this.props.issuers} />
-            <hr/>
+            <hr/>*/}
             </div>
         );
     }
@@ -103,7 +134,9 @@ function mapStateToProps(state) {
         firstname: state.userClass.firstname,
         lastname: state.userClass.lastname,
         entityId: state.userClass.entityId,
-        badges: state.userClass.badges
+        issuerBadges: state.badgeClass.issuerBadges,
+        issuedBadges: state.badgeClass.issuedBadges,
+        userBadges: state.badgeClass.userBadges
     }
 }
 

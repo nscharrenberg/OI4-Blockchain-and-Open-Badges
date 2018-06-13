@@ -3,35 +3,47 @@ import Client from '../actions/ClientActions';
 
 //This could be done more effective by using queries.
 function GetBadges(issuer, entityId){
+    console.log('getbadges data',issuer, entityId)
 
-    let issuedBadges = []
-    let userBadges = []
-    let issuerBadges = []
+    let issuedBadgesTemp = []
+    let userBadgesTemp = []
+    let issuerBadgesTemp = []
 
     return new Promise( (resolve, reject) => {
         Client.search('BadgeClass').then(data => {
-            //store Badges CREATED by user to own array
-            console.log('my entityId for badge search :',entityId)
-            
-            userBadges.push(data.filter(badge => badge.teacherId ===  entityId))
+            //store Badges CREATED by user to own array            
+            userBadgesTemp.push(data.filter(badge => badge.teacherId ===  entityId))
 
             //store Badges from each issuer to own array
             
             var i;
-            for(i = 0; i < issuer.length; i++){
-                issuerBadges.push(data.filter(badge => badge.issuerId === issuer[i].entityId))
-            } 
+            for(i = 0; i < issuer.length; i++){      
+                issuerBadgesTemp.push(data.filter(badge => badge.issuerId === issuer[i].entityId))
+            }
+            
         }).then(() => {
+
             Client.search('IssuedBadgeClass').then(data => {
-                    
-                    issuedBadges.push(data)
+
+                    var i, k;
+                    data.forEach(function(badge){
+                        for(k = 0; k < issuer.length; k++) {
+                            if(badge.issuerId === issuer[k].entityId) {
+                               issuedBadgesTemp.push(badge)
+                            }
+                        }
+                    });
+
+                    let issuerBadges = [].concat.apply([], issuerBadgesTemp);
+                    let issuedBadges = [].concat.apply([], issuedBadgesTemp);
+                    let userBadges = [].concat.apply([], issuedBadgesTemp);
 
                     //return all badges
                     resolve({
                         issuedBadges: issuedBadges,
                         issuerBadges: issuerBadges,
                         userBadges: userBadges
-                    })  
+                    })
                 })
             })
     })

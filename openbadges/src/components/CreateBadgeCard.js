@@ -11,6 +11,7 @@ import {connect} from 'react-redux';
 import { compose } from "recompose";
 import Client from '../Store/actions/ClientActions';
 import IpfsApi from 'ipfs-api';
+
 const styles = theme => ({
   card: {
   	display: 'flex',
@@ -59,8 +60,9 @@ class CreateBadgeCard extends React.Component {
 			badgeDescription: '',
 			badgeCriteria: '',
       entityId: props.entityId,
-      issuerId: props.issuerId,
-      issuerIdToBadge: ''
+      issuerIdToBadge: '',
+      issuers: this.props.issuers
+
 		}
         this.ipfsApi = IpfsApi("localhost",5001)
   
@@ -88,10 +90,11 @@ class CreateBadgeCard extends React.Component {
 
 	handleSubmit(event) {
         event.preventDefault();
-        let reader = new window.FileReader()
-        console.log('filestate from handlesubmit:',this.state.file)
-        reader.onloadend = () => this.saveToIpfs(reader)
-        reader.readAsArrayBuffer(this.state.file)
+        //let reader = new window.FileReader()
+        //console.log('filestate from handlesubmit:',this.state.file)
+        //reader.onloadend = () => this.saveToIpfs(reader)
+        //reader.readAsArrayBuffer(this.state.file)
+        this.props.onSubmit(this.state);
     }
 
 	change = e => {
@@ -131,6 +134,7 @@ class CreateBadgeCard extends React.Component {
                                     Badge Name:
                                 </Typography>
                                 <TextField
+                                    required
                                     id="badgeName"
                                     name="badgeName"
                                     placeholder="Name of the Badge:"
@@ -143,6 +147,7 @@ class CreateBadgeCard extends React.Component {
                                 Description:
                             </Typography>
                                 <TextField
+                                    required
                                     id="badgeDescription"
                                     name="badgeDescription"
                                     multiline
@@ -155,6 +160,7 @@ class CreateBadgeCard extends React.Component {
                                 Criteria:
                             </Typography>
                                 <TextField
+                                    required
                                     id="badgeCriteria"
                                     name="badgeCriteria"
                                     multiline
@@ -167,6 +173,7 @@ class CreateBadgeCard extends React.Component {
                                 Issuer ID - for which issuer new badge belongs:
                             </Typography>
                                 <TextField
+                                    required
                                     id="issuerIdToBadge"
                                     name="issuerIdToBadge"
                                     multiline
@@ -198,6 +205,7 @@ function mapStateToProps(state) {
 	console.log(state.userClass)
 	return {
 		entityId: state.userClass.entityId,
+    issuers: state.userClass.issuers
 	}
 }
 

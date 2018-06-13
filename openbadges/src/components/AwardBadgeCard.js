@@ -55,7 +55,8 @@ class AwardBadgeCard extends React.Component {
             receiverId: '',
             awardingBadgeId: this.props.awardBadgeId,
             awardBadgeIdIssuerId: this.props.awardBadgeIdIssuerId,
-            currentUserEntityId: this.props.currentUserEntityId
+            currentUserEntityId: this.props.currentUserEntityId,
+            issuers: this.props.issuers
         }
     }
 
@@ -167,6 +168,7 @@ function mapStateToProps(state) {
         awardBadgeId: state.badgeClass.awardingBadgeId,
         awardBadgeIdIssuerId: state.badgeClass.badgeIssuerId,
         currentUserEntityId: state.userClass.entityId,
+        issuers: state.userClass.issuers
     }
 }
 
@@ -178,15 +180,15 @@ function mapDispatchToProps(dispatch) {
                 (resolve, reject) => {
                    Client.search('IssuedBadgeClass')
                     .then(data => {
-                        if(data.entityId == undefined) {
-                            const nextId = 5005
+                        /*if(data.entityId == undefined) {
+                            const nextId = 5006
                             sendData(nextId)
                         }
-                        else {
+                        else {*/
                             const nextId = parseInt(data.slice(-1)[0].entityId) + 1;
                             console.log('this is nextid:',nextId);
                             sendData(nextId)
-                        }
+                        //}
                     })
             });
 

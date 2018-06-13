@@ -29,78 +29,21 @@ const styles = theme => ({
     },
 });
 
-// TODO: Remove these when working with Rest API.
-const dummyBadgesArray = [
-    {
-        img: 'https://badgr-io-media.s3.amazonaws.com/uploads/badges/issuer_badgeclass_da2d8fbd-f17b-4bb4-afe9-4b62c2d8f549.png',
-        title: 'Knife & Fork1',
-        description: 'You eat with knife and fork. No Spoon and no hands. Just knifes and fork',
-    },
-    {
-        img: 'https://i.pinimg.com/736x/f7/0c/e4/f70ce4e89bb507e70813032293712c0d--badge-logo-logo-s.jpg',
-        title: 'Knife & Fork2',
-        description: 'You eat with knife and fork. No Spoon and no hands. Just knifes and fork',
-    },
-    {
-        img: 'https://badgr-io-media.s3.amazonaws.com/uploads/badges/issuer_badgeclass_da2d8fbd-f17b-4bb4-afe9-4b62c2d8f549.png',
-        title: 'Knife & Fork9',
-        description: 'You eat with knife and fork. No Spoon and no hands. Just knifes and fork',
-    },
-    {
-        img: 'https://badgr-io-media.s3.amazonaws.com/uploads/badges/issuer_badgeclass_da2d8fbd-f17b-4bb4-afe9-4b62c2d8f549.png',
-        title: 'Knife & Fork3',
-        description: 'You eat with knife and fork. No Spoon and no hands. Just knifes and fork',
-    },
-    {
-        img: 'https://i.ytimg.com/vi/ePw190n93Dg/maxresdefault.jpg',
-        title: 'Knife & Fork6',
-        description: 'You eat with knife and fork. No Spoon and no hands. Just knifes and fork',
-    },
-    {
-        img: 'https://www.dpreview.com/what-is-4k/images/4k-1080p-compared.jpg',
-        title: 'Knife & Fork4',
-        description: 'You eat with knife and fork. No Spoon and no hands. Just knifes and fork',
-    },
-    {
-        img: 'https://badgr-io-media.s3.amazonaws.com/uploads/badges/issuer_badgeclass_da2d8fbd-f17b-4bb4-afe9-4b62c2d8f549.png',
-        title: 'Knife & Fork7',
-        description: 'You eat with knife and fork. No Spoon and no hands. Just knifes and fork',
-    },
-    {
-        img: 'https://badgr-io-media.s3.amazonaws.com/uploads/badges/issuer_badgeclass_da2d8fbd-f17b-4bb4-afe9-4b62c2d8f549.png',
-        title: 'Knife & Fork10',
-        description: 'You eat with knife and fork. No Spoon and no hands. Just knifes and fork',
-    },
-    {
-        img: 'https://badgr-io-media.s3.amazonaws.com/uploads/badges/issuer_badgeclass_da2d8fbd-f17b-4bb4-afe9-4b62c2d8f549.png',
-        title: 'Knife & Fork12',
-        description: 'You eat with knife and fork. No Spoon and no hands. Just knifes and fork',
-    },
-];
-
 function GetBadges(props){
-    console.log('propbag:',props.badges);
-    let badges = []
 
-    if ((typeof(props.badges) === 'undefined' || props.badges.length == 0)) {
+    if (typeof(props.issuerBadges) === 'undefined' || props.issuerBadges.length == 0) {
        return <p>No badges found!</p>
     }
     else {
-        if ((!Array.isArray(props.badges.issuerBadges[0]) || !props.badges.issuerBadges[0].length)) {
-            return <p>No badges found!</p>
-        }
-        else {
-            badges = props.badges.issuerBadges[0]
-            return (
-                    badges.map(tile => (                     
-                        <GridListTile style={{ height: 'auto', paddingBottom: '10px', paddingRight: '10px' }} key={tile.entityId}>
-                            <BadgeCardSmall tile={tile} />
-                        </GridListTile>
-                    ))
-            );
-        }
-    }
-                    
+        let badges = props.issuerBadges.filter(badge => badge.validated == true)
+        return (
+                badges.map(tile => (                     
+                    <GridListTile style={{ height: 'auto', paddingBottom: '10px', paddingRight: '10px' }} key={tile.entityId}>
+                        <BadgeCardSmall tile={tile} />
+                    </GridListTile>
+                ))
+        );
+    }               
 }
 
 class Badge extends React.Component {
@@ -114,9 +57,14 @@ class Badge extends React.Component {
 
         return (
             <div>
-                <h1>All Badges</h1>
+                <h1>Badges to be awarded</h1>
                 <GridList cols={5} style={{ height: 'auto' }}>
-                    <GetBadges badges={this.props.badges} issuers={this.props.issuers}/>
+                    <GetBadges 
+                    issuerBadges={this.props.issuerBadges}
+                    issuedBadges={this.props.issuedBadges}
+                    userBadges={this.props.userBadges} 
+                    issuers={this.props.issuers}
+                    />
                 </GridList>
             </div>
         );
@@ -135,7 +83,9 @@ function mapStateToProps(state) {
         firstname: state.userClass.firstname,
         lastname: state.userClass.lastname,
         entityId: state.userClass.entityId,
-        badges: state.userClass.badges
+        issuerBadges: state.badgeClass.issuerBadges,
+        issuedBadges: state.badgeClass.issuedBadges,
+        userBadges: state.badgeClass.userBadges
     }
 }
 

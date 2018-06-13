@@ -76,13 +76,15 @@ class ValidateBadgeAwardCard extends React.Component {
     super(props);
     this.state = {
       thisBadge: this.props.badge,
-      validatorId: this.props.entityId
+      validatorId: this.props.entityId,
+      issuers: this.props.issuers,
+      entityId: this.props.entityId,
     }
   }
 
-    handleValidation(event) {
+    handleNewBadgeValidation(event) {
         event.preventDefault();
-        this.props.handleValidation(this.state.thisBadge, this.state.validatorId);
+        this.props.handleNewBadgeV(this.state.thisBadge, this.state.validatorId, this.state);
     }  
 
   render () {
@@ -104,7 +106,7 @@ class ValidateBadgeAwardCard extends React.Component {
             <Typography className={classes.secondaryHeading}><FindNames entityId={this.props.badge.teacher} staff={this.props.staff} issuers={this.props.issuers} /></Typography>
           </div>
           <div className={classes.columnButton}>
-            <Button onClick={this.handleValidation.bind(this)} variant="raised" color="default" style={{backgroundColor: '#00C853'}}><i className="material-icons" style={{color:'white'}}>done</i></Button>
+            <Button onClick={this.handleNewBadgeValidation.bind(this)} variant="raised" color="default" style={{backgroundColor: '#00C853'}}><i className="material-icons" style={{color:'white'}}>done</i></Button>
           </div>
           <div className={classes.columnButton}>
             <Button variant="raised" color="default" style={{backgroundColor: '#F44336'}}><i className="material-icons" style={{color:'white'}}>clear</i></Button>
@@ -116,7 +118,7 @@ class ValidateBadgeAwardCard extends React.Component {
           <Typography variant="subheading" color="textSecondary">
               Verificate new badge: 
             </Typography>
-              <Button onClick={this.handleValidation.bind(this)} className={classes.columnButton} variant="raised" color="default" style={{backgroundColor: '#00C853'}}><i className="material-icons" style={{color:'white'}}>done</i></Button>
+              <Button onClick={this.handleNewBadgeValidation.bind(this)} className={classes.columnButton} variant="raised" color="default" style={{backgroundColor: '#00C853'}}><i className="material-icons" style={{color:'white'}}>done</i></Button>
               <Button className={classes.columnButton} variant="raised" color="default" style={{backgroundColor: '#F44336'}}><i className="material-icons" style={{color:'white'}}>clear</i></Button>
           </div>
         </ExpansionPanelDetails>
@@ -134,9 +136,9 @@ ValidateBadgeAwardCard.propTypes = {
 
 function mapDispatchToProps(dispatch) {
     return {
-        handleValidation(data, validatorId) {
-          console.log('im gonna validate badge',data)
-          const action = {type: 'VALIDATE_NEW_BADGE', payload: data, validatorId: validatorId };
+        handleNewBadgeV(data, validatorId, stateData) {
+          console.log('im gonna validate badge',data, validatorId, stateData)
+          const action = {type: 'VALIDATE_NEW_BADGE', payload: data, validatorId: validatorId, stateData: stateData };
           dispatch(action);
         }
     }
@@ -148,7 +150,7 @@ function mapStateToProps(state) {
         firstname: state.userClass.firstname,
         lastname: state.userClass.lastname,
         entityId: state.userClass.entityId,
-        badges: state.userClass.badges
+        badges: state.badgeClass.badges
     }
 }
 

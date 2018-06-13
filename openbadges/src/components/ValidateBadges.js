@@ -6,26 +6,47 @@ import {connect} from "react-redux";
 function GetUnvalidatedBadges(props){
     const myIssuers = props.issuers;
     const staff = props.staff
-    let badges = []
-    if ((typeof(props.badges) === 'undefined' || props.badges.length == 0)) {
-        return <p>No badges found!</p>
+    console.log('length:',props.issuerBadges.length)
+
+    if (props.issuerBadges.length === 0) {
+       return <p>No badges found!</p>
     }
     else {
-        if ((!Array.isArray(props.badges.issuerBadges[0]) || !props.badges.issuerBadges[0].length)) {
-            return <p>No badges found!</p>
+        console.log(typeof(props.issuerBadges))
+        if (props.issuerBadges.length >= 1) {
+            let badges = props.issuerBadges.filter(badge => badge.validated == false)
+            if(badges.length == 0) {
+                return <p>No badges found!</p>
+            }
+            else {
+                return (
+                    <div>
+                    {badges.map((badge, i) => (
+                        <div>
+                        <ValidateNewBadgeCard badge={badge} issuers={myIssuers} staff={staff} />
+                        <br/>
+                        </div>
+                    ))}
+                    </div>
+                );                
+            }
+
         }
         else {
-            badges = props.badges.issuerBadges[0].filter(badge => badge.validated == false)
-            return (
-                <div>
-                {badges.map((badge, i) => (
+            let badge = props.issuerBadges
+            if(badge.validated == true) {
+                return <p>No badges found!</p>
+            }
+            else {
+                return (
                     <div>
-                    <ValidateNewBadgeCard badge={badge} issuers={myIssuers} staff={staff} />
-                    <br/>
+                        <div>
+                        <ValidateBadgeAwardCard badge={badge} issuers={myIssuers} staff={staff} />
+                        <br/>
+                        </div>
                     </div>
-                ))}
-                </div>
-            )
+                );
+            }    
         }
     }
 }
@@ -33,26 +54,46 @@ function GetUnvalidatedBadges(props){
 function GetUnvalidatedIssuedBadges(props){
     const myIssuers = props.issuers;
     const staff = props.staff
-    let badges = []
-    if ((typeof(props.badges) === 'undefined' || props.badges.length == 0)) {
-        return <p>No badges found!</p>
+
+    if (props.issuedBadges.length === 0) {
+       return <p>No badges found!</p>
     }
     else {
-        if ((!Array.isArray(props.badges.issuedBadges[0]) || !props.badges.issuedBadges[0].length)) {
-            return <p>No badges found!</p>
+        console.log(props.issuedBadges.length)
+        if (props.issuedBadges.length >= 1) {
+            let badges = props.issuedBadges.filter(badge => badge.validated == false)
+            console.log(badges.length)
+            if(badges.length == 0) {
+                return <p>No badges found!</p>
+            }
+            else {
+                return (
+                    <div>
+                    {badges.map((badge, i) => (
+                        <div>
+                        <ValidateBadgeAwardCard badge={badge} issuers={myIssuers} staff={staff} />
+                        <br/>
+                        </div>
+                    ))}
+                    </div>
+                ); 
+            }
         }
         else {
-            badges = props.badges.issuedBadges[0].filter(badge => badge.validated == false)
-            return (
-                <div>
-                {badges.map((badge, i) => (
+            let badge = props.issuedBadges
+            if(badge.validated == true) {
+                return <p>No badges found!</p>
+            }
+            else {
+                return (
                     <div>
-                    <ValidateBadgeAwardCard badge={badge} issuers={myIssuers} staff={staff} />
-                    <br/>
+                        <div>
+                        <ValidateBadgeAwardCard badge={badge} issuers={myIssuers} staff={staff} />
+                        <br/>
+                        </div>
                     </div>
-                ))}
-                </div>
-            )
+                );
+            }    
         }
     }
 }
@@ -66,9 +107,20 @@ class ValidateBadges extends React.Component {
         return (
             <div>
                 <h1>New Badges to be Validated</h1>
-                <GetUnvalidatedBadges badges={this.props.badges} issuers={this.props.issuers} staff={this.props.staff}/>
+                <GetUnvalidatedBadges 
+                    issuerBadges={this.props.issuerBadges}
+                    issuedBadges={this.props.issuedBadges}
+                    userBadges={this.props.userBadges}  
+                    issuers={this.props.issuers} 
+                    staff={this.props.staff}/>
                 <h1>Issued Badges to be Validated</h1>
-                <GetUnvalidatedIssuedBadges badges={this.props.badges} issuers={this.props.issuers} staff={this.props.staff}/>
+                <GetUnvalidatedIssuedBadges 
+                    issuerBadges={this.props.issuerBadges}
+                    issuedBadges={this.props.issuedBadges}
+                    userBadges={this.props.userBadges}  
+                    issuers={this.props.issuers} 
+                    staff={this.props.staff}
+                    />
             </div>
         );
     }
@@ -81,7 +133,9 @@ function mapStateToProps(state) {
         firstname: state.userClass.firstname,
         lastname: state.userClass.lastname,
         entityId: state.userClass.entityId,
-        badges: state.userClass.badges,
+        issuerBadges: state.badgeClass.issuerBadges,
+        issuedBadges: state.badgeClass.issuedBadges,
+        userBadges: state.badgeClass.userBadges,
         staff: state.userClass.staff
     }
 }
